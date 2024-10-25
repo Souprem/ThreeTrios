@@ -14,7 +14,6 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard>{
   private List<ThreeTriosCard> handPlayer2;
   private int handSize;
   private int numCardCells;
-//hgggg
 
   @Override
   public void playCard(int cardIndex, int row, int col) {
