@@ -19,7 +19,7 @@ public enum AttackValue {
 
   AttackValue(int num) {
     this.numericValue = num;
-    if (num == 10){
+    if (num == 10) {
       this.stringValue = "A";
     } else {
       this.stringValue = String.valueOf(num);

@@ -3,11 +3,13 @@ import java.io.IOException;
 import java.util.List;
 
 public interface TriosModel<C extends Card> {
+  String getCurrentPlayer();
+
   void playCard(int cardIndex, int row, int col);
 
-  void startGame(List<C> deck, int numCardCells, Status [][] statusBoard);
+  void startGame(int numCardCells, String cardFile, String boardFile);
 
-  List<C> getHand(int player);
+  List<C> getHand(Player player);
 
   List<ThreeTriosCard> getcurrentHand();
 

@@ -4,17 +4,34 @@ public class ThreeTriosCard implements Card {
 
   final String CARD_NAME;
 
-  AttackValue north;
-  AttackValue south;
-  AttackValue west;
-  AttackValue east;
+  private AttackValue north;
+  private AttackValue south;
+  private AttackValue west;
+  private AttackValue east;
 
-  public ThreeTriosCard(String name, String north, String south, String east, String west){
+  Player owner;
+
+  public ThreeTriosCard(String name, String north, String south, String east, String west) {
     this.CARD_NAME = name;
     this.north = setAttackValue(north, this.north);
     this.south = setAttackValue(south, this.south);
     this.east = setAttackValue(east, this.east);
     this.west = setAttackValue(west, this.west);
+  }
+
+  @Override
+  public void setOwner(Player owner) {
+    this.owner = owner;
+  }
+
+  @Override
+  public Player getOwner(){
+    return this.owner;
+  }
+
+  public String toString() {
+    return this.CARD_NAME + " " + this.north.numericValue + " " + this.south.numericValue
+            + " " + this.east.numericValue + " " + this.west.numericValue;
   }
 
   private AttackValue setAttackValue(String newValue, AttackValue val) {
@@ -78,30 +95,30 @@ public class ThreeTriosCard implements Card {
 
 
   @Override
-  public boolean equals(Object other){
-    if (!(other instanceof ThreeTriosCard)){
+  public boolean equals(Object other) {
+    if (!(other instanceof ThreeTriosCard)) {
       return false;
     }
-    if (!Objects.equals(this.CARD_NAME, ((ThreeTriosCard) other).CARD_NAME)){
+    if (!Objects.equals(this.CARD_NAME, ((ThreeTriosCard) other).CARD_NAME)) {
       return false;
     }
-    if (this.east != ((ThreeTriosCard) other).east){
+    if (this.east != ((ThreeTriosCard) other).east) {
       return false;
     }
-    if (this.west != ((ThreeTriosCard) other).west){
+    if (this.west != ((ThreeTriosCard) other).west) {
       return false;
     }
-    if (this.south != ((ThreeTriosCard) other).south){
+    if (this.south != ((ThreeTriosCard) other).south) {
       return false;
     }
-    if (this.north != ((ThreeTriosCard) other).north){
+    if (this.north != ((ThreeTriosCard) other).north) {
       return false;
     }
     return true;
   }
 
   @Override
-  public int hashCode(){
+  public int hashCode() {
     return Objects.hash(CARD_NAME, north, south, west, east);
   }
 

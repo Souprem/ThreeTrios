@@ -12,5 +12,11 @@ public interface Card {
 
   AttackValue getEast();
 
+  void setOwner(Player owner);
+
+  Player getOwner();
+
+  String toString();
+
 
 }
