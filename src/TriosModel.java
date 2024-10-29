@@ -7,7 +7,9 @@ public interface TriosModel<C extends Card> {
 
   void startGame(List<C> deck, int numCardCells, Status [][] statusBoard);
 
-  List<C> getHand(String player);
+  List<C> getHand(int player);
+
+  List<ThreeTriosCard> getcurrentHand();
 
   C [][] getCardBoard();
 

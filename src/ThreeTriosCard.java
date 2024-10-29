@@ -82,7 +82,7 @@ public class ThreeTriosCard implements Card {
     if (!(other instanceof ThreeTriosCard)){
       return false;
     }
-    if (this.CARD_NAME != ((ThreeTriosCard) other).CARD_NAME){
+    if (!Objects.equals(this.CARD_NAME, ((ThreeTriosCard) other).CARD_NAME)){
       return false;
     }
     if (this.east != ((ThreeTriosCard) other).east){

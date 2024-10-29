@@ -1,24 +1,41 @@
 import java.util.ArrayList;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 public class ThreeTriosModel implements TriosModel<ThreeTriosCard>{
 
   private ThreeTriosCard [][] cardBoard;
   private Status [][] statusBoard;
-  private List<ThreeTriosCard> handPlayer1;
-  private List<ThreeTriosCard> handPlayer2;
+  private List<ThreeTriosCard> handRed;
+  private List<ThreeTriosCard> handBlue;
   private int handSize;
   private int numCardCells;
+  private Player currentTurn = Player.RED;
+
 
 
   @Override
   public void playCard(int cardIndex, int row, int col) {
-
+    List<ThreeTriosCard> tempHand = getcurrentHand();
+    if (statusBoard[row][col] == Status.FULL || statusBoard[row][col] == Status.HOLE){
+      throw new IllegalArgumentException("cannot play card to taken spot or hole");
+    }
+    if (cardIndex >= tempHand.size()){
+      throw new IllegalArgumentException("must pick a valid card in hand");
+    }
+    ThreeTriosCard tempCard = tempHand.remove(cardIndex);
+    this.cardBoard[row][col] = tempCard;
+    this.statusBoard[row][col] = Status.FULL;
+    if (currentTurn == Player.RED){
+      this.handRed = tempHand;
+      currentTurn = Player.BLUE;
+    }
+    else if (currentTurn == Player.BLUE){
+      this.handBlue = tempHand;
+      currentTurn = Player.RED;
+    }
   }
 
   @Override
@@ -29,26 +46,45 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard>{
 
     //shuffle the deck before startgame so the hands get random cards from the deck
     for (int i = 0; i < this.handSize; i++){
-      handPlayer1.add(deck.remove(0));
-      handPlayer2.add(deck.remove(0));
+      handRed.add(deck.remove(0));
+      handBlue.add(deck.remove(0));
     }
 
 
   }
 
   @Override
-  public List<ThreeTriosCard> getHand(String player) {
-    return null;
+  public List<ThreeTriosCard> getcurrentHand() {
+    if (currentTurn == Player.RED){
+      return this.handRed;
+    } else if (currentTurn == Player.BLUE) {
+      return this.handBlue;
+    }
+    else {
+      throw new IllegalStateException("current turn must either be red or blue");
+    }
+  }
+
+  @Override
+  public List<ThreeTriosCard> getHand(int player) {
+    if (player == 1){
+      return this.handRed;
+    } else if (player == 2){
+      return this.handBlue;
+    }
+    else {
+      throw new IllegalArgumentException("input player must be player 1 or 2");
+    }
   }
 
   @Override
   public ThreeTriosCard [][] getCardBoard() {
-    return null;
+    return this.cardBoard;
   }
 
   @Override
   public Status[][] getStatusBoard() {
-    return null;
+    return this.statusBoard;
   }
 
   @Override

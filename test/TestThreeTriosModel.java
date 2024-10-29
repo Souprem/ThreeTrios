@@ -5,7 +5,6 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class TestThreeTriosModel {
@@ -23,7 +22,7 @@ public class TestThreeTriosModel {
     cardList.add(new ThreeTriosCard("TEST2", "1", "3", "5", "7"));
     cardList.add(new ThreeTriosCard("TEST3", "A", "9", "8", "7"));
 
-    Assert.assertEquals(model.convertCardConfig("src" + File.separator + "CardConfigTest"), cardList);
+    Assert.assertEquals(model.convertCardConfig("test" + File.separator + "configs" + File.separator + "CardConfigTest"), cardList);
   }
 
 
@@ -38,7 +37,7 @@ public class TestThreeTriosModel {
             {Status.EMPTY, Status.HOLE, Status.HOLE, Status.HOLE, Status.HOLE, Status.EMPTY, Status.EMPTY}
     };
 
-    Assert.assertEquals(model.convertBoardConfig("src" + File.separator + "boardConfigTest"), statusBoard);
+    Assert.assertEquals(model.convertBoardConfig("test" + File.separator + "configs" + File.separator +"boardConfigTest"), statusBoard);
   }
 
   @Test
@@ -49,7 +48,7 @@ public class TestThreeTriosModel {
             {Status.EMPTY, Status.EMPTY, Status.EMPTY}
     };
 
-    Assert.assertEquals(model.convertBoardConfig("src" + File.separator + "emptyBoardConfigTest"), statusBoard);
+    Assert.assertEquals(model.convertBoardConfig("test" + File.separator + "configs" + File.separator + "emptyBoardConfigTest"), statusBoard);
   }
 
   @Test
@@ -61,7 +60,7 @@ public class TestThreeTriosModel {
             {Status.EMPTY, Status.HOLE, Status.HOLE, Status.EMPTY},
     };
 
-    Assert.assertEquals(model.convertBoardConfig("src" + File.separator + "connectingBoardConfigTest"), statusBoard);
+    Assert.assertEquals(model.convertBoardConfig("test" + File.separator + "configs" + File.separator + "connectingBoardConfigTest"), statusBoard);
   }
 
   @Test
@@ -75,6 +74,6 @@ public class TestThreeTriosModel {
             {Status.EMPTY, Status.EMPTY, Status.EMPTY, Status.EMPTY}
     };
 
-    Assert.assertEquals(model.convertBoardConfig("src" + File.separator + "connectingBoardConfigTest"), statusBoard);
+    Assert.assertEquals(model.convertBoardConfig("test" + File.separator + "configs" + File.separator + "connectingBoardConfigTest"), statusBoard);
   }
 }
