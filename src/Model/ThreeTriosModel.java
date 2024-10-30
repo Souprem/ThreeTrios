@@ -1,12 +1,5 @@
 package Model;
 
-import Model.TriosModel;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.InvalidPathException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -63,6 +56,8 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
     battleStep(playedCardIndex);
   }
 
+  //Flips cards adjacent to the inputted list of current cards where cards adjacent
+  // to the current card have attack values lower than the current card
   private void battleStep(List<ArrayList<Integer>> currentCards) {
     List<ArrayList<Integer>> recursiveList = new ArrayList<ArrayList<Integer>>();
     for (List<Integer> card : currentCards) {
@@ -72,7 +67,6 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
       Player cardOwner = tempCard.owner;
       int boardLengthRows = statusBoard.length;
       int boardLengthCols = statusBoard[0].length;
-
 
       //looking east
       if (col < boardLengthCols - 1 && this.statusBoard[row][col + 1] == Status.FULL) {
@@ -122,8 +116,10 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
     if (numCardCells < 0) {
       throw new IllegalArgumentException("there cannot be a negative number of card cells");
     }
-    List<ThreeTriosCard> deck = this.convertCardConfig(cardFile);
-    this.statusBoard = this.convertBoardConfig(boardFile);
+    CardConfigReader cardReader = new CardConfigReader(cardFile);
+    List<ThreeTriosCard> deck = cardReader.convertFile();
+    BoardConfigReader boardReader = new BoardConfigReader(boardFile);
+    this.statusBoard = boardReader.convertFile();
     this.cardBoard = new ThreeTriosCard[statusBoard.length][statusBoard[0].length];
     this.handRed = new ArrayList<ThreeTriosCard>();
     this.handBlue = new ArrayList<ThreeTriosCard>();
@@ -171,72 +167,39 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
   }
 
   @Override
-  public String getWinner() {
-    return null;
-  }
-
-  @Override
-  public void isGameOver() {
-
-  }
-
-  @Override
-  public Status[][] convertBoardConfig(String filepath) {
-    try {
-      if (!doesFileExist(filepath)){
-        throw new IllegalArgumentException("must input valid filepath");
-      }
-      BufferedReader reader = new BufferedReader(new FileReader(filepath));
-      String line = reader.readLine();
-      String[] rowscols = line.split("\\s+");
-      int rows = Integer.parseInt(rowscols[0]);
-      int cols = Integer.parseInt(rowscols[1]);
-      Status[][] statusBoard = new Status[rows][cols];
-      while ((line = reader.readLine()) != null) {
-        for (int rowIdx = 0; rowIdx < rows; rowIdx++) {
-          for (int colIndex = 0; colIndex < cols; colIndex++) {
-            Character value = line.charAt(colIndex);
-            if (value.equals('X')) {
-              statusBoard[rowIdx][colIndex] = Status.HOLE;
-            }
-            if (value.equals('C')) {
-              statusBoard[rowIdx][colIndex] = Status.EMPTY;
-            }
-          }
-          line = reader.readLine();
+  public Player getWinner() {
+    int redCount = 0;
+    int blueCount = 0;
+    for (int i = 0; i < this.cardBoard.length; i++) {
+      for (int j = 0; j < this.cardBoard[0].length; j++) {
+        if (cardBoard[i][j].getOwner().equals(Player.RED)) {
+          redCount++;
+        } else if (cardBoard[i][j].getOwner().equals(Player.BLUE)) {
+          blueCount++;
+        } else {
+          continue;
         }
       }
-      reader.close();
-      return statusBoard;
-    } catch (IOException e) {
-      throw new IllegalArgumentException("filepath cannot be found");
+    }
+    if (redCount > blueCount) {
+      return Player.RED;
+    } else if (blueCount > redCount) {
+      return Player.BLUE;
+    } else {
+      throw new IllegalStateException("currently a draw");
     }
   }
 
   @Override
-  public List<ThreeTriosCard> convertCardConfig(String filepath) {
-    try {
-      if (!doesFileExist(filepath)){
-        throw new IllegalArgumentException("must input valid filepath");
+  public boolean isGameOver() {
+    for (int i = 0; i < this.statusBoard.length; i++) {
+      for (int j = 0; j < this.statusBoard[0].length; j++) {
+        if (statusBoard[i][j] == Status.EMPTY) {
+          return false;
+        }
       }
-      BufferedReader reader = new BufferedReader(new FileReader(filepath));
-      String line;
-      List<ThreeTriosCard> outputList = new ArrayList<ThreeTriosCard>();
-      while ((line = reader.readLine()) != null) {
-        String[] tempList = line.split("\\s+");
-
-        outputList.add(new ThreeTriosCard(
-                tempList[0], tempList[1], tempList[2], tempList[3], tempList[4]));
-      }
-      reader.close();
-      return outputList;
-    } catch (IOException | InvalidPathException e) {
-      throw new IllegalArgumentException("filepath cannot be found");
     }
+    return true;
   }
 
-  public static boolean doesFileExist(String path) {
-    File file = new File(path);
-    return file.exists();
-  }
 }

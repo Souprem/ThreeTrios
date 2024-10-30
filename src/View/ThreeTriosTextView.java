@@ -1,19 +1,18 @@
 package View;
 
+import Model.Card;
+import Model.Player;
 import Model.Status;
 import Model.ThreeTriosCard;
 import Model.TriosModel;
-import Model.Player;
-import Model.Card;
-
 import java.io.IOException;
 
-public class ThreeTriosView {
+public class ThreeTriosTextView {
   private TriosModel<ThreeTriosCard> model;
   Appendable ap;
 
 
-  public ThreeTriosView(TriosModel<ThreeTriosCard> model, Appendable ap) {
+  public ThreeTriosTextView(TriosModel<ThreeTriosCard> model, Appendable ap) {
     if (model == null) {
       throw new IllegalArgumentException("Model cannot be null");
     }
@@ -45,7 +44,7 @@ public class ThreeTriosView {
         }
 
       }
-    sb.append("\n");
+      sb.append("\n");
     }
 
     sb.append("Hand: \n");

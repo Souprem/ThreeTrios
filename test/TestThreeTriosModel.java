@@ -1,5 +1,5 @@
 import Model.*;
-import View.ThreeTriosView;
+import View.ThreeTriosTextView;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,22 +12,27 @@ import java.util.Arrays;
 
 public class TestThreeTriosModel {
   TriosModel<ThreeTriosCard> model;
+  CardConfigReader cardReader;
+  BoardConfigReader boardReader;
 
   @Before
   public void init() {
     model = new ThreeTriosModel();
+    
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testIncorrectFileNameCardConfig() throws IOException {
     List <ThreeTriosCard> cardList = new ArrayList<ThreeTriosCard>();
-    cardList = model.convertCardConfig("badpath");
+    cardReader = new CardConfigReader("badpath");
+    cardList = cardReader.convertFile();
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testIncorrectFileNameBoardConfig() throws IOException {
     Status[][] testStatusBoard = new Status[5][7];
-    testStatusBoard = model.convertBoardConfig("badpath");
+    boardReader = new BoardConfigReader("badpath");
+    testStatusBoard =  boardReader.convertFile();
   }
 
 
@@ -37,8 +42,9 @@ public class TestThreeTriosModel {
     cardList.add(new ThreeTriosCard("TEST1", "1", "2", "3", "4"));
     cardList.add(new ThreeTriosCard("TEST2", "1", "3", "5", "7"));
     cardList.add(new ThreeTriosCard("TEST3", "A", "9", "8", "7"));
+    cardReader = new CardConfigReader("test" + File.separator + "configs" + File.separator + "CardConfigTest");
 
-    Assert.assertEquals(model.convertCardConfig("test" + File.separator + "configs" + File.separator + "CardConfigTest"), cardList);
+    Assert.assertEquals(cardReader.convertFile(), cardList);
   }
 
   @Test
@@ -52,14 +58,14 @@ public class TestThreeTriosModel {
     cardList.add(new ThreeTriosCard("TEST6", "5", "9", "6", "8"));
     cardList.add(new ThreeTriosCard("TEST7", "6", "2", "A", "2"));
     cardList.add(new ThreeTriosCard("TEST8", "1", "4", "3", "8"));
+    cardReader = new CardConfigReader("test" + File.separator + "configs" + File.separator + "CardConfigSmall");
 
-    Assert.assertEquals(model.convertCardConfig("test" + File.separator + "configs" + File.separator + "CardConfigSmall"), cardList);
+    Assert.assertEquals(cardReader.convertFile(), cardList);
   }
 
 
   @Test
   public void testBoardConverterOne() throws IOException {
-    Status [][] testStatusBoard = new Status[5][7];
     Status[][] statusBoard = {
             {Status.EMPTY, Status.EMPTY, Status.HOLE, Status.HOLE, Status.HOLE, Status.HOLE, Status.EMPTY},
             {Status.EMPTY, Status.HOLE, Status.EMPTY, Status.HOLE, Status.HOLE, Status.HOLE, Status.EMPTY},
@@ -67,36 +73,36 @@ public class TestThreeTriosModel {
             {Status.EMPTY, Status.HOLE, Status.HOLE, Status.HOLE, Status.EMPTY, Status.HOLE, Status.EMPTY},
             {Status.EMPTY, Status.HOLE, Status.HOLE, Status.HOLE, Status.HOLE, Status.EMPTY, Status.EMPTY}
     };
+    boardReader = new BoardConfigReader("test" + File.separator + "configs" + File.separator +"boardConfigTest");
 
-    Assert.assertEquals(model.convertBoardConfig("test" + File.separator + "configs" + File.separator +"boardConfigTest"), statusBoard);
+    Assert.assertEquals(boardReader.convertFile(), statusBoard);
   }
 
   @Test
   public void testBoardConverterTwo() throws IOException {
-    Status [][] testStatusBoard = new Status[2][3];
     Status[][] statusBoard = {
             {Status.EMPTY, Status.EMPTY, Status.EMPTY},
             {Status.EMPTY, Status.EMPTY, Status.EMPTY}
     };
+    boardReader = new BoardConfigReader("test" + File.separator + "configs" + File.separator + "emptyBoardConfigTest");
 
-    Assert.assertEquals(model.convertBoardConfig("test" + File.separator + "configs" + File.separator + "emptyBoardConfigTest"), statusBoard);
+    Assert.assertEquals(boardReader.convertFile(), statusBoard);
   }
 
   @Test
   public void testBoardConverterThree() throws IOException {
-    Status [][] testStatusBoard = new Status[3][4];
     Status[][] statusBoard = {
             {Status.EMPTY, Status.HOLE, Status.EMPTY, Status.HOLE},
             {Status.EMPTY, Status.EMPTY, Status.EMPTY, Status.EMPTY},
             {Status.HOLE, Status.HOLE, Status.HOLE, Status.EMPTY},
     };
+    boardReader = new BoardConfigReader("test" + File.separator + "configs" + File.separator + "connectingBoardConfigTest");
 
-    Assert.assertEquals(model.convertBoardConfig("test" + File.separator + "configs" + File.separator + "connectingBoardConfigTest"), statusBoard);
+    Assert.assertEquals(boardReader.convertFile(), statusBoard);
   }
 
   @Test
   public void testBoardConverterFour() throws IOException {
-    Status [][] testStatusBoard = new Status[3][4];
     Status[][] statusBoard = {
             {Status.HOLE, Status.HOLE, Status.EMPTY, Status.EMPTY},
             {Status.EMPTY, Status.HOLE, Status.HOLE, Status.HOLE},
@@ -104,8 +110,9 @@ public class TestThreeTriosModel {
             {Status.HOLE, Status.HOLE, Status.HOLE, Status.HOLE},
             {Status.EMPTY, Status.EMPTY, Status.EMPTY, Status.EMPTY}
     };
+    boardReader = new BoardConfigReader("test" + File.separator + "configs" + File.separator + "separatedBoardConfigTest");
 
-    Assert.assertEquals(model.convertBoardConfig("test" + File.separator + "configs" + File.separator + "separatedBoardConfigTest"), statusBoard);
+    Assert.assertEquals(boardReader.convertFile(), statusBoard);
   }
 
   @Test
@@ -331,7 +338,7 @@ public class TestThreeTriosModel {
             {Status.EMPTY, Status.EMPTY, Status.EMPTY, Status.EMPTY}
     };
 
-    ThreeTriosView view = new ThreeTriosView(model, System.out);
+    ThreeTriosTextView view = new ThreeTriosTextView(model, System.out);
     try{
       view.render();
     } catch (IOException Ignored) {
@@ -358,7 +365,7 @@ public class TestThreeTriosModel {
     model.startGame(7, "test" + File.separator + "configs" + File.separator + "CardConfigSmall",
             "test" + File.separator + "configs" + File.separator + "separatedBoardConfigTest");
 
-    ThreeTriosView view = new ThreeTriosView(model, System.out);
+    ThreeTriosTextView view = new ThreeTriosTextView(model, System.out);
     try{
       view.render();
     } catch (IOException Ignored) {

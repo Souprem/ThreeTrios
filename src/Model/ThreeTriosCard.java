@@ -2,6 +2,9 @@ package Model;
 
 import java.util.Objects;
 
+/**
+ * A class meant to represent a single card for a three trios game.
+ */
 public class ThreeTriosCard implements Card {
 
   final String CARD_NAME;
@@ -13,6 +16,14 @@ public class ThreeTriosCard implements Card {
 
   Player owner;
 
+  /**
+   * A constructor for the ThreeTriosCard that takes in its name and its attack values as strings.
+   * @param name 
+   * @param north
+   * @param south
+   * @param east
+   * @param west
+   */
   public ThreeTriosCard(String name, String north, String south, String east, String west) {
     this.CARD_NAME = name;
     this.north = setAttackValue(north, this.north);
@@ -27,7 +38,7 @@ public class ThreeTriosCard implements Card {
   }
 
   @Override
-  public Player getOwner(){
+  public Player getOwner() {
     return this.owner;
   }
 
@@ -36,6 +47,7 @@ public class ThreeTriosCard implements Card {
             + " " + this.east.numericValue + " " + this.west.numericValue;
   }
 
+  //Sets the attack value given the current attack value and a string representing the new value
   private AttackValue setAttackValue(String newValue, AttackValue val) {
     switch (newValue) {
       case "1":

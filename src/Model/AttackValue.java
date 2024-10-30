@@ -19,6 +19,10 @@ public enum AttackValue {
   public final long numericValue;
   public final String stringValue;
 
+  /**
+   * Constructor for attack value that takes in its numeric value and sets its string value
+   * @param num numeric value
+   */
   AttackValue(int num) {
     this.numericValue = num;
     if (num == 10) {
@@ -27,6 +31,4 @@ public enum AttackValue {
       this.stringValue = String.valueOf(num);
     }
   }
-
-
 }

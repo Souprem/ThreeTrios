@@ -1,7 +1,14 @@
 OVERVIEW:
-This project 
+This project contains a variant of the game Triple Triad.
 QUICK START:
+
 
 KEY COMPONENTS:
 
 SOURCE ORGANIZATION:
+
+
+INVARIANT: currentPlayer cannot be null, it must be either Player.RED or Player.BLUE. As it is
+            initialized in the constructor as Player.RED, and no methods have the ability to
+            change currentPlayer to anything but Player.RED or Player.BLUE, this statement is
+            a class invariant.
