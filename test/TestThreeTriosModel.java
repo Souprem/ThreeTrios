@@ -18,10 +18,17 @@ public class TestThreeTriosModel {
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testincorrectFileName() throws IOException {
+  public void testIncorrectFileNameCardConfig() throws IOException {
     List <ThreeTriosCard> cardList = new ArrayList<ThreeTriosCard>();
     cardList = model.convertCardConfig("badpath");
   }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testIncorrectFileNameBoardConfig() throws IOException {
+    Status [][] testStatusBoard = new Status[5][7];
+    testStatusBoard = model.convertBoardConfig("badpath");
+  }
+
 
   @Test
   public void testCardConverter() throws IOException {

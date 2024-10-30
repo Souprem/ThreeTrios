@@ -114,7 +114,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
 
   @Override
   public void startGame(int numCardCells, String cardFile, String boardFile) {
-    if (numCardCells % 2 != 0) {
+    if (numCardCells % 2 == 0) {
       throw new IllegalArgumentException("the number of card cells must be odd");
     }
     if (numCardCells < 0) {
