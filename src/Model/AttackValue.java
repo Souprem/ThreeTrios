@@ -1,3 +1,5 @@
+package Model;
+
 /**
  * Represents an attack value from 1-10
  * where 10 is represented as the hexidecimal A.

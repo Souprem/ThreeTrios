@@ -1,3 +1,5 @@
+package Model;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
@@ -15,13 +17,13 @@ public interface TriosModel<C extends Card> {
 
   C [][] getCardBoard();
 
-  Status [][] getStatusBoard();
+  Status[][] getStatusBoard();
 
   String getWinner();
 
   void isGameOver();
 
-  Status [][] convertBoardConfig(String filepath) throws IOException;
+  Status[][] convertBoardConfig(String filepath) throws IOException;
 
   List<C> convertCardConfig(String filepath) throws IOException;
 

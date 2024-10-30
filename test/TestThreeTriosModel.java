@@ -1,7 +1,8 @@
+import Model.*;
+import View.ThreeTriosView;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.manipulation.InvalidOrderingException;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class TestThreeTriosModel {
 
   @Test(expected = IllegalArgumentException.class)
   public void testIncorrectFileNameBoardConfig() throws IOException {
-    Status [][] testStatusBoard = new Status[5][7];
+    Status[][] testStatusBoard = new Status[5][7];
     testStatusBoard = model.convertBoardConfig("badpath");
   }
 

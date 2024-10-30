@@ -1,6 +1,10 @@
+package Model;
+
+import Model.AttackValue;
+import Model.Player;
 
 /**
- * Behaviors for a Card in the Game of Three Trios.
+ * Behaviors for a Model.Card in the Game of Three Trios.
  */
 public interface Card {
 

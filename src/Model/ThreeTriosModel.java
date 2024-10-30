@@ -1,3 +1,7 @@
+package Model;
+
+import Model.TriosModel;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -6,13 +10,11 @@ import java.nio.file.InvalidPathException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.nio.file.Paths;
-import java.nio.file.InvalidPathException;
 
 public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
 
-  private ThreeTriosCard [][] cardBoard;
-  private Status [][] statusBoard;
+  private ThreeTriosCard[][] cardBoard;
+  private Status[][] statusBoard;
   private List<ThreeTriosCard> handRed;
   private List<ThreeTriosCard> handBlue;
   private int handSize;
@@ -159,7 +161,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
   }
 
   @Override
-  public ThreeTriosCard [][] getCardBoard() {
+  public ThreeTriosCard[][] getCardBoard() {
     return this.cardBoard;
   }
 
@@ -179,7 +181,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
   }
 
   @Override
-  public Status [][] convertBoardConfig(String filepath) {
+  public Status[][] convertBoardConfig(String filepath) {
     try {
       if (!doesFileExist(filepath)){
         throw new IllegalArgumentException("must input valid filepath");

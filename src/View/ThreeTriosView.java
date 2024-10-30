@@ -1,3 +1,11 @@
+package View;
+
+import Model.Status;
+import Model.ThreeTriosCard;
+import Model.TriosModel;
+import Model.Player;
+import Model.Card;
+
 import java.io.IOException;
 
 public class ThreeTriosView {
@@ -17,7 +25,7 @@ public class ThreeTriosView {
   public String textView() {
     StringBuilder sb = new StringBuilder();
 
-    sb.append("Player: ").append(model.getCurrentPlayer().toUpperCase()).append("\n");
+    sb.append("Model.Player: ").append(model.getCurrentPlayer().toUpperCase()).append("\n");
 
     for (int i = 0; i < model.getStatusBoard().length; i++) {
       for (int j = 0; j < model.getStatusBoard()[i].length; j++) {

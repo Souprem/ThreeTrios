@@ -1,3 +1,6 @@
+import Model.AttackValue;
+import Model.Card;
+import Model.ThreeTriosCard;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
