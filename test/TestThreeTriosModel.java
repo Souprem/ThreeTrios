@@ -372,5 +372,43 @@ public class TestThreeTriosModel {
     }
   }
 
+  @Test
+  public void testGameNotOverEmptyBoard() {
+    TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
+    model.startGame(7, "test" + File.separator + "configs" + File.separator + "CardConfigSmall",
+            "test" + File.separator + "configs" + File.separator + "emptyBoardConfigTest");
+    Assert.assertFalse(model.isGameOver());
+  }
+
+  @Test
+  public void testGameNotOver() {
+    TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
+    model.startGame(7, "test" + File.separator + "configs" + File.separator + "CardConfigSmall",
+            "test" + File.separator + "configs" + File.separator + "winningBoardConfigTest");
+    Assert.assertTrue(model.isGameOver());
+  }
+
+  @Test
+  public void testGameOver() {
+    TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
+    Status[][] statusBoard = {
+            {Status.EMPTY, Status.HOLE, Status.EMPTY, Status.HOLE},
+            {Status.EMPTY, Status.EMPTY, Status.EMPTY, Status.EMPTY},
+            {Status.HOLE, Status.HOLE, Status.HOLE, Status.EMPTY},
+    };
+    model.startGame(7, "test" + File.separator + "configs" + File.separator + "CardConfigSmall",
+            "test" + File.separator + "configs" + File.separator + "connectingBoardConfigTest");
+    model.playCard(1, 0, 0);
+    model.playCard(1, 0, 2);
+    model.playCard(1, 1, 0);
+    model.playCard(1, 1, 1);
+    model.playCard(1, 1, 2);
+    model.playCard(1, 1, 3);
+    model.playCard(1, 2, 3);
+
+    Assert.assertTrue(model.isGameOver());
+  }
+
+
 
 }

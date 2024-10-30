@@ -35,7 +35,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
     if (cardIndex < 1) {
       throw new IllegalArgumentException("card index must be positive");
     }
-    if (cardIndex >= tempHand.size()) {
+    if (cardIndex > tempHand.size()) {
       throw new IllegalArgumentException("must pick a valid card in hand");
     }
     //cardIndex coming in is 1-based, the row and col are 0 based
