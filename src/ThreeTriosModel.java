@@ -207,8 +207,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
       reader.close();
       return statusBoard;
     } catch (IOException e) {
-      System.err.println("An IOException occurred: " + e.getMessage());
-      return null;
+      throw new IllegalArgumentException("filepath cannot be found");
     }
   }
 
@@ -229,9 +228,8 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
       }
       reader.close();
       return outputList;
-    } catch (IOException e) {
-      System.err.println("An IOException occurred: " + e.getMessage());
-      return null;
+    } catch (IOException | InvalidPathException e) {
+      throw new IllegalArgumentException("filepath cannot be found");
     }
   }
 
