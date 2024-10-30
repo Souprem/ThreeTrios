@@ -1,9 +1,14 @@
-import Model.*;
+import Model.BoardConfigReader;
+import Model.CardConfigReader;
+import Model.Player;
+import Model.Status;
+import Model.ThreeTriosCard;
+import Model.ThreeTriosModel;
+import Model.TriosModel;
 import View.ThreeTriosTextView;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +28,7 @@ public class TestThreeTriosModel {
 
   @Test(expected = IllegalArgumentException.class)
   public void testIncorrectFileNameCardConfig() throws IOException {
-    List <ThreeTriosCard> cardList = new ArrayList<ThreeTriosCard>();
+    List<ThreeTriosCard> cardList = new ArrayList<ThreeTriosCard>();
     cardReader = new CardConfigReader("badpath");
     cardList = cardReader.convertFile();
   }
@@ -42,7 +47,8 @@ public class TestThreeTriosModel {
     cardList.add(new ThreeTriosCard("TEST1", "1", "2", "3", "4"));
     cardList.add(new ThreeTriosCard("TEST2", "1", "3", "5", "7"));
     cardList.add(new ThreeTriosCard("TEST3", "A", "9", "8", "7"));
-    cardReader = new CardConfigReader("test" + File.separator + "configs" + File.separator + "CardConfigTest");
+    cardReader = new CardConfigReader( 
+            "test" + File.separator + "configs" + File.separator + "CardConfigTest");
 
     Assert.assertEquals(cardReader.convertFile(), cardList);
   }
@@ -364,7 +370,6 @@ public class TestThreeTriosModel {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
     model.startGame(7, "test" + File.separator + "configs" + File.separator + "CardConfigSmall",
             "test" + File.separator + "configs" + File.separator + "separatedBoardConfigTest");
-
     ThreeTriosTextView view = new ThreeTriosTextView(model, System.out);
     try{
       view.render();

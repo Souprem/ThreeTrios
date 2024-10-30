@@ -38,6 +38,9 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
     if (cardIndex > tempHand.size()) {
       throw new IllegalArgumentException("must pick a valid card in hand");
     }
+    if (this.isGameOver()) {
+      throw new IllegalStateException("game is over");
+    }
     //cardIndex coming in is 1-based, the row and col are 0 based
     ThreeTriosCard tempCard = tempHand.remove(cardIndex - 1);
     tempCard.setOwner(currentTurn);
@@ -46,7 +49,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
     if (currentTurn == Player.RED) {
       this.handRed = tempHand;
       currentTurn = Player.BLUE;
-    } else if (currentTurn == Player.BLUE) {
+    } else {
       this.handBlue = tempHand;
       currentTurn = Player.RED;
     }
@@ -58,7 +61,9 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
 
   //Flips cards adjacent to the inputted list of current cards where cards adjacent
   // to the current card have attack values lower than the current card
-  private void battleStep(List<ArrayList<Integer>> currentCards) {
+
+  @Override
+  public void battleStep(List<ArrayList<Integer>> currentCards) {
     List<ArrayList<Integer>> recursiveList = new ArrayList<ArrayList<Integer>>();
     for (List<Integer> card : currentCards) {
       int row = card.get(0);
@@ -138,10 +143,8 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
   public List<ThreeTriosCard> getcurrentHand() {
     if (currentTurn == Player.RED) {
       return this.handRed;
-    } else if (currentTurn == Player.BLUE) {
-      return this.handBlue;
     } else {
-      throw new IllegalStateException("current turn must either be red or blue");
+      return this.handBlue;
     }
   }
 

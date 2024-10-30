@@ -7,7 +7,7 @@ import Model.ThreeTriosCard;
 import Model.TriosModel;
 import java.io.IOException;
 
-public class ThreeTriosTextView {
+public class ThreeTriosTextView implements TriosView{
   private TriosModel<ThreeTriosCard> model;
   Appendable ap;
 
@@ -20,8 +20,8 @@ public class ThreeTriosTextView {
     this.ap = ap;
   }
 
-
-  public String textView() {
+  @Override
+  public String toString() {
     StringBuilder sb = new StringBuilder();
 
     sb.append("Model.Player: ").append(model.getCurrentPlayer().toUpperCase()).append("\n");
@@ -54,7 +54,8 @@ public class ThreeTriosTextView {
     return sb.toString();
   }
 
+  @Override
   public void render() throws IOException {
-    ap.append(this.textView());
+    ap.append(this.toString());
   }
 }

@@ -36,7 +36,6 @@ public class CardConfigReader extends ConfigReader {
       List<ThreeTriosCard> outputList = new ArrayList<ThreeTriosCard>();
       while ((line = reader.readLine()) != null) {
         String[] tempList = line.split("\\s+");
-
         outputList.add(new ThreeTriosCard(
                 tempList[0], tempList[1], tempList[2], tempList[3], tempList[4]));
       }
@@ -44,6 +43,8 @@ public class CardConfigReader extends ConfigReader {
       return outputList;
     } catch (IOException | InvalidPathException e) {
       throw new IllegalArgumentException("filepath cannot be found");
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException("must input correctly formatted card file");
     }
   }
 

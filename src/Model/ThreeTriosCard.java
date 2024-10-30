@@ -18,7 +18,7 @@ public class ThreeTriosCard implements Card {
 
   /**
    * A constructor for the ThreeTriosCard that takes in its name and its attack values as strings.
-   * @param name 
+   * @param name the name of the card
    * @param north
    * @param south
    * @param east

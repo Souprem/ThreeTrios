@@ -2,6 +2,7 @@ package Model;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +26,10 @@ public interface TriosModel<C extends Card> {
    * @param col the column being played to.
    */
   void playCard(int cardIndex, int row, int col);
+
+
+
+  void battleStep(List<ArrayList<Integer>> currentCards);
 
   /**
    * Initializes the boards, deck, and hands to be used in playing of the game.

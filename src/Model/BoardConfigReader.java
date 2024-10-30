@@ -53,6 +53,8 @@ public class BoardConfigReader extends ConfigReader {
       return statusBoard;
     } catch (IOException e) {
       throw new IllegalArgumentException("filepath cannot be found");
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException("must input correctly formatted board file");
     }
   }
 
