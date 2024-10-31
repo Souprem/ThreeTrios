@@ -1,10 +1,14 @@
-import Model.AttackValue;
-import Model.Card;
-import Model.ThreeTriosCard;
+import cs3500.model.AttackValue;
+import cs3500.model.Card;
+import cs3500.model.ThreeTriosCard;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
 
+/**
+ * A class to test the ThreeTriosCard class.
+ */
 public class TestThreeTriosCard {
   Card c1;
   Card c2;
@@ -45,8 +49,35 @@ public class TestThreeTriosCard {
     Assert.assertEquals(AttackValue.TEN, c5.getWest());
   }
 
-  @Test(expected = IllegalStateException.class)
-  public void testBrokenCardInitializion() {
-    c2 = new ThreeTriosCard("Card2", "0", "0", "0", "0");
+  @Test(expected = IllegalArgumentException.class)
+  public void testCardInitZeroAttackValues() {
+    c2 = new ThreeTriosCard("Card2", "0", "1", "1", "1");
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testCardInitEmptyAttackValue() {
+    c2 = new ThreeTriosCard("Card2", "", "1", "1", "1");
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testCardInitNullName() {
+    c2 = new ThreeTriosCard(null, "1", "1", "1", "1");
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testCardInitNullAttackValue() {
+    c2 = new ThreeTriosCard("Card2", "1", "1", "1", null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testCardInitEmptyName() {
+    c2 = new ThreeTriosCard("", "1", "1", "1", "1");
+  }
+
+  @Test
+  public void testAttackValueInit() {
+    AttackValue a = AttackValue.TEN;
+    Assert.assertEquals(a.numericValue, 10);
+    Assert.assertEquals(a.stringValue, "A");
   }
 }

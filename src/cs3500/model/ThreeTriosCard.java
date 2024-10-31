@@ -1,4 +1,4 @@
-package Model;
+package cs3500.model;
 
 import java.util.Objects;
 
@@ -19,13 +19,23 @@ public class ThreeTriosCard implements Card {
   /**
    * A constructor for the ThreeTriosCard that takes in its name and its attack values as strings.
    * @param name the name of the card
-   * @param north
-   * @param south
-   * @param east
-   * @param west
+   * @param north northern attack value
+   * @param south southern attack value
+   * @param east eastern attack value
+   * @param west western attack value
    */
   public ThreeTriosCard(String name, String north, String south, String east, String west) {
+    if (name == null || name.isEmpty()) {
+      throw new IllegalArgumentException("Name cannot be empty");
+    }
     this.CARD_NAME = name;
+    if (north == null || south == null || east == null || west == null) {
+      throw new IllegalArgumentException("Attack values cannot be empty");
+    }
+    if (north.isEmpty() || south.isEmpty() || east.isEmpty() || west.isEmpty()) {
+      throw new IllegalArgumentException("Attack values cannot be empty");
+    }
+
     this.north = setAttackValue(north, this.north);
     this.south = setAttackValue(south, this.south);
     this.east = setAttackValue(east, this.east);
@@ -110,25 +120,26 @@ public class ThreeTriosCard implements Card {
 
   @Override
   public boolean equals(Object other) {
+    boolean output = true;
     if (!(other instanceof ThreeTriosCard)) {
-      return false;
+      output = false;
     }
     if (!Objects.equals(this.CARD_NAME, ((ThreeTriosCard) other).CARD_NAME)) {
-      return false;
+      output = false;
     }
     if (this.east != ((ThreeTriosCard) other).east) {
-      return false;
+      output = false;
     }
     if (this.west != ((ThreeTriosCard) other).west) {
-      return false;
+      output = false;
     }
     if (this.south != ((ThreeTriosCard) other).south) {
-      return false;
+      output = false;
     }
     if (this.north != ((ThreeTriosCard) other).north) {
-      return false;
+      output = false;
     }
-    return true;
+    return output;
   }
 
   @Override

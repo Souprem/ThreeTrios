@@ -1,4 +1,4 @@
-package Model;
+package cs3500.model;
 
 /**
  * Represents an attack value from 1-10
@@ -20,7 +20,7 @@ public enum AttackValue {
   public final String stringValue;
 
   /**
-   * Constructor for attack value that takes in its numeric value and sets its string value
+   * Constructor for attack value that takes in its numeric value and sets its string value.
    * @param num numeric value
    */
   AttackValue(int num) {

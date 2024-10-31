@@ -1,17 +1,18 @@
-package Model;
+package cs3500.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class represents a model for the ThreeTrios game.
+ */
 public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
 
   private ThreeTriosCard[][] cardBoard;
   private Status[][] statusBoard;
   private List<ThreeTriosCard> handRed;
   private List<ThreeTriosCard> handBlue;
-  private int handSize;
-  private int numCardCells;
   private Player currentTurn = Player.RED;
 
 
@@ -19,17 +20,15 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
   public String getCurrentPlayer() {
     if (currentTurn == Player.RED) {
       return "RED";
-    } else if (currentTurn == Player.BLUE) {
-      return "Blue";
     } else {
-      throw new IllegalStateException("currentTurn must either be red or blue");
+      return "Blue";
     }
   }
 
   @Override
   public void playCard(int cardIndex, int row, int col) {
-    List<ThreeTriosCard> tempHand = getcurrentHand();
-    if (!(statusBoard[row][col] == Status.EMPTY)) {
+    List<ThreeTriosCard> tempHand = getCurrentHand();
+    if (statusBoard[row][col] != Status.EMPTY) {
       throw new IllegalArgumentException("cannot play card to taken spot or hole");
     }
     if (cardIndex < 1) {
@@ -121,6 +120,12 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
     if (numCardCells < 0) {
       throw new IllegalArgumentException("there cannot be a negative number of card cells");
     }
+    if (cardFile == null || cardFile.isEmpty()) {
+      throw new IllegalArgumentException("the card file cannot be empty");
+    }
+    if (boardFile == null || boardFile.isEmpty()) {
+      throw new IllegalArgumentException("the card file cannot be empty");
+    }
     CardConfigReader cardReader = new CardConfigReader(cardFile);
     List<ThreeTriosCard> deck = cardReader.convertFile();
     BoardConfigReader boardReader = new BoardConfigReader(boardFile);
@@ -129,18 +134,17 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
     this.handRed = new ArrayList<ThreeTriosCard>();
     this.handBlue = new ArrayList<ThreeTriosCard>();
 
-    this.numCardCells = numCardCells;
-    this.handSize = (this.numCardCells + 1) / 2;
+    int handSize = (numCardCells + 1) / 2;
 
     //shuffle the deck before startgame so the hands get random cards from the deck
-    for (int i = 0; i < this.handSize; i++) {
+    for (int i = 0; i < handSize; i++) {
       handRed.add(deck.remove(0));
       handBlue.add(deck.remove(0));
     }
   }
 
   @Override
-  public List<ThreeTriosCard> getcurrentHand() {
+  public List<ThreeTriosCard> getCurrentHand() {
     if (currentTurn == Player.RED) {
       return this.handRed;
     } else {
@@ -175,9 +179,9 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
     int blueCount = 0;
     for (int i = 0; i < this.cardBoard.length; i++) {
       for (int j = 0; j < this.cardBoard[0].length; j++) {
-        if (cardBoard[i][j].getOwner().equals(Player.RED)) {
+        if (cardBoard[i][j] != null && cardBoard[i][j].getOwner().equals(Player.RED)) {
           redCount++;
-        } else if (cardBoard[i][j].getOwner().equals(Player.BLUE)) {
+        } else if (cardBoard[i][j] != null && cardBoard[i][j].getOwner().equals(Player.BLUE)) {
           blueCount++;
         } else {
           continue;
@@ -204,5 +208,4 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
     }
     return true;
   }
-
 }

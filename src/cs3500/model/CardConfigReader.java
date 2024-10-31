@@ -1,4 +1,4 @@
-package Model;
+package cs3500.model;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

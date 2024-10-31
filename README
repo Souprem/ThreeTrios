@@ -1,14 +1,68 @@
 OVERVIEW:
-This project contains a variant of the game Triple Triad.
-QUICK START:
+This project contains a variant of the game Triple Triad. This project is currently not
+fully implemented as it is lacking a controller to be able to actually play the game.
 
+QUICK START:
+TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
+ThreeTriosTextView view = new ThreeTriosTextView(model, System.out);
+model.startGame(7, "test" + File.separator + "configs" + File.separator + "CardConfigSmall",
+       "test" + File.separator + "configs" + File.separator + "separatedBoardConfigTest");
+view.render();
+model.playCard(1, 0, 0);
+view.render();
+model.playCard(1, 1, 0);
+view.render();
+To get started using this codebase, a user would first instantiate a ThreeTriosModel and
+ThreeTriosTextView, which takes in the aforementioned model and an appendable object. Then,
+a user would call the method startGame on the model to begin the game, passing in the number
+of card cells and file paths to card and board files. Finally, the user would be able to view
+the textview of the game by calling view.render(), and play cards to the grid using
+model.playCard(), which takes in the 1-based index of the played card in the hand and
+the 0-based row and column of the grid to which the card is played.
 
 KEY COMPONENTS:
+Both the model and view, ThreeTriosModel and ThreeTriosTextView, will be driven by a
+controller in the future. The controller, after taking in user or AI inputs, will give
+those inputs to the model which will update itself accordingly. Then, the controller
+will drive the view to re-render the game, updating the output based on the model’s changes.
+
+KEY SUBCOMPONENTS:
+Within the model, a few key fields include the hands for the two players, the boards,
+and the current turn. The hand for each player is represented by a list of ThreeTriosCards
+which is accessed throughout the model. There is a 2D array of Statuses and a List of
+Lists of ThreeTriosCards representing the board. The Status array determines whether a board
+space is empty, filled, or a whole, while the List of Lists holds the actual cards on the board.
+The view holds an instance of the model in addition to an appendable representing output.
 
 SOURCE ORGANIZATION:
+Within the src folder in ThreeTrios, there are three directories named controller,
+model, and view. The controller directory is currently empty, but will hold the
+controller interface and class implementation once they’ve been created. This
+directory is meant to handle direct interaction with the user or an AI player. The
+view directory holds the view interface and implementation of the text view. The view
+interface will be later extended by a graphic view implementation, and this directory
+is meant to oversee projection of the view to the user. The model package holds a
+representation of the card and the model, classes to read card and board files, and
+enums representing various objects in the game. Finally, aside from test classes, the
+test folder holds an example class that demonstrates the functionality of the game and
+a config directory that holds the files for board and card configurations. This directory
+is only in the test folder as the files are only used in testing.
+
+FUTURE AI IMPLEMENTATION:
+To implement an AI player in future versions of our project, we would allow the user
+to choose whether they want to play with 2 players or vs. AI (or other modes such as AI
+vs. AI). Then depending on their choice it would go to a gameplay loop. If they choose
+to play with 2 real players the controller would repeatedly ask the users for input and
+feed the input through the model using the playCard() method. After playcard is run it
+will switch to the other player and continue. For an AI implementation, it will perform
+a similar loop but instead of switching from one player to another it will ask a player
+for input, then run an algorithm to find the best move for the AI to make and input that
+to the model using the same playCard() method. The model does not change its logic based
+on whether or not one of the players is AI or not.
 
 
-INVARIANT: currentPlayer cannot be null, it must be either Player.RED or Player.BLUE. As it is
-            initialized in the constructor as Player.RED, and no methods have the ability to
-            change currentPlayer to anything but Player.RED or Player.BLUE, this statement is
-            a class invariant.
+INVARIANT:
+currentPlayer cannot be null, it must be either Player.RED or Player.BLUE. As it is
+initialized in the constructor as Player.RED, and no methods have the ability to change
+currentPlayer to anything but Player.RED or Player.BLUE, this statement is a class invariant.
+

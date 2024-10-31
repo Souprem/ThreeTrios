@@ -1,17 +1,24 @@
-package View;
+package cs3500.view;
 
-import Model.Card;
-import Model.Player;
-import Model.Status;
-import Model.ThreeTriosCard;
-import Model.TriosModel;
+import cs3500.model.Card;
+import cs3500.model.Player;
+import cs3500.model.Status;
+import cs3500.model.ThreeTriosCard;
+import cs3500.model.TriosModel;
 import java.io.IOException;
 
-public class ThreeTriosTextView implements TriosView{
+/**
+ * A class to represent the view for a ThreeTrios game.
+ */
+public class ThreeTriosTextView implements TriosView {
   private TriosModel<ThreeTriosCard> model;
   Appendable ap;
 
-
+  /**
+   * A constructor for ThreeTriosTextView that takes in the model and an appendable.
+   * @param model the model
+   * @param ap the appendable to represent output
+   */
   public ThreeTriosTextView(TriosModel<ThreeTriosCard> model, Appendable ap) {
     if (model == null) {
       throw new IllegalArgumentException("Model cannot be null");
@@ -24,7 +31,7 @@ public class ThreeTriosTextView implements TriosView{
   public String toString() {
     StringBuilder sb = new StringBuilder();
 
-    sb.append("Model.Player: ").append(model.getCurrentPlayer().toUpperCase()).append("\n");
+    sb.append("Player: ").append(model.getCurrentPlayer().toUpperCase()).append("\n");
 
     for (int i = 0; i < model.getStatusBoard().length; i++) {
       for (int j = 0; j < model.getStatusBoard()[i].length; j++) {

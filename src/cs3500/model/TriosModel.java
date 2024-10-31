@@ -1,7 +1,5 @@
-package Model;
+package cs3500.model;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +48,7 @@ public interface TriosModel<C extends Card> {
    * Returns the current hand.
    * @return a list of c representing the current hand.
    */
-  List<C> getcurrentHand();
+  List<C> getCurrentHand();
 
   /**
    * Returns the current board of cards as a 2D array.

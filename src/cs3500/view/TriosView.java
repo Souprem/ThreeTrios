@@ -1,4 +1,4 @@
-package View;
+package cs3500.view;
 
 import java.io.IOException;
 

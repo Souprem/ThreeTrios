@@ -1,7 +1,4 @@
-package Model;
-
-import Model.AttackValue;
-import Model.Player;
+package cs3500.model;
 
 /**
  * Behaviors for a Model.Card in the Game of Three Trios.
