@@ -69,11 +69,12 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
       int col = card.get(1);
       ThreeTriosCard tempCard = this.cardBoard[row][col];
       Player cardOwner = tempCard.owner;
+      Player otherOwner = cardOwner.getOther();
       int boardLengthRows = statusBoard.length;
       int boardLengthCols = statusBoard[0].length;
 
       //looking east
-      if (col < boardLengthCols - 1 && this.statusBoard[row][col + 1] == Status.FULL) {
+      if (col < boardLengthCols - 1 && this.statusBoard[row][col + 1] == Status.FULL && this.cardBoard[row][col + 1].owner == otherOwner) {
         if (tempCard.getNorth().numericValue
                 > this.cardBoard[row][col + 1].getSouth().numericValue) {
           this.cardBoard[row][col + 1].setOwner(cardOwner);
@@ -82,7 +83,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
         }
       }
       //looking west
-      if (col > 0 && this.statusBoard[row][col - 1] == Status.FULL) {
+      if (col > 0 && this.statusBoard[row][col - 1] == Status.FULL && this.cardBoard[row][col - 1].owner == otherOwner) {
         if (tempCard.getWest().numericValue
                 > this.cardBoard[row][col - 1].getEast().numericValue) {
           this.cardBoard[row][col - 1].setOwner(cardOwner);
@@ -90,7 +91,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
         }
       }
       //looking north
-      if (row > 0 && this.statusBoard[row - 1][col] == Status.FULL) {
+      if (row > 0 && this.statusBoard[row - 1][col] == Status.FULL && this.cardBoard[row - 1][col].owner == otherOwner) {
         if (tempCard.getNorth().numericValue
                 > this.cardBoard[row - 1][col].getSouth().numericValue) {
           this.cardBoard[row - 1][col].setOwner(cardOwner);
@@ -98,7 +99,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
         }
       }
       //looking south
-      if (row < boardLengthRows - 1 && this.statusBoard[row + 1][col] == Status.FULL) {
+    if (row < boardLengthRows - 1 && this.statusBoard[row + 1][col] == Status.FULL && this.cardBoard[row + 1][col].owner == otherOwner) {
         if (tempCard.getSouth().numericValue
                 > this.cardBoard[row + 1][col].getNorth().numericValue) {
           this.cardBoard[row + 1][col].setOwner(cardOwner);
