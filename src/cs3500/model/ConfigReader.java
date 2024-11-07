@@ -18,7 +18,7 @@ public abstract class ConfigReader {
   }
 
   /**
-   * Determines whether a the path to a file exists.
+   * Determines whether the path to a file exists.
    * @param path the path to the file.
    * @return a boolean representing whether the given path exists.
    */

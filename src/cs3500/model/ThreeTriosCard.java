@@ -42,6 +42,21 @@ public class ThreeTriosCard implements Card {
     this.west = setAttackValue(west, this.west);
   }
 
+  public ThreeTriosCard(ThreeTriosCard other) {
+    // Copy immutable field directly (String is immutable)
+    this.CARD_NAME = other.CARD_NAME;
+
+    // Copy enum values directly (enums are immutable)
+    this.north = other.north;
+    this.south = other.south;
+    this.east = other.east;
+    this.west = other.west;
+
+    // Deep copy Player if necessary (depending on whether Player is mutable)
+    // If Player is immutable or a simple enum, direct assignment is fine
+    this.owner = other.owner; // If Player needs deep copying, implement it in Player class
+  }
+
   @Override
   public void setOwner(Player owner) {
     this.owner = owner;

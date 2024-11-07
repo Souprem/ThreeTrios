@@ -55,7 +55,7 @@ public class ThreeTriosTextView implements TriosView {
     }
 
     sb.append("Hand: \n");
-    for (Card card : model.getHand(Player.RED)) {
+    for (Object card : model.getHand(Player.RED)) {
       sb.append(card.toString()).append("\n");
     }
     return sb.toString();

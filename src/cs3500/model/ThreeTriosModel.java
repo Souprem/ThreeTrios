@@ -7,22 +7,15 @@ import java.util.List;
 /**
  * This class represents a model for the ThreeTrios game.
  */
-public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
-
-  private ThreeTriosCard[][] cardBoard;
-  private Status[][] statusBoard;
-  private List<ThreeTriosCard> handRed;
-  private List<ThreeTriosCard> handBlue;
-  private Player currentTurn = Player.RED;
+public class ThreeTriosModel extends ReadOnlyThreeTriosModel implements TriosModel<ThreeTriosCard>{
 
 
-  @Override
-  public String getCurrentPlayer() {
-    if (currentTurn == Player.RED) {
-      return "RED";
-    } else {
-      return "Blue";
-    }
+  public ThreeTriosModel(ThreeTriosModel model){
+    super(model);
+  }
+
+  public ThreeTriosModel(){
+    super();
   }
 
   @Override
@@ -144,69 +137,5 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
     }
   }
 
-  @Override
-  public List<ThreeTriosCard> getCurrentHand() {
-    if (currentTurn == Player.RED) {
-      return this.handRed;
-    } else {
-      return this.handBlue;
-    }
-  }
 
-  @Override
-  public List<ThreeTriosCard> getHand(Player player) {
-    if (player == Player.RED) {
-      return this.handRed;
-    } else if (player == Player.BLUE) {
-      return this.handBlue;
-    } else {
-      throw new IllegalArgumentException("input player must be player 1 or 2");
-    }
-  }
-
-  @Override
-  public ThreeTriosCard[][] getCardBoard() {
-    return this.cardBoard;
-  }
-
-  @Override
-  public Status[][] getStatusBoard() {
-    return this.statusBoard;
-  }
-
-  @Override
-  public Player getWinner() {
-    int redCount = 0;
-    int blueCount = 0;
-    for (int i = 0; i < this.cardBoard.length; i++) {
-      for (int j = 0; j < this.cardBoard[0].length; j++) {
-        if (cardBoard[i][j] != null && cardBoard[i][j].getOwner().equals(Player.RED)) {
-          redCount++;
-        } else if (cardBoard[i][j] != null && cardBoard[i][j].getOwner().equals(Player.BLUE)) {
-          blueCount++;
-        } else {
-          continue;
-        }
-      }
-    }
-    if (redCount > blueCount) {
-      return Player.RED;
-    } else if (blueCount > redCount) {
-      return Player.BLUE;
-    } else {
-      throw new IllegalStateException("currently a draw");
-    }
-  }
-
-  @Override
-  public boolean isGameOver() {
-    for (int i = 0; i < this.statusBoard.length; i++) {
-      for (int j = 0; j < this.statusBoard[0].length; j++) {
-        if (statusBoard[i][j] == Status.EMPTY) {
-          return false;
-        }
-      }
-    }
-    return true;
-  }
 }
