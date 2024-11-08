@@ -5,7 +5,7 @@ import java.awt.geom.AffineTransform;
 
 import javax.swing.*;
 
-public class TriosPanel extends JPanel {
+public class TriosBoardPanel extends JPanel {
 
   @Override
   protected void paintComponent(Graphics g) {
@@ -20,6 +20,8 @@ public class TriosPanel extends JPanel {
     // Invert coordinates so origin is at bottom-left and +y is up
     g2d.translate(0, this.getHeight());
     g2d.scale(1, -1);
+
+
 
 
   }
