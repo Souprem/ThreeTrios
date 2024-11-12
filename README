@@ -66,3 +66,10 @@ currentPlayer cannot be null, it must be either Player.RED or Player.BLUE. As it
 initialized in the constructor as Player.RED, and no methods have the ability to change
 currentPlayer to anything but Player.RED or Player.BLUE, this statement is a class invariant.
 
+
+SELF EVAL NOTES:
+- Your interface is coupled to some concrete classes, and you have not provided a convincing justification for it
+- Does your model offer a way to check if a given move is legal (e.g. index for the cards is valid, the coordinates are valid on the grid, etc.)? (1 point)
+  - it should have its own observation in the model interface
+- Do you have a test to confirm that a player cannot play to a location that's out of bounds? (1 point)
+- Do you have a test to confirm that a player cannot play when it's not their turn? 

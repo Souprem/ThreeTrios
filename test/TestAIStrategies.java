@@ -282,6 +282,163 @@ public class TestAIStrategies {
     Assert.assertEquals(model.getCardBoard()[0][1].getOwner(), Player.BLUE);
   }
 
+  @Test
+  public void testCornersTopLeftOneCard() throws IOException {
+    TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
+    model.startGame(5, "test" + File.separator + "configs" + File.separator
+                    + "CardConfigTiny",
+            "test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny");
+    TriosAI corners = new CornersTriosAI();
+    int[] tempMove = new int[3];
+    tempMove = corners.findMove(model, Player.RED);
+    int[] tempMove1 = new int[3];
+    //Expecting the AI to go to the upper leftmost corner
+    // with the card TEST5 as it has the highest combined attack values
+    // for south and east
+    tempMove1[0] = 3;
+    tempMove1[1] = 0;
+    tempMove1[2] = 0;
+
+    Assert.assertEquals(tempMove1[0], tempMove[0]);
+    Assert.assertEquals(tempMove1[1], tempMove[1]);
+    Assert.assertEquals(tempMove1[2], tempMove[2]);
+  }
+
+  @Test
+  public void testCornersTopRightOneCard() throws IOException {
+    TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
+    model.startGame(5, "test" + File.separator + "configs" + File.separator
+                    + "CardConfigTiny",
+            "test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny");
+    model.playCard(1, 0, 0);
+    TriosAI corners = new CornersTriosAI();
+    int[] tempMove = new int[3];
+    tempMove = corners.findMove(model, Player.BLUE);
+    int[] tempMove1 = new int[3];
+    //Expecting the AI to go to the upper leftmost corner
+    // with the card TEST5 as it has the highest combined attack values
+    // for south and east
+    tempMove1[0] = 3;
+    tempMove1[1] = 0;
+    tempMove1[2] = 1;
+
+    Assert.assertEquals(tempMove1[0], tempMove[0]);
+    Assert.assertEquals(tempMove1[1], tempMove[1]);
+    Assert.assertEquals(tempMove1[2], tempMove[2]);
+  }
+
+  @Test
+  public void testCornersBottomLeftOneCard() throws IOException {
+    TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
+    model.startGame(5, "test" + File.separator + "configs" + File.separator
+                    + "CardConfigTiny",
+            "test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny");
+    model.playCard(1, 0, 0);
+    model.playCard(1, 0, 1);
+    TriosAI corners = new CornersTriosAI();
+    int[] tempMove = new int[3];
+    tempMove = corners.findMove(model, Player.BLUE);
+    int[] tempMove1 = new int[3];
+    //Expecting the AI to go to the upper leftmost corner
+    // with the card TEST5 as it has the highest combined attack values
+    // for south and east
+    tempMove1[0] = 2;
+    tempMove1[1] = 2;
+    tempMove1[2] = 0;
+
+    Assert.assertEquals(tempMove1[0], tempMove[0]);
+    Assert.assertEquals(tempMove1[1], tempMove[1]);
+    Assert.assertEquals(tempMove1[2], tempMove[2]);
+  }
+
+  @Test
+  public void testCornersBottomRightOneCard() throws IOException {
+    TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
+    model.startGame(5, "test" + File.separator + "configs" + File.separator
+                    + "CardConfigTiny",
+            "test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny");
+    model.playCard(1, 0, 0);
+    model.playCard(1, 0, 1);
+    model.playCard(1, 2, 0);
+    TriosAI corners = new CornersTriosAI();
+    int[] tempMove = new int[3];
+    tempMove = corners.findMove(model, Player.BLUE);
+    int[] tempMove1 = new int[3];
+    //Expecting the AI to go to the upper leftmost corner
+    // with the card TEST5 as it has the highest combined attack values
+    // for south and east
+    tempMove1[0] = 2;
+    tempMove1[1] = 2;
+    tempMove1[2] = 1;
+
+    Assert.assertEquals(tempMove1[0], tempMove[0]);
+    Assert.assertEquals(tempMove1[1], tempMove[1]);
+    Assert.assertEquals(tempMove1[2], tempMove[2]);
+  }
+
+  @Test
+  public void testCornersNoCornersAvailOneCard() throws IOException {
+    TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
+    model.startGame(5, "test" + File.separator + "configs" + File.separator
+                    + "CardConfigTiny",
+            "test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny");
+    model.playCard(1, 0, 0);
+    model.playCard(1, 0, 1);
+    model.playCard(1, 2, 0);
+    model.playCard(1, 2, 1);
+    TriosAI corners = new CornersTriosAI();
+    int[] tempMove = new int[3];
+    tempMove = corners.findMove(model, Player.BLUE);
+    int[] tempMove1 = new int[3];
+    //Expecting the AI to go to the upper leftmost corner
+    // with the card TEST5 as it has the highest combined attack values
+    // for south and east
+    tempMove1[0] = 1;
+    tempMove1[1] = 1;
+    tempMove1[2] = 0;
+
+    Assert.assertEquals(tempMove1[0], tempMove[0]);
+    Assert.assertEquals(tempMove1[1], tempMove[1]);
+    Assert.assertEquals(tempMove1[2], tempMove[2]);
+  }
+
+  @Test
+  public void testCornersNoCornersAvailMoreCards() throws IOException {
+    TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
+    model.startGame(5, "test" + File.separator + "configs" + File.separator
+                    + "CardConfigSmall",
+            "test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny");
+    model.playCard(1, 0, 0);
+    model.playCard(1, 0, 1);
+    model.playCard(1, 2, 0);
+    model.playCard(1, 2, 1);
+    TriosAI corners = new CornersTriosAI();
+    int[] tempMove = new int[3];
+    tempMove = corners.findMove(model, Player.BLUE);
+    int[] tempMove1 = new int[3];
+    //Expecting the AI to go to the upper leftmost corner
+    // with the card TEST5 as it has the highest combined attack values
+    // for south and east
+    tempMove1[0] = 1;
+    tempMove1[1] = 1;
+    tempMove1[2] = 0;
+
+    Assert.assertEquals(tempMove1[0], tempMove[0]);
+    Assert.assertEquals(tempMove1[1], tempMove[1]);
+    Assert.assertEquals(tempMove1[2], tempMove[2]);
+  }
+
+
+
+
+
+
 
 
 

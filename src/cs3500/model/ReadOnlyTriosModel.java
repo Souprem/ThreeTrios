@@ -10,7 +10,6 @@ public interface ReadOnlyTriosModel<C extends Card> {
    */
   String getCurrentPlayer();
 
-
   /**
    * Returns the hand based on the inputted player.
    * @param player player whose hand is being returned.
@@ -49,5 +48,69 @@ public interface ReadOnlyTriosModel<C extends Card> {
    * @return a boolean representing the status of the game.
    */
   boolean isGameOver();
+
+  /**
+   * Returns the number of rows the grid has.
+   * @return the number of rows
+   */
+  int numRows();
+
+  /**
+   * Returns the number of columns the grid has.
+   * @return the number of columns
+   */
+  int numCols();
+
+  /**
+   * Returns the card at a given position, returning null for an empty card cell.
+   * @param row the row of the card
+   * @param col the column of the card
+   * @throws IllegalArgumentException if the position has a hole
+   * @return the Card at the given position
+   */
+  Card cardAt(int row, int col);
+
+  /**
+   * Returns the status of a particular cell: whether that cell holds a hole, a card,
+   * or an empty space that could be filled by a card.
+   * @param row row of the cell
+   * @param col column of the cell
+   * @return the Status at the given position
+   */
+  Status statusAt(int row, int col);
+
+  /**
+   * Determines which player owns the card in a cell at a given coordinate.
+   * @param row row of the cell
+   * @param col column of the cell
+   * @return the player who owns the card at the given cell position
+   */
+  Player ownerOf(int row, int col);
+
+  /**
+   * Determines whether it's legal for the current player to play at the given coordinate.
+   * @param row row at which the card would be placed
+   * @param col column at which the card would be placed
+   * @return a boolean representing whether the move is valid
+   */
+  boolean validMove(int row, int col);
+
+  /**
+   * Determines the number of cards a player can flip by playing a given card
+   * at a given coordinate.
+   * @param row row at which the card is placed
+   * @param col column at which the card is placed
+   * @param cardIndex the index of the card being placed
+   * @return an integer representing the number of cards flipped
+   */
+  int numFlipped(int row, int col, int cardIndex);
+
+  /**
+   * A score for a player is defined by the number of cards they own on the grid
+   * in addition to the number of cards within their hand.
+   * @param player player whose score is being calculated
+   * @return an integer representing the score
+   */
+  int calculateScore(Player player);
 
 }

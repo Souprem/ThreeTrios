@@ -79,6 +79,30 @@ public class TestThreeTriosModel {
     Assert.assertEquals(model.getCurrentPlayer(), "Blue");
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void testPlayCardRowOutOfBounds() {
+    TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
+    model.startGame(7, "test" + File.separator + "configs" + File.separator
+                    + "CardConfigSmall",
+            "test" + File.separator + "configs" + File.separator
+                    + "separatedBoardConfigTest");
+
+    model.playCard(1, 10000000 , 3);
+  }
+
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testPlayCardColOutOfBounds() {
+    TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
+    model.startGame(7, "test" + File.separator + "configs" + File.separator
+                    + "CardConfigSmall",
+            "test" + File.separator + "configs" + File.separator
+                    + "separatedBoardConfigTest");
+
+    model.playCard(1, 0 , 100000);
+  }
+
+
 
   @Test(expected = IllegalArgumentException.class)
   public void testIncorrectFileNameCardConfig() throws IOException {

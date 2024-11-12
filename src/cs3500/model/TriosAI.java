@@ -3,7 +3,9 @@ package cs3500.model;
 import cs3500.ThreeTrios;
 
 public interface TriosAI <C extends Card>{
-
+  /*
+  returns card, row, col
+   */
   int[] findMove(TriosModel model, Player player);
 
   default int[] noValidMoves(TriosModel model){

@@ -7,7 +7,7 @@ import java.util.Objects;
  */
 public class ThreeTriosCard implements Card {
 
-  final String CARD_NAME;
+  private final String CARD_NAME;
 
   private AttackValue north;
   private AttackValue south;

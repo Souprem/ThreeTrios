@@ -5,6 +5,13 @@ import java.util.List;
 
 /**
  * A representation of a model for the three trios card game.
+ *
+ * EXPLAIN
+ * (a) where the origin is, (b) what the axes are, (c) how
+ * the hex-coordinates are mapped to cartesian coordinates (if
+ * they're using a 2d list as their data storage, they need to tell us
+ * which index is the row and which index is the column)
+ *
  * @param <C> The type of card used in the game.
  */
 public interface TriosModel<C extends Card> extends ReadOnlyTriosModel{
@@ -31,5 +38,6 @@ public interface TriosModel<C extends Card> extends ReadOnlyTriosModel{
    * @param boardFile a string representing the file path of a board file.
    */
   void startGame(int numCardCells, String cardFile, String boardFile);
+
 
 }

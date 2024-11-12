@@ -6,6 +6,8 @@ import java.util.List;
 
 /**
  * This class represents a model for the ThreeTrios game.
+ * What is implementation specific about this model?
+ *
  */
 public class ThreeTriosModel implements TriosModel<ThreeTriosCard>, ReadOnlyTriosModel {
 
@@ -25,8 +27,9 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard>, ReadOnlyTrio
 
   /**
    * A deep copy constructor for ThreeTriosModel that takes in a ThreeTriosModel
-   * and uses the fields from the given model to initialize its own fields withou
-   * @param model
+   * and uses the fields from the given model to initialize its own fields without
+   * creating pointers to avoid mutation.
+   * @param model the given model
    */
   public ThreeTriosModel(ThreeTriosModel model) {
     // Deep copy of cardBoard (2D array)
@@ -84,7 +87,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard>, ReadOnlyTrio
   }
 
   @Override
-  public List getCurrentHand() {
+  public List<ThreeTriosCard> getCurrentHand() {
     if (currentTurn == Player.RED) {
       return this.handRed;
     } else {
@@ -139,8 +142,84 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard>, ReadOnlyTrio
   }
 
   @Override
+  public int numRows() {
+    return statusBoard.length;
+  }
+
+  @Override
+  public int numCols() {
+    return statusBoard[0].length;
+  }
+
+  @Override
+  public Card cardAt(int row, int col) {
+    if (!(statusBoard[row][col].equals(Status.FULL))){
+      throw new IllegalArgumentException("cannot ask where non existent card is");
+    }
+    return cardBoard[row][col];
+  }
+
+  @Override
+  public Status statusAt(int row, int col) {
+    return statusBoard[row][col];
+  }
+
+  @Override
+  public Player ownerOf(int row, int col) {
+    if (!(statusBoard[row][col].equals(Status.FULL))){
+      throw new IllegalArgumentException("cannot ask where non existent card is");
+    }
+    return cardBoard[row][col].getOwner();
+  }
+
+  @Override
+  public boolean validMove(int row, int col) {
+    return (statusBoard[row][col].equals(Status.EMPTY));
+  }
+
+  @Override
+  public int numFlipped(int row, int col, int cardIndex) {
+    int numCardsFlipped = 0;
+    TriosModel newModel = new ThreeTriosModel(this);
+    newModel.playCard(cardIndex, row, col);
+    //checks new model to provided model to see how many cards were flipped
+    for (int a = 0; a < this.numRows(); a++) {
+      for (int b = 0; b < this.numCols(); b++) {
+        if (newModel.getStatusBoard()[a][b] == Status.FULL && (row != a || col != b)){
+          if (this.cardBoard[a][b].getOwner() != newModel.getCardBoard()[a][b].getOwner()){
+            numCardsFlipped ++;
+          }
+        }
+      }
+    }
+    return numCardsFlipped;
+  }
+
+  @Override
+  public int calculateScore(Player player) {
+    int score = 0;
+    for (int i = 0; i < this.numRows(); i++){
+      for (int j = 0; j < this.numCols(); j++){
+        if (statusBoard[i][j].equals(Status.FULL)){
+          if (cardBoard[i][j].getOwner().equals(player)){
+            score++;
+          }
+        }
+      }
+    }
+    score = score + getHand(player).size();
+    return score;
+  }
+
+  @Override
   public void playCard(int cardIndex, int row, int col) {
     List<ThreeTriosCard> tempHand = getCurrentHand();
+    if (row > this.numRows()-1) {
+      throw new IllegalArgumentException("cannot input row out of bounds");
+    }
+    if (col > this.numCols()-1) {
+      throw new IllegalArgumentException("cannot input col out of bounds");
+    }
     if (statusBoard[row][col] != Status.EMPTY) {
       throw new IllegalArgumentException("cannot play card to taken spot or hole");
     }
@@ -170,6 +249,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard>, ReadOnlyTrio
     playedCardIndex.add(new ArrayList<Integer>(Arrays.asList(row, col)));
     battleStep(playedCardIndex);
   }
+
 
   //Flips cards adjacent to the inputted list of current cards where cards adjacent
   // to the current card have attack values lower than the current card

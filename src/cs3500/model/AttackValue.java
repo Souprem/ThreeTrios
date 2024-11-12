@@ -16,7 +16,7 @@ public enum AttackValue {
   NINE(9),
   TEN(10);
 
-  public final long numericValue;
+  public final int numericValue;
   public final String stringValue;
 
   /**

@@ -11,8 +11,8 @@ import java.io.IOException;
  * A class to represent the view for a ThreeTrios game.
  */
 public class ThreeTriosTextView implements TriosView {
-  private TriosModel<ThreeTriosCard> model;
-  Appendable ap;
+  private final TriosModel<ThreeTriosCard> model;
+  private final Appendable ap;
 
   /**
    * A constructor for ThreeTriosTextView that takes in the model and an appendable.
