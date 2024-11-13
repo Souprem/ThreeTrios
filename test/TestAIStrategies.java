@@ -433,15 +433,4 @@ public class TestAIStrategies {
     Assert.assertEquals(tempMove1[1], tempMove[1]);
     Assert.assertEquals(tempMove1[2], tempMove[2]);
   }
-
-
-
-
-
-
-
-
-
-
-
 }
