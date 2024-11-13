@@ -13,80 +13,80 @@ public class CardCell extends Path2D.Double {
   private Card card;
   boolean hole;
   boolean filled;
-  private int length;
+  private int height;
   private int width;
-  private int topNumber;
-  private int rightNumber;
-  private int bottomNumber;
-  private int leftNumber;
+  private String topNumber;
+  private String rightNumber;
+  private String bottomNumber;
+  private String leftNumber;
 
   /**
-   * Constructor for a card cell that is meant to represent an empty cell that can
-   * at some point hold a card.
-   * @param length
+   * Constructor for an empty cell that can hold a card.
+   * @param height
    * @param width
    */
-  public CardCell(int length, int width) {
-    this.length = length;
-    this.width = width;
-    this.hole = false; //this is an empty cell, not a hole
-    this.filled = false;
-
-    moveTo(0, 0);
-    lineTo(length, 0);
-    lineTo(length, width);
-    lineTo(0, width);
-    closePath();
-
+  public CardCell(int height, int width) {
+    this(height, width, false, null); // Empty cell without card
   }
 
   /**
-   * Constructor for a card cell that is meant to represent a hole.
-   * @param length
+   * Constructor for a hole cell.
    * @param width
    * @param hole
    */
-  public CardCell(int length, int width, boolean hole) {
-    this.hole = hole;
-    this.length = length;
-    this.width = width;
-    this.filled = false;
-
-    moveTo(0, 0);
-    lineTo(length, 0);
-    lineTo(length, width);
-    lineTo(0, width);
-    closePath();
-
+  public CardCell(int height, int width, boolean hole) {
+    this(height, width, hole, null); // Hole cell without card
   }
 
   /**
-   * Constructor for a card cell that is meant to represent a cell which holds a card.
-   * @param length
+   * Constructor for a filled cell holding a card.
    * @param width
    * @param card
    */
-  public CardCell(int length, int width, ThreeTriosCard card) {
-    this.length = length;
-    this.width = width;
-    this.hole = false;
-    this.filled = true;
+  public CardCell(int height, int width, ThreeTriosCard card) {
+    this(height, width, false, card); // Filled cell with a card
+  }
 
-    // Extract numbers from the ThreeTriosCard object
-    this.topNumber = card.getNorth().numericValue;
-    this.rightNumber = card.getEast().numericValue;
-    this.bottomNumber = card.getSouth().numericValue;
-    this.leftNumber = card.getWest().numericValue;
-    this.card = new ThreeTriosCard(card);
+  /**
+   * Private constructor for shared logic between all card states (empty, hole, filled).
+   */
+  private CardCell(int height, int width, boolean hole, ThreeTriosCard card) {
+    this.height = height;
+    this.width = width;
+    this.hole = hole;
+    this.filled = card != null;
+
+    if (filled) {
+      // Set up the card's numeric values
+      this.card = new ThreeTriosCard(card);
+      if (card.getNorth().numericValue == 10) {
+        this.topNumber = card.getNorth().stringValue;
+      } else {
+        this.topNumber = Integer.toString(card.getNorth().numericValue);
+      }
+      if (card.getEast().numericValue == 10) {
+        this.rightNumber = card.getEast().stringValue;
+      } else {
+        this.rightNumber = Integer.toString(card.getEast().numericValue);
+      }
+      if (card.getSouth().numericValue == 10) {
+        this.bottomNumber = card.getSouth().stringValue;
+      } else {
+        this.bottomNumber = Integer.toString(card.getSouth().numericValue);
+      }
+      if (card.getWest().numericValue == 10) {
+        this.leftNumber = card.getWest().stringValue;
+      } else {
+        this.leftNumber = Integer.toString(card.getWest().numericValue);
+      }
+    }
 
     // Create the rectangle path
     moveTo(0, 0);
-    lineTo(length, 0);
-    lineTo(length, width);
+    lineTo(height, 0);
+    lineTo(height, width);
     lineTo(0, width);
     closePath();
-
-    // Draw the rectangle and numbers
   }
 
   void draw(Graphics2D g2) {
@@ -95,33 +95,30 @@ public class CardCell extends Path2D.Double {
       g2.fill(this);
       g2.draw(this);
     } else if (!this.filled) {
-      g2.setColor(Color.YELLOW);
+      g2.setColor(Color.YELLOW);  // Empty cell color
       g2.fill(this);
       g2.draw(this);
-    } else if (this.filled) {
-      if (this.card.getOwner() == Player.BLUE) {
-        g2.setColor(Color.BLUE);
-      } else {
-        g2.setColor(Color.RED);
-      }
-      // Draw the rectangle path
-      g2.draw(this);
+    } else {
+      // Fill color based on card owner
+      g2.setColor(this.card.getOwner() == Player.BLUE ? Color.CYAN : Color.RED);
+      g2.fill(this);  // Fill the rectangle
+      g2.setColor(Color.DARK_GRAY);  // Set text color to black
+      g2.draw(this);  // Draw the rectangle
 
-      // Set font for the numbers
-      g2.setFont(new Font("Arial", Font.PLAIN, (int) Math.min(length, width) / 10));
+      // Set font for the numbers, scaled according to the card size
+      g2.setFont(new Font("Arial", Font.BOLD, (int) Math.min(height, width) / 10));
 
       // Calculate positions for the numbers relative to length and width for scalability
-      double centerX = length / 2;
+      double centerX = height / 2;
       double centerY = width / 2;
-      double edgeOffsetX = length / 20; // Proportional offset from edges for better placement
+      double edgeOffsetX = height / 20;
       double edgeOffsetY = width / 20;
 
-      // Draw each number around the center in a diamond-like formation
-      g2.drawString(Integer.toString(topNumber), (float) centerX, (float) edgeOffsetY); // Top
-      g2.drawString(Integer.toString(rightNumber), (float) (length - edgeOffsetX), (float) centerY); // Right
-      g2.drawString(Integer.toString(bottomNumber), (float) centerX, (float) (width - edgeOffsetY)); // Bottom
-      g2.drawString(Integer.toString(leftNumber), (float) edgeOffsetX, (float) centerY); // Left
+      // Draw numbers in a diamond formation
+      g2.drawString(topNumber, (float) centerX, (float) edgeOffsetY + 10); // Top
+      g2.drawString(rightNumber, (float) (height - edgeOffsetX) - 10, (float) centerY); // Right
+      g2.drawString(bottomNumber, (float) centerX, (float) (width - edgeOffsetY - 10)); // Bottom
+      g2.drawString(leftNumber, (float) edgeOffsetX + 10, (float) centerY); // Left
     }
   }
 }
-

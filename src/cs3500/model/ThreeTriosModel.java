@@ -333,7 +333,9 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard>, ReadOnlyTrio
     //shuffle the deck before startgame so the hands get random cards from the deck
     for (int i = 0; i < handSize; i++) {
       handRed.add(deck.remove(0));
+      handRed.get(handRed.size()-1).setOwner(Player.RED);
       handBlue.add(deck.remove(0));
+      handBlue.get(handRed.size()-1).setOwner(Player.BLUE);
     }
   }
 

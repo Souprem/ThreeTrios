@@ -14,7 +14,7 @@ public class TriosBoardPanel extends JPanel {
   Graphics2D g2d;
   ReadOnlyTriosModel model;
 
-  public TriosBoardPanel(int rows, int cols, ReadOnlyTriosModel model) {
+  public TriosBoardPanel(int width, int height, int rows, int cols, ReadOnlyTriosModel model) {
     setLayout(new GridLayout(rows, cols, 0, 0)); // Set gaps to 0 to ensure cells are directly adjacent
     this.model = model;
     setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Border around the entire panel
@@ -25,11 +25,11 @@ public class TriosBoardPanel extends JPanel {
         //three card cell constructors that take in nothing (empty cell), card (full cell),
         // boolean (representing if there's a hole?)
         if (this.model.getStatusBoard()[i][j] == Status.EMPTY) {
-          cardCells.add(new CardCell(500 / rows, 500 / cols));
+          cardCells.add(new CardCell(height / rows, width / cols));
         } else if (this.model.getStatusBoard()[i][j] == Status.FULL) {
-          cardCells.add(new CardCell(500 / rows, 500 / cols, (ThreeTriosCard) this.model.getCardBoard()[i][j]));
+          cardCells.add(new CardCell(height / rows, width / cols, (ThreeTriosCard) this.model.getCardBoard()[i][j]));
         } if (this.model.getStatusBoard()[i][j] == Status.HOLE) {
-          cardCells.add(new CardCell(500 / rows, 500 / cols, true));
+          cardCells.add(new CardCell(height / rows, width / cols, true));
         }
       }
     }
@@ -57,14 +57,6 @@ public class TriosBoardPanel extends JPanel {
     super.paintComponent(g);
 
     this.g2d = (Graphics2D) g;
-
-    AffineTransform oldTransform = g2d.getTransform();
-    Color oldColor = g2d.getColor();
-    g2d.setColor(Color.RED);
-
-    // Invert coordinates so origin is at bottom-left and +y is up
-    g2d.translate(0, this.getHeight());
-    g2d.scale(1, -1);
   }
 
 
