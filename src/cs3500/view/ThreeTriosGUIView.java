@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.function.Consumer;
 
@@ -47,6 +49,16 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView {
     this.add(leftPanel, BorderLayout.WEST);
     this.add(centerGrid, BorderLayout.CENTER);
     this.add(rightPanel, BorderLayout.EAST);
+
+
+    this.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        int mouseX = e.getLocationOnScreen().x;
+        int mouseY = e.getLocationOnScreen().y;
+        System.out.println(mouseX + ", " + mouseY);
+      }
+    });
 
     // Add a component listener to listen for resizing events
     this.addComponentListener(new ComponentAdapter() {

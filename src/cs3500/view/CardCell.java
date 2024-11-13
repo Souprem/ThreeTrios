@@ -93,10 +93,12 @@ public class CardCell extends Path2D.Double {
     if (this.hole) {
       g2.setColor(Color.GRAY);
       g2.fill(this);
+      g2.setColor(Color.DARK_GRAY);  // Set text color to black
       g2.draw(this);
     } else if (!this.filled) {
       g2.setColor(Color.YELLOW);  // Empty cell color
       g2.fill(this);
+      g2.setColor(Color.DARK_GRAY);  // Set text color to black
       g2.draw(this);
     } else {
       // Fill color based on card owner
@@ -111,14 +113,14 @@ public class CardCell extends Path2D.Double {
       // Calculate positions for the numbers relative to length and width for scalability
       double centerX = height / 2;
       double centerY = width / 2;
-      double edgeOffsetX = height / 20;
-      double edgeOffsetY = width / 20;
+      double edgeOffsetX = height / 10;
+      double edgeOffsetY = width / 10;
 
       // Draw numbers in a diamond formation
-      g2.drawString(topNumber, (float) centerX, (float) edgeOffsetY + 10); // Top
-      g2.drawString(rightNumber, (float) (height - edgeOffsetX) - 10, (float) centerY); // Right
-      g2.drawString(bottomNumber, (float) centerX, (float) (width - edgeOffsetY - 10)); // Bottom
-      g2.drawString(leftNumber, (float) edgeOffsetX + 10, (float) centerY); // Left
+      g2.drawString(topNumber, (float) centerX, (float) edgeOffsetY); // Top
+      g2.drawString(rightNumber, (float) (height - edgeOffsetX), (float) centerY); // Right
+      g2.drawString(bottomNumber, (float) centerX, (float) (width - edgeOffsetY)); // Bottom
+      g2.drawString(leftNumber, (float) edgeOffsetX, (float) centerY); // Left
     }
   }
 }

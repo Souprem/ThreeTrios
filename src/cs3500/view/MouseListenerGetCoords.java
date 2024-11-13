@@ -4,12 +4,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class MouseListenerGetCoords implements MouseListener {
-  int x, y;
+  private int x, y;
 
   @Override
   public void mouseClicked(MouseEvent e) {
     x = e.getLocationOnScreen().x;
     y = e.getLocationOnScreen().y;
+
   }
 
   @Override
