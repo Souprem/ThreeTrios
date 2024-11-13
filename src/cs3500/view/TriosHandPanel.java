@@ -18,6 +18,7 @@ public class TriosHandPanel extends JPanel {
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); // Set the layout to Y_AXIS for vertical arrangement
     this.model = model;
     this.setBorder(BorderFactory.createEmptyBorder());
+    this.setPreferredSize(new Dimension(width, height));
 
 
     int cardHeight = height / model.getHand(owner).size();  // Fixed formula for height calculation

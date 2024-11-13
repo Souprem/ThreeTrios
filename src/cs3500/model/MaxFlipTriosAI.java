@@ -10,7 +10,7 @@ public class MaxFlipTriosAI implements TriosAI<ThreeTriosCard>{
     //default is 1 to account for card placed
     int maxCardsFlipped = 0;
     //bestMove is list of ints [cardIndex, row, column] DOUBLE CHECK THIS!!!!!!!!!
-    int[] bestMove = new int[3];
+    int[] bestMove = new int[4];
     bestMove[0] = -1;
 
     Status[][] baseStatusBoard = model.getStatusBoard();
@@ -37,16 +37,16 @@ public class MaxFlipTriosAI implements TriosAI<ThreeTriosCard>{
             }
             if (numCardsFlipped > maxCardsFlipped){
               maxCardsFlipped = numCardsFlipped;
-              bestMove = new int[]{c, i, j};
+              bestMove = new int[]{c, i, j, numCardsFlipped*4};
               numCardsFlipped = 0;
               //tiebreaker logic:
             } else if (numCardsFlipped == maxCardsFlipped && maxCardsFlipped != 0){
               if (bestMove[1] > i){
-                bestMove = new int[]{c, i, j};
+                bestMove = new int[]{c, i, j, numCardsFlipped*4};
               } else if (bestMove[2] > j) {
-                bestMove = new int[]{c, i, j};
+                bestMove = new int[]{c, i, j, numCardsFlipped*4};
               } else if (bestMove[0] > c){
-                bestMove = new int[]{c, i, j};
+                bestMove = new int[]{c, i, j, numCardsFlipped*4};
               }
             }
           }

@@ -6,9 +6,10 @@ public interface ReadOnlyTriosModel<C extends Card> {
 
   /**
    * Returns the player whose turn it currently is.
+   *
    * @return a String representing the current player.
    */
-  String getCurrentPlayer();
+  Player getCurrentPlayer();
 
   /**
    * Returns the hand based on the inputted player.

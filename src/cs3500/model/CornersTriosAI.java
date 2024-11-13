@@ -18,7 +18,7 @@ public class CornersTriosAI implements TriosAI<ThreeTriosCard> {
                     bestCard = i+1;
                 }
             }
-            return new int[]{bestCard, 0, 0};
+            return new int[]{bestCard, 0, 0, currentSum};
         } else if (model.getStatusBoard()[0][model.numCols()-1].equals(Status.EMPTY)) {
             for (int i = 0; i < model.getHand(player).size() ; i++){
                 ThreeTriosCard currentCard = (ThreeTriosCard) model.getHand(player).get(i);
@@ -28,7 +28,7 @@ public class CornersTriosAI implements TriosAI<ThreeTriosCard> {
                     bestCard = i+1;
                 }
             }
-            return new int[]{bestCard, 0, model.numCols()-1};
+            return new int[]{bestCard, 0, model.numCols()-1, currentSum};
         } else if (model.getStatusBoard()[model.numRows()-1][0].equals(Status.EMPTY)){
             for (int i = 0; i < model.getHand(player).size() ; i++){
                 ThreeTriosCard currentCard = (ThreeTriosCard) model.getHand(player).get(i);
@@ -38,7 +38,7 @@ public class CornersTriosAI implements TriosAI<ThreeTriosCard> {
                     bestCard = i+1;
                 }
             }
-            return new int[]{bestCard, model.numRows() - 1, 0};
+            return new int[]{bestCard, model.numRows() - 1, 0, currentSum};
         } else if (model.getStatusBoard()[model.numRows() - 1][model.numCols() - 1].equals(Status.EMPTY)) {
             for (int i = 0; i < model.getHand(player).size(); i++){
                 ThreeTriosCard currentCard = (ThreeTriosCard) model.getHand(player).get(i);
@@ -48,7 +48,7 @@ public class CornersTriosAI implements TriosAI<ThreeTriosCard> {
                     bestCard = i+1;
                 }
             }
-            return new int[]{bestCard, model.numRows()-1, model.numCols()-1};
+            return new int[]{bestCard, model.numRows()-1, model.numCols()-1, currentSum};
         }
         return noValidMoves(model);
     }

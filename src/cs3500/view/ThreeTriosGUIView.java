@@ -60,33 +60,6 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView {
       }
     });
 
-    // Add a component listener to listen for resizing events
-    this.addComponentListener(new ComponentAdapter() {
-      @Override
-      public void componentResized(ComponentEvent e) {
-        // Get the new size of the window
-        Dimension newSize = getSize();
-        width = newSize.width;
-        height = newSize.height;
-
-        // Recreate panels with the new dimensions
-        // Reinitialize panels to update their size dynamically
-        centerGrid = new TriosBoardPanel(width, height, rows, cols, model);
-        leftPanel = new TriosHandPanel(width, height, rows, cols, model, Player.RED);
-        rightPanel = new TriosHandPanel(width, height, rows, cols, model, Player.BLUE);
-
-        // Re-add the panels to the layout
-        getContentPane().removeAll();
-        add(leftPanel, BorderLayout.WEST);
-        add(centerGrid, BorderLayout.CENTER);
-        add(rightPanel, BorderLayout.EAST);
-
-        // Revalidate and repaint the frame to reflect the changes
-        revalidate();
-        repaint();
-      }
-    });
-
     // Final setup
     this.pack();  // Pack the components to their preferred sizes
   }

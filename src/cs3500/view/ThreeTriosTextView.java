@@ -31,7 +31,7 @@ public class ThreeTriosTextView implements TriosView {
   public String toString() {
     StringBuilder sb = new StringBuilder();
 
-    sb.append("Player: ").append(model.getCurrentPlayer().toUpperCase()).append("\n");
+    sb.append("Player: ").append(model.getCurrentPlayer().toString().toUpperCase()).append("\n");
 
     for (int i = 0; i < model.getStatusBoard().length; i++) {
       for (int j = 0; j < model.getStatusBoard()[i].length; j++) {

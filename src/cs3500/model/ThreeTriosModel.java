@@ -9,7 +9,7 @@ import java.util.List;
  * What is implementation specific about this model?
  *
  */
-public class ThreeTriosModel implements TriosModel<ThreeTriosCard>, ReadOnlyTriosModel {
+public class ThreeTriosModel implements TriosModel<ThreeTriosCard>{
 
   /*
    for boards: ROW, COLUMN
@@ -67,11 +67,11 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard>, ReadOnlyTrio
   }
 
   @Override
-  public String getCurrentPlayer() {
+  public Player getCurrentPlayer(){
     if (currentTurn == Player.RED) {
-      return "RED";
+      return Player.RED;
     } else {
-      return "Blue";
+      return Player.BLUE;
     }
   }
 

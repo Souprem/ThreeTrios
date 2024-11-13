@@ -4,7 +4,7 @@ import cs3500.ThreeTrios;
 
 public interface TriosAI <C extends Card>{
   /*
-  returns card, row, col
+  returns card, row, col, score
    */
   int[] findMove(TriosModel model, Player player);
 
