@@ -13,8 +13,8 @@ public class CardCell extends Path2D.Double {
   private Card card;
   boolean hole;
   boolean filled;
-  private double length;
-  private double width;
+  private int length;
+  private int width;
   private int topNumber;
   private int rightNumber;
   private int bottomNumber;
@@ -23,11 +23,10 @@ public class CardCell extends Path2D.Double {
   /**
    * Constructor for a card cell that is meant to represent an empty cell that can
    * at some point hold a card.
-   * @param g2
    * @param length
    * @param width
    */
-  public CardCell(Graphics2D g2, double length, double width) {
+  public CardCell(int length, int width) {
     this.length = length;
     this.width = width;
     this.hole = false; //this is an empty cell, not a hole
@@ -39,17 +38,15 @@ public class CardCell extends Path2D.Double {
     lineTo(0, width);
     closePath();
 
-    draw(g2);
   }
 
   /**
    * Constructor for a card cell that is meant to represent a hole.
-   * @param g2
    * @param length
    * @param width
    * @param hole
    */
-  public CardCell(Graphics2D g2, double length, double width, boolean hole) {
+  public CardCell(int length, int width, boolean hole) {
     this.hole = hole;
     this.length = length;
     this.width = width;
@@ -61,17 +58,15 @@ public class CardCell extends Path2D.Double {
     lineTo(0, width);
     closePath();
 
-    draw(g2);
   }
 
   /**
    * Constructor for a card cell that is meant to represent a cell which holds a card.
-   * @param g2
    * @param length
    * @param width
    * @param card
    */
-  public CardCell(Graphics2D g2, double length, double width, ThreeTriosCard card) {
+  public CardCell(int length, int width, ThreeTriosCard card) {
     this.length = length;
     this.width = width;
     this.hole = false;
@@ -92,15 +87,16 @@ public class CardCell extends Path2D.Double {
     closePath();
 
     // Draw the rectangle and numbers
-    draw(g2);
   }
 
-  private void draw(Graphics2D g2) {
+  void draw(Graphics2D g2) {
     if (this.hole) {
       g2.setColor(Color.GRAY);
+      g2.fill(this);
       g2.draw(this);
     } else if (!this.filled) {
       g2.setColor(Color.YELLOW);
+      g2.fill(this);
       g2.draw(this);
     } else if (this.filled) {
       if (this.card.getOwner() == Player.BLUE) {
@@ -125,7 +121,7 @@ public class CardCell extends Path2D.Double {
       g2.drawString(Integer.toString(rightNumber), (float) (length - edgeOffsetX), (float) centerY); // Right
       g2.drawString(Integer.toString(bottomNumber), (float) centerX, (float) (width - edgeOffsetY)); // Bottom
       g2.drawString(Integer.toString(leftNumber), (float) edgeOffsetX, (float) centerY); // Left
-    }}
+    }
+  }
 }
 
-}

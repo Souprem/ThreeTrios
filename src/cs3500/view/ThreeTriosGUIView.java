@@ -27,42 +27,40 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView{
     this.setSize(500, 500);
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    JPanel boardPanel = new TriosBoardPanel();
+    JPanel boardPanel = new TriosBoardPanel(rows, cols, this.model);
     boardPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-    boardPanel.setLayout(new GridLayout(rows, cols));
-    for(int i = 0; i < rows; i++){
-      for(int j = 0; j < cols) {
-        //three card cell constructors that take in nothing (empty cell), card (full cell),
-        // boolean (representing if there's a hole?)
-        if (this.model.getStatusBoard()[rows][cols] == Status.EMPTY) {
-          boardPanel.add(new CardCell());
-        } else if (this.model.getStatusBoard()[rows][cols] == Status.FULL) {
-          boardPanel.add(new CardCell(this.model.getCardBoard()[rows][cols]));
-        } if (this.model.getStatusBoard()[rows][cols] == Status.HOLE) {
-          boardPanel.add(new CardCell(true));
-        }
-      }
-    }
+
+    JPanel leftHandPanel = new TriosHandPanel(rows, cols, this.model, Player.RED);
+    JScrollPane scrollPaneLeft = new JScrollPane(leftHandPanel);
+    scrollPaneLeft.setPreferredSize(new Dimension(500, 500)); // Set the size of the scrollable area
+
+    JPanel rightHandPanel = new TriosHandPanel(rows, cols, this.model, Player.RED);
+    JScrollPane scrollPaneRight = new JScrollPane(rightHandPanel);
+    scrollPaneRight.setPreferredSize(new Dimension(500, 500)); // Set the size of the scrollable area
+
+    this.add(leftHandPanel, BorderLayout.WEST);
+    this.add(boardPanel, BorderLayout.CENTER);
+    this.add(rightHandPanel, BorderLayout.EAST);
 
     this.pack();
   }
 
-  private void createLeftPanel(){
-    leftPanel = new TriosHandPanel();
-    leftPanel.setLayout(new GridLayout((model.getHand(Player.RED).size()), 1));
-    leftPanel.setBackground(Color.PINK);
-
-    for (int i = 1; i < model.getHand(Player.RED).size(); i++){
-
-    }
-
-    String[] labels = model.getHand(Player.RED).toArray(new String[0]);
-    for (String label : labels) {
-      JLabel lbl = new JLabel(label, SwingConstants.CENTER);
-      lbl.setFont(new Font("Arial", Font.BOLD, 24));
-      leftPanel.add(lbl);
-    }
-  }
+//  private void createLeftPanel(){
+//    leftPanel = new TriosHandPanel();
+//    leftPanel.setLayout(new GridLayout((model.getHand(Player.RED).size()), 1));
+//    leftPanel.setBackground(Color.PINK);
+//
+//    for (int i = 1; i < model.getHand(Player.RED).size(); i++){
+//
+//    }
+//
+//    String[] labels = model.getHand(Player.RED).toArray(new String[0]);
+//    for (String label : labels) {
+//      JLabel lbl = new JLabel(label, SwingConstants.CENTER);
+//      lbl.setFont(new Font("Arial", Font.BOLD, 24));
+//      leftPanel.add(lbl);
+//    }
+//  }
 
   @Override
   public void makeVisible() {
