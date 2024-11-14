@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
-public class MaxFlipTriosMockModel implements TriosModel {
+public class MaxFlipTriosMockModel2 implements TriosModel {
   private Status[][] statusBoard;
   private List<ThreeTriosCard> handRed;
   private List<ThreeTriosCard> handBlue;
@@ -13,21 +13,20 @@ public class MaxFlipTriosMockModel implements TriosModel {
   private ThreeTriosCard[][] cardBoard;
 
 
-  public MaxFlipTriosMockModel() {
+  public MaxFlipTriosMockModel2() {
     this.handRed = new ArrayList<ThreeTriosCard>();
     this.handRed.add(new ThreeTriosCard("TEST", "9", "1", "9", "9"));
-    this.handRed.add(new ThreeTriosCard("TEST1", "9", "9" ,"9", "9"));
+    this.handRed.add(new ThreeTriosCard("TEST1", "9","9","9", "9"));
     this.handRed.add(new ThreeTriosCard("TEST2", "1", "1", "1", "1"));
     this.statusBoard = new Status[][] {
-            {Status.FULL, Status.EMPTY},
-            {Status.FULL, Status.FULL},
-            {Status.FULL, Status.EMPTY}
+            {Status.EMPTY, Status.EMPTY, Status.EMPTY},
+            {Status.EMPTY, Status.EMPTY, Status.EMPTY},
+            {Status.EMPTY, Status.EMPTY, Status.EMPTY}
     };
     this.cardBoard = new ThreeTriosCard[][] {
-            {new ThreeTriosCard("TL", "1", "1", "1", "1"), null},
-            {new ThreeTriosCard("ML", "1", "1" ,"1 ","1"),
-                    new ThreeTriosCard("MR", "1", "1", "1", "1")},
-            {new ThreeTriosCard("BL", "9", "9" ,"9 ","9"), null}
+            {null, null, null},
+            {null, null, null},
+            {null, null, null}
     };
   }
 
@@ -76,9 +75,7 @@ public class MaxFlipTriosMockModel implements TriosModel {
   // Other methods can be no-ops or throw UnsupportedOperationException if not needed for tests.
 
   @Override
-  public int numRows() {
-    return statusBoard.length;
-  }
+  public int numRows() { return statusBoard.length; }
 
   @Override
   public int numCols() { return statusBoard[0].length; }

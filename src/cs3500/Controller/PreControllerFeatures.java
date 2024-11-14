@@ -1,7 +1,12 @@
-package cs3500.controller;
+package cs3500.Controller;
+
 import cs3500.model.Player;
 import cs3500.view.Features;
 
+/**
+ * Represents the current pre-controller features including the printing
+ * of card and cell information to the console when cards are clicked.
+ */
 public class PreControllerFeatures implements Features {
 
   @Override

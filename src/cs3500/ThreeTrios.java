@@ -5,7 +5,15 @@ import cs3500.view.ThreeTriosGUIView;
 
 import java.io.File;
 
+/**
+ * A class to hold the main method for ThreeTrios.
+ */
 public class ThreeTrios {
+
+  /**
+   * The main method used to run the application.
+   * @param args input
+   */
   public static void main(String[] args) {
     ThreeTriosModel model = new ThreeTriosModel();
 

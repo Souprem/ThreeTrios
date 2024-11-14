@@ -85,4 +85,12 @@ CHANGES FOR PART TWO:
 - Added the hand panel class to represent a panel which holds and draws the cards within a
     player's hand, two of these panels are instantiated in the view to represent the hands for
     the red and blue players
--
+- Added the TriosAI interface which represents a broad interface for the AI strategies
+- Added the CornersTriosAI class which represents the strategy in which the AI goes for the corners
+- Added the MaxFlipTriosAI class which represents the strategy in which the AI attempts to play a card
+    to a space that allows it to flip as many cards on a turn as possible
+- Added the Features interface which broadly represents the possible features surrounding user interaction
+- Added the PreControllerFeatures class which represents the current pre-controller features including the printing
+    of card and cell information to the console when cards are clicked
+- Added two mocked models for testing which are used to test that the AI strategies are correctly moving through all
+    of the cells that they should be observing

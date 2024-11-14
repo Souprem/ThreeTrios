@@ -63,6 +63,63 @@ public class TestAIStrategies {
 //    Assert.assertEquals(model.getCardBoard()[2][0].getOwner(), Player.BLUE);
 //    Assert.assertEquals(model.getStatusBoard(), statusBoardEnd);
 //  }
+
+  @Test
+  public void testMaxFlipMock() throws IOException {
+    TriosModel<ThreeTriosCard> model = new MaxFlipTriosMockModel();
+    TriosAI maxFlip = new MaxFlipTriosAI();
+    int[] tempMove = new int[4];
+    tempMove = maxFlip.findMove(model, Player.RED);
+    int[] tempMove1 = new int[4];
+
+    tempMove1[0] = 1;
+    tempMove1[1] = 0;
+    tempMove1[2] = 1;
+    tempMove1[3] = 40;
+
+    Assert.assertEquals(tempMove1[0], tempMove[0]);
+    Assert.assertEquals(tempMove1[1], tempMove[1]);
+    Assert.assertEquals(tempMove1[2], tempMove[2]);
+    Assert.assertEquals(tempMove1[3], tempMove[3]);
+  }
+
+  @Test
+  public void testMaxFlipMock2() throws IOException {
+    TriosModel<ThreeTriosCard> model = new MaxFlipTriosMockModel2();
+    TriosAI maxFlip = new MaxFlipTriosAI();
+    int[] tempMove = new int[4];
+    tempMove = maxFlip.findMove(model, Player.RED);
+    int[] tempMove1 = new int[4];
+
+    tempMove1[0] = 0;
+    tempMove1[1] = 0;
+    tempMove1[2] = 0;
+    tempMove1[3] = 0;
+
+    Assert.assertEquals(tempMove1[0], tempMove[0]);
+    Assert.assertEquals(tempMove1[1], tempMove[1]);
+    Assert.assertEquals(tempMove1[2], tempMove[2]);
+    Assert.assertEquals(tempMove1[3], tempMove[3]);
+  }
+
+  @Test
+  public void testornerMock() throws IOException {
+    TriosModel<ThreeTriosCard> model = new CornerTriosAIMockModel();
+    TriosAI corners = new CornersTriosAI();
+    int[] tempMove = new int[4];
+    tempMove = corners.findMove(model, Player.RED);
+    int[] tempMove1 = new int[4];
+
+    tempMove1[0] = 4;
+    tempMove1[1] = 2;
+    tempMove1[2] = 0;
+    tempMove1[3] = 13;
+
+    Assert.assertEquals(tempMove1[0], tempMove[0]);
+    Assert.assertEquals(tempMove1[1], tempMove[1]);
+    Assert.assertEquals(tempMove1[2], tempMove[2]);
+    Assert.assertEquals(tempMove1[3], tempMove[3]);
+  }
   @Test
   public void testMaxFlipEasyNoChoice() throws IOException {
   TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
