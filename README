@@ -72,4 +72,17 @@ SELF EVAL NOTES:
 - Does your model offer a way to check if a given move is legal (e.g. index for the cards is valid, the coordinates are valid on the grid, etc.)? (1 point)
   - it should have its own observation in the model interface
 - Do you have a test to confirm that a player cannot play to a location that's out of bounds? (1 point)
-- Do you have a test to confirm that a player cannot play when it's not their turn? 
+- Do you have a test to confirm that a player cannot play when it's not their turn?
+
+CHANGES FOR PART TWO:
+- Implemented functionality to ensure that battle steps only occur between cards on opposite teams
+- Added a few methods to ensure we had covered all recommended observations
+- Added the GUI view class to create and update a graphic user interface view of the game
+- Added the card cell class to represent a singular cell within the view, this cell can represent
+    a hole, an empty space, or a filled space which has a card
+- Added the board panel class to represent a singular panel within the view which holds
+    and draws the grid and all corresponding cells
+- Added the hand panel class to represent a panel which holds and draws the cards within a
+    player's hand, two of these panels are instantiated in the view to represent the hands for
+    the red and blue players
+-

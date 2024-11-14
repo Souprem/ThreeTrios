@@ -13,6 +13,8 @@ public class ThreeTrios {
                     + "CardConfigSmall",
             "test" + File.separator + "configs" + File.separator
                     + "separatedBoardConfigTest");
+    model.playCard(1, 0, 2);
+    model.playCard(1, 2, 0);
     ThreeTriosGUIView view = new ThreeTriosGUIView(model);
     view.setVisible(true);
 

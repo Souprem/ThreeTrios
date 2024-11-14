@@ -1,4 +1,5 @@
 package cs3500.view;
+
 import cs3500.model.Card;
 import cs3500.model.Player;
 import cs3500.model.ThreeTriosCard;
@@ -8,7 +9,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.geom.Path2D;
 
-
+/**
+ * This class represents the visual representation of a singular card cell.
+ * This representation allows a card cell to be initialized and drawn using
+ * the private draw method.
+ */
 public class CardCell extends Path2D.Double {
   private Card card;
   boolean hole;
@@ -23,17 +28,21 @@ public class CardCell extends Path2D.Double {
 
   /**
    * Constructor for an empty cell that can hold a card.
-   * @param height
-   * @param width
+   * @param selected boolean determining if this card is currently selected
+   * @param height the cell height
+   * @param width the cell width
    */
   public CardCell(boolean selected, int height, int width) {
     this(selected, height, width, false, null); // Empty cell without card
   }
 
+
   /**
    * Constructor for a hole cell.
-   * @param width
-   * @param hole
+   * @param selected boolean determining if this card is currently selected
+   * @param height the cell's height
+   * @param width the cell's width
+   * @param hole a boolean representing whether this cell is a hole.
    */
   public CardCell(boolean selected, int height, int width, boolean hole) {
     this(selected, height, width, hole, null); // Hole cell without card
@@ -41,8 +50,9 @@ public class CardCell extends Path2D.Double {
 
   /**
    * Constructor for a filled cell holding a card.
-   * @param width
-   * @param card
+   * @param selected boolean determining if this card is currently selected
+   * @param height the cell's height
+   * @param width the cell's width
    */
   public CardCell(boolean selected, int height, int width, ThreeTriosCard card) {
     this(selected, height, width, false, card); // Filled cell with a card
@@ -91,6 +101,12 @@ public class CardCell extends Path2D.Double {
     closePath();
   }
 
+  /**
+   * This method draws the current card cell, given a graphics object.
+   * This method is package private as it's used by the board and hand
+   * panels (all within the view package) to draw their respective cards.
+   * @param g2 the Graphics2D object.
+   */
   void draw(Graphics2D g2) {
     if (this.hole) {
       g2.setColor(Color.GRAY);
@@ -104,7 +120,7 @@ public class CardCell extends Path2D.Double {
       g2.draw(this);
     } else {
       // Fill color based on card owner
-      if(this.selected){
+      if (this.selected) {
         g2.setColor(Color.GREEN);
       } else {
         g2.setColor(this.card.getOwner() == Player.BLUE ? Color.CYAN : Color.RED);

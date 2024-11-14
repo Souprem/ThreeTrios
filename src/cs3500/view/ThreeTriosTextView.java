@@ -1,6 +1,5 @@
 package cs3500.view;
 
-import cs3500.model.Card;
 import cs3500.model.Player;
 import cs3500.model.Status;
 import cs3500.model.ThreeTriosCard;
@@ -9,6 +8,7 @@ import java.io.IOException;
 
 /**
  * A class to represent the view for a ThreeTrios game.
+ * This view will represent the game using text.
  */
 public class ThreeTriosTextView implements TriosView {
   private final TriosModel<ThreeTriosCard> model;

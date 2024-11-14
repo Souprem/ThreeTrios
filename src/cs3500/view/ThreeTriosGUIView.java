@@ -1,21 +1,22 @@
 package cs3500.view;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.Rectangle2D;
-import java.util.function.Consumer;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 
 import cs3500.model.Player;
 import cs3500.model.ReadOnlyTriosModel;
-import cs3500.model.Status;
-import cs3500.model.TriosModel;
 
+/**
+ * A class to represent the graphic user interface view for a
+ * ThreeTrios card game.
+ */
 public class ThreeTriosGUIView extends JFrame implements TriosGUIView {
   private final ReadOnlyTriosModel model;
   private TriosBoardPanel centerGrid;
@@ -24,6 +25,11 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView {
   private int rows;
   private int cols;
 
+  /**
+   * A constructor for the ThreeTriosGUIView class which takes in a
+   * real only version of the model.
+   * @param model read only version of the model.
+   */
   public ThreeTriosGUIView(ReadOnlyTriosModel model) {
     this.model = model;
     rows = model.getCardBoard().length;
@@ -35,11 +41,14 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     // Create panels with initial dimensions
-    this.centerGrid = new TriosBoardPanel(this.getWidth() / 2, this.getHeight(), rows, cols, this.model);
+    this.centerGrid = new TriosBoardPanel(this.getWidth() / 2, this.getHeight(), rows, cols,
+            this.model);
     this.centerGrid.setBorder(BorderFactory.createLineBorder(Color.black));
 
-    this.leftPanel = new TriosHandPanel(this.getWidth() / 4, this.getHeight(), rows, cols, this.model, Player.RED);
-    this.rightPanel = new TriosHandPanel(this.getWidth() / 4, this.getHeight(), rows, cols, this.model, Player.BLUE);
+    this.leftPanel = new TriosHandPanel(this.getWidth() / 4, this.getHeight(), rows, cols,
+            this.model, Player.RED);
+    this.rightPanel = new TriosHandPanel(this.getWidth() / 4, this.getHeight(), rows, cols,
+            this.model, Player.BLUE);
 
     // Layout setup
     this.setLayout(new BorderLayout());
@@ -48,17 +57,15 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView {
     this.add(rightPanel, BorderLayout.EAST);
 
 
-    double handCardHeight = (double) this.getHeight() / model.getHand(model.getCurrentPlayer()).size();
+    double handCardHeight = (double) this.getHeight()
+            / model.getHand(model.getCurrentPlayer()).size();
     this.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
         int mouseX = e.getLocationOnScreen().x;
         int mouseY = e.getLocationOnScreen().y;
-        if(mouseX > handCardHeight - 200) {
+        if (mouseX > handCardHeight - 200) {
           System.out.println(mouseY / handCardHeight + ", " + Player.BLUE);
-          rightPanel.initializeCardCells(model, Player.BLUE,
-                  rightPanel.getHeight() / rows,
-                  rightPanel.getWidth() / cols, (int) (mouseY / handCardHeight));
         }
         System.out.println(mouseX + ", " + mouseY);
       }
@@ -90,7 +97,7 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView {
 
   @Override
   public void showErrorMessage(String error) {
-
+    System.out.println(error);
   }
 
   @Override

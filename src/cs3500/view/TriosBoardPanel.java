@@ -1,10 +1,12 @@
 package cs3500.view;
 
-import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.util.ArrayList;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 
 import cs3500.model.ReadOnlyTriosModel;
 import cs3500.model.Status;
@@ -55,7 +57,8 @@ public class TriosBoardPanel extends JPanel {
         if (model.getStatusBoard()[row][col] == Status.EMPTY) {
           cell = new CardCell(false, cellHeight, cellWidth);
         } else if (model.getStatusBoard()[row][col] == Status.FULL) {
-          cell = new CardCell(false, cellHeight, cellWidth, (ThreeTriosCard) model.getCardBoard()[row][col]);
+          cell = new CardCell(false, cellHeight, cellWidth,
+                  (ThreeTriosCard) model.getCardBoard()[row][col]);
         } else { // Status.HOLE
           cell = new CardCell(false, cellHeight, cellWidth, true);
         }
