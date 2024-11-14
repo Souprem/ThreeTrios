@@ -2,6 +2,9 @@ package cs3500.view;
 
 import cs3500.model.Player;
 
+/** Javadoc.
+**
+ */
 public interface Features {
 
   /**

@@ -1,5 +1,4 @@
 import cs3500.model.*;
-import cs3500.view.ThreeTriosTextView;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,6 +6,9 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * A class to test ai strategies.
+ */
 public class TestAIStrategies {
   TriosModel<ThreeTriosCard> model;
 
@@ -14,55 +16,6 @@ public class TestAIStrategies {
   public void init() {
     model = new ThreeTriosModel();
   }
-
-//  @Test
-//  public void testMaxFlipAI() throws IOException {
-//    TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-//    model.startGame(7, "test" + File.separator + "configs" + File.separator
-//                    + "CardConfigSmall",
-//            "test" + File.separator + "configs" + File.separator
-//                    + "separatedBoardConfigTest");
-//    Status[][] statusBoardBefore = {
-//            {Status.HOLE, Status.HOLE, Status.EMPTY, Status.EMPTY},
-//            {Status.EMPTY, Status.HOLE, Status.HOLE, Status.HOLE},
-//            {Status.EMPTY, Status.EMPTY, Status.HOLE, Status.HOLE},
-//            {Status.HOLE, Status.HOLE, Status.HOLE, Status.HOLE},
-//            {Status.EMPTY, Status.EMPTY, Status.EMPTY, Status.EMPTY}
-//    };
-//    model.playCard(1, 1, 0); //2 south
-//    model.playCard(1, 4, 3); //doesn't matter
-//    model.playCard(1, 2, 1); //7 west
-//    model.playCard(1, 4, 2); //doesn't matter
-//    model.playCard(1, 0, 3); //4 west
-//    // need a card with 3+ north and 8+ east
-//
-//    Status[][] statusBoardAfter = {
-//            {Status.HOLE, Status.HOLE, Status.EMPTY, Status.FULL},
-//            {Status.FULL, Status.HOLE, Status.HOLE, Status.HOLE},
-//            {Status.EMPTY, Status.FULL, Status.HOLE, Status.HOLE},
-//            {Status.HOLE, Status.HOLE, Status.HOLE, Status.HOLE},
-//            {Status.EMPTY, Status.EMPTY, Status.FULL, Status.FULL}
-//    };
-//
-//    Status[][] statusBoardEnd = {
-//            {Status.HOLE, Status.HOLE, Status.EMPTY, Status.FULL},
-//            {Status.FULL, Status.HOLE, Status.HOLE, Status.HOLE},
-//            {Status.FULL, Status.FULL, Status.HOLE, Status.HOLE},
-//            {Status.HOLE, Status.HOLE, Status.HOLE, Status.HOLE},
-//            {Status.EMPTY, Status.EMPTY, Status.FULL, Status.FULL}
-//    };
-//
-//    Assert.assertEquals(model.getCardBoard()[2][0], null);
-//    TriosAI maxFlip = new MaxFlipTriosAI();
-//    int[] tempMove = new int[3];
-//    tempMove = maxFlip.findMove(model, Player.BLUE);
-//    for (int i : tempMove){
-//      System.out.println(i);
-//    }
-//    model.playCard(tempMove[0],tempMove[1],tempMove[2]);
-//    Assert.assertEquals(model.getCardBoard()[2][0].getOwner(), Player.BLUE);
-//    Assert.assertEquals(model.getStatusBoard(), statusBoardEnd);
-//  }
 
   @Test
   public void testMaxFlipMock() throws IOException {
@@ -85,7 +38,7 @@ public class TestAIStrategies {
 
   @Test
   public void testMaxFlipMock2() throws IOException {
-    TriosModel<ThreeTriosCard> model = new MaxFlipTriosMockModel2();
+    TriosModel<ThreeTriosCard> model = new MaxFlipTriosMockModel();
     TriosAI maxFlip = new MaxFlipTriosAI();
     int[] tempMove = new int[4];
     tempMove = maxFlip.findMove(model, Player.RED);
@@ -120,42 +73,43 @@ public class TestAIStrategies {
     Assert.assertEquals(tempMove1[2], tempMove[2]);
     Assert.assertEquals(tempMove1[3], tempMove[3]);
   }
+
   @Test
   public void testMaxFlipEasyNoChoice() throws IOException {
-  TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-  model.startGame(5, "test" + File.separator + "configs" + File.separator
-                  + "CardConfigTiny",
-          "test" + File.separator + "configs" + File.separator
-                  + "boardConfigTiny");
-  Status[][] statusBoardBefore = {
-          {Status.EMPTY, Status.EMPTY},
-          {Status.EMPTY, Status.HOLE},
-          {Status.EMPTY, Status.EMPTY}
-  };
-  model.playCard(3, 0, 1);
-  model.playCard(3, 1, 0);
-  model.playCard(2, 2, 1);
+    TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
+    model.startGame(5, "test" + File.separator + "configs" + File.separator
+                    + "CardConfigTiny",
+            "test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny");
+    Status[][] statusBoardBefore = {
+            {Status.EMPTY, Status.EMPTY},
+            {Status.EMPTY, Status.HOLE},
+            {Status.EMPTY, Status.EMPTY}
+    };
+    model.playCard(3, 0, 1);
+    model.playCard(3, 1, 0);
+    model.playCard(2, 2, 1);
 
-  Status[][] statusBoardAfter = {
-          {Status.EMPTY, Status.FULL},//x 3r
-          {Status.FULL, Status.HOLE}, //3b x
-          {Status.EMPTY, Status.FULL} //x 2r
-  };
+    Status[][] statusBoardAfter = {
+            {Status.EMPTY, Status.FULL},//x 3r
+            {Status.FULL, Status.HOLE}, //3b x
+            {Status.EMPTY, Status.FULL} //x 2r
+    };
 
-  TriosAI maxFlip = new MaxFlipTriosAI();
-  int[] tempMove = new int[3];
-  tempMove = maxFlip.findMove(model, Player.BLUE);
-  int[] tempMove1 = new int[3];
-  //Expecting the AI to go to the upper leftmost corner
-  //as there is no way for it to flip the opponents cards
-  tempMove1[0] = 1;
-  tempMove1[1] = 0;
-  tempMove1[2] = 0;
+    TriosAI maxFlip = new MaxFlipTriosAI();
+    int[] tempMove = new int[3];
+    tempMove = maxFlip.findMove(model, Player.BLUE);
+    int[] tempMove1 = new int[3];
+    //Expecting the AI to go to the upper leftmost corner
+    //as there is no way for it to flip the opponents cards
+    tempMove1[0] = 1;
+    tempMove1[1] = 0;
+    tempMove1[2] = 0;
 
-  Assert.assertEquals(tempMove[0], tempMove1[0]);
-  Assert.assertEquals(tempMove[1], tempMove1[1]);
-  Assert.assertEquals(tempMove[2], tempMove1[2]);
-  Assert.assertEquals(model.getStatusBoard(), statusBoardAfter);
+    Assert.assertEquals(tempMove[0], tempMove1[0]);
+    Assert.assertEquals(tempMove[1], tempMove1[1]);
+    Assert.assertEquals(tempMove[2], tempMove1[2]);
+    Assert.assertEquals(model.getStatusBoard(), statusBoardAfter);
 }
 
   @Test

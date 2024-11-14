@@ -1,17 +1,15 @@
 package cs3500.view;
 
+import cs3500.model.Player;
+import cs3500.model.ReadOnlyTriosModel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-
-import cs3500.model.Player;
-import cs3500.model.ReadOnlyTriosModel;
 
 /**
  * A class to represent the graphic user interface view for a

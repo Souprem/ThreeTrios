@@ -42,6 +42,9 @@ public class ThreeTriosCard implements Card {
     this.west = setAttackValue(west, this.west);
   }
 
+  /**
+   * Javadoc.
+   */
   public ThreeTriosCard(ThreeTriosCard other) {
     // Copy immutable field directly (String is immutable)
     this.CARD_NAME = other.CARD_NAME;
@@ -62,11 +65,17 @@ public class ThreeTriosCard implements Card {
     this.owner = owner;
   }
 
+  /**
+   * Javadoc.
+   */
   @Override
   public Player getOwner() {
     return this.owner;
   }
 
+  /**
+   * Javadoc.
+   */
   public String toString() {
     return this.CARD_NAME + " " + this.north.numericValue + " " + this.south.numericValue
             + " " + this.east.numericValue + " " + this.west.numericValue;

@@ -48,7 +48,8 @@ public class CornersTriosAI implements TriosAI {
       }
       return new int[]{bestCard, model.numRows() - 1, 0, currentSum};
 
-    } else if (model.getStatusBoard()[model.numRows() - 1][model.numCols() - 1].equals(Status.EMPTY)) {
+    } else if (model.getStatusBoard()[model.numRows() - 1][model.numCols() - 1].equals(
+            Status.EMPTY)) {
       for (int i = 0; i < model.getHand(player).size(); i++) {
         ThreeTriosCard currentCard = (ThreeTriosCard) model.getHand(player).get(i);
         currentSum = currentCard.getNorth().numericValue + currentCard.getWest().numericValue;

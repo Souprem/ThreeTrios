@@ -9,7 +9,7 @@ import java.util.List;
  * What is implementation specific about this model?
  *
  */
-public class ThreeTriosModel implements TriosModel<ThreeTriosCard>{
+public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
 
   /*
    for boards: ROW, COLUMN
@@ -23,7 +23,9 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard>{
   protected Player currentTurn = Player.RED;
 
   // No argument constructor
-  public ThreeTriosModel() {}
+  public ThreeTriosModel() {
+    //no arguments
+  }
 
   /**
    * A deep copy constructor for ThreeTriosModel that takes in a ThreeTriosModel
@@ -67,7 +69,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard>{
   }
 
   @Override
-  public Player getCurrentPlayer(){
+  public Player getCurrentPlayer() {
     if (currentTurn == Player.RED) {
       return Player.RED;
     } else {
@@ -153,7 +155,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard>{
 
   @Override
   public Card cardAt(int row, int col) {
-    if (!(statusBoard[row][col].equals(Status.FULL))){
+    if (!(statusBoard[row][col].equals(Status.FULL))) {
       throw new IllegalArgumentException("cannot ask where non existent card is");
     }
     return cardBoard[row][col];
@@ -166,7 +168,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard>{
 
   @Override
   public Player ownerOf(int row, int col) {
-    if (!(statusBoard[row][col].equals(Status.FULL))){
+    if (!(statusBoard[row][col].equals(Status.FULL))) {
       throw new IllegalArgumentException("cannot ask where non existent card is");
     }
     return cardBoard[row][col].getOwner();
@@ -185,9 +187,9 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard>{
     //checks new model to provided model to see how many cards were flipped
     for (int a = 0; a < this.numRows(); a++) {
       for (int b = 0; b < this.numCols(); b++) {
-        if (newModel.getStatusBoard()[a][b] == Status.FULL && (row != a || col != b)){
-          if (this.cardBoard[a][b].getOwner() != newModel.getCardBoard()[a][b].getOwner()){
-            numCardsFlipped ++;
+        if (newModel.getStatusBoard()[a][b] == Status.FULL && (row != a || col != b)) {
+          if (this.cardBoard[a][b].getOwner() != newModel.getCardBoard()[a][b].getOwner()) {
+            numCardsFlipped++;
           }
         }
       }
@@ -198,10 +200,10 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard>{
   @Override
   public int calculateScore(Player player) {
     int score = 0;
-    for (int i = 0; i < this.numRows(); i++){
-      for (int j = 0; j < this.numCols(); j++){
-        if (statusBoard[i][j].equals(Status.FULL)){
-          if (cardBoard[i][j].getOwner().equals(player)){
+    for (int i = 0; i < this.numRows(); i++) {
+      for (int j = 0; j < this.numCols(); j++) {
+        if (statusBoard[i][j].equals(Status.FULL)) {
+          if (cardBoard[i][j].getOwner().equals(player)) {
             score++;
           }
         }
@@ -214,10 +216,10 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard>{
   @Override
   public void playCard(int cardIndex, int row, int col) {
     List<ThreeTriosCard> tempHand = getCurrentHand();
-    if (row > this.numRows()-1) {
+    if (row > this.numRows() - 1) {
       throw new IllegalArgumentException("cannot input row out of bounds");
     }
-    if (col > this.numCols()-1) {
+    if (col > this.numCols() - 1) {
       throw new IllegalArgumentException("cannot input col out of bounds");
     }
     if (statusBoard[row][col] != Status.EMPTY) {
@@ -267,7 +269,8 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard>{
       int boardLengthCols = statusBoard[0].length;
 
       //looking east
-      if (col < boardLengthCols - 1 && this.statusBoard[row][col + 1] == Status.FULL && this.cardBoard[row][col + 1].owner != otherOwner) {
+      if (col < boardLengthCols - 1 && this.statusBoard[row][col + 1]
+              == Status.FULL && this.cardBoard[row][col + 1].owner != otherOwner) {
         if (tempCard.getNorth().numericValue
                 > this.cardBoard[row][col + 1].getSouth().numericValue) {
           this.cardBoard[row][col + 1].setOwner(cardOwner);
@@ -276,7 +279,9 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard>{
         }
       }
       //looking west
-      if (col > 0 && this.statusBoard[row][col - 1] == Status.FULL && this.cardBoard[row][col - 1].owner != otherOwner) {
+      if (col > 0 && this.statusBoard[row][col - 1]
+              == Status.FULL && this.cardBoard[row][col - 1].owner
+              != otherOwner) {
         if (tempCard.getWest().numericValue
                 > this.cardBoard[row][col - 1].getEast().numericValue) {
           this.cardBoard[row][col - 1].setOwner(cardOwner);
@@ -284,15 +289,17 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard>{
         }
       }
       //looking north
-      if (row > 0 && this.statusBoard[row - 1][col] == Status.FULL && this.cardBoard[row - 1][col].owner != otherOwner) {
+      if (row > 0 && this.statusBoard[row - 1][col]
+              == Status.FULL && this.cardBoard[row - 1][col].owner != otherOwner) {
         if (tempCard.getNorth().numericValue
                 > this.cardBoard[row - 1][col].getSouth().numericValue) {
           this.cardBoard[row - 1][col].setOwner(cardOwner);
           recursiveList.add(new ArrayList<Integer>(Arrays.asList(row - 1, col)));
         }
       }
-      //looking south
-    if (row < boardLengthRows - 1 && this.statusBoard[row + 1][col] == Status.FULL && this.cardBoard[row + 1][col].owner != otherOwner) {
+
+    if (row < boardLengthRows - 1 && this.statusBoard[row + 1][col]
+            == Status.FULL && this.cardBoard[row + 1][col].owner != otherOwner) {
         if (tempCard.getSouth().numericValue
                 > this.cardBoard[row + 1][col].getNorth().numericValue) {
           this.cardBoard[row + 1][col].setOwner(cardOwner);
@@ -333,9 +340,9 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard>{
     //shuffle the deck before startgame so the hands get random cards from the deck
     for (int i = 0; i < handSize; i++) {
       handRed.add(deck.remove(0));
-      handRed.get(handRed.size()-1).setOwner(Player.RED);
+      handRed.get(handRed.size() - 1).setOwner(Player.RED);
       handBlue.add(deck.remove(0));
-      handBlue.get(handRed.size()-1).setOwner(Player.BLUE);
+      handBlue.get(handRed.size() - 1).setOwner(Player.BLUE);
     }
   }
 

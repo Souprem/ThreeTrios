@@ -2,9 +2,13 @@ package cs3500.model;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
+
+/**
+ * Mock to test the Max flip AI.
+ */
 public class MaxFlipTriosMockModel implements TriosModel {
   private Status[][] statusBoard;
   private List<ThreeTriosCard> handRed;
@@ -12,11 +16,13 @@ public class MaxFlipTriosMockModel implements TriosModel {
   private Player currentTurn;
   private ThreeTriosCard[][] cardBoard;
 
-
+  /**
+   * A mock to test the max flip AI.
+   */
   public MaxFlipTriosMockModel() {
     this.handRed = new ArrayList<ThreeTriosCard>();
     this.handRed.add(new ThreeTriosCard("TEST", "9", "1", "9", "9"));
-    this.handRed.add(new ThreeTriosCard("TEST1", "9", "9" ,"9", "9"));
+    this.handRed.add(new ThreeTriosCard("TEST1", "9", "9",  "9", "9"));
     this.handRed.add(new ThreeTriosCard("TEST2", "1", "1", "1", "1"));
     this.statusBoard = new Status[][] {
             {Status.FULL, Status.EMPTY},
@@ -25,9 +31,9 @@ public class MaxFlipTriosMockModel implements TriosModel {
     };
     this.cardBoard = new ThreeTriosCard[][] {
             {new ThreeTriosCard("TL", "1", "1", "1", "1"), null},
-            {new ThreeTriosCard("ML", "1", "1" ,"1 ","1"),
-                    new ThreeTriosCard("MR", "1", "1", "1", "1")},
-            {new ThreeTriosCard("BL", "9", "9" ,"9 ","9"), null}
+            {new ThreeTriosCard("ML", "1", "1", "1 ", "1"),
+                new ThreeTriosCard("MR", "1", "1", "1", "1")},
+            {new ThreeTriosCard("BL", "9", "9",  "9  ", "9"), null}
     };
   }
 
@@ -81,7 +87,9 @@ public class MaxFlipTriosMockModel implements TriosModel {
   }
 
   @Override
-  public int numCols() { return statusBoard[0].length; }
+  public int numCols() {
+    return statusBoard[0].length;
+  }
 
   @Override
   public boolean isGameOver() {
@@ -125,15 +133,14 @@ public class MaxFlipTriosMockModel implements TriosModel {
       FileWriter writer = new FileWriter("strategy-transcript.txt");
       writer.write("row: " + row + "col: " + col + "card: " + cardIndex + "\n");
       writer.close();
-    } catch (IOException e){
+    } catch (IOException e) {
       System.out.println("An error occurred.");
       e.printStackTrace();
     }
 
-    if (row == 0 && col == 1 && cardIndex == 1){
+    if (row == 0 && col == 1 && cardIndex == 1) {
       return 10;
-    }
-    else{
+    } else {
       return -1;
     }
   }
@@ -143,6 +150,4 @@ public class MaxFlipTriosMockModel implements TriosModel {
     return 0;
   }
 
-
-  // Add other methods as necessary for your tests.
 }

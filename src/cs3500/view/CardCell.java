@@ -3,10 +3,9 @@ package cs3500.view;
 import cs3500.model.Card;
 import cs3500.model.Player;
 import cs3500.model.ThreeTriosCard;
-
-import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
 
 /**

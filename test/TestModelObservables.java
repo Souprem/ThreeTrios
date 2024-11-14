@@ -1,10 +1,21 @@
-import cs3500.model.*;
+import cs3500.model.TriosModel;
+import cs3500.model.ThreeTriosCard;
+import cs3500.model.Card;
+import cs3500.model.Status;
+import cs3500.model.Player;
+import cs3500.model.ThreeTriosModel;
+import cs3500.model.CardConfigReader;
+import cs3500.model.BoardConfigReader;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 
+/**
+ * A class to test the model observables.
+ */
 public class TestModelObservables {
   TriosModel<ThreeTriosCard> model;
   CardConfigReader cardReader;

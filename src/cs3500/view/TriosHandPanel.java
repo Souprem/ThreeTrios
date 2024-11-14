@@ -1,25 +1,29 @@
 package cs3500.view;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-
+import cs3500.model.Player;
+import cs3500.model.ReadOnlyTriosModel;
+import cs3500.model.ThreeTriosCard;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
 
-import cs3500.model.Player;
-import cs3500.model.ReadOnlyTriosModel;
-import cs3500.model.ThreeTriosCard;
-
+/**
+ * Javadoc.
+ */
 public class TriosHandPanel extends JPanel {
   private final ReadOnlyTriosModel model;
   private final Player owner;
 
+  /**
+   * Javadoc.
+   */
   public TriosHandPanel(int width, int height, int rows, int cols, ReadOnlyTriosModel model,
                         Player owner) {
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); // Vertical arrangement

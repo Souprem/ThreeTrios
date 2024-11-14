@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * A mock to test the corners AI.
+ */
 public class CornerTriosAIMockModel implements TriosModel {
   private Status[][] statusBoard;
   private List<ThreeTriosCard> handRed;

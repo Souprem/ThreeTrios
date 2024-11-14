@@ -1,22 +1,26 @@
 package cs3500.view;
 
+import cs3500.model.ReadOnlyTriosModel;
+import cs3500.model.Status;
+import cs3500.model.ThreeTriosCard;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
-import cs3500.model.ReadOnlyTriosModel;
-import cs3500.model.Status;
-import cs3500.model.ThreeTriosCard;
-
+/**
+ * Javadoc.
+ */
 public class TriosBoardPanel extends JPanel {
   private final ReadOnlyTriosModel model;
   private final int rows;
   private final int cols;
 
+  /**
+   * Javadoc.
+   */
   public TriosBoardPanel(int width, int height, int rows, int cols, ReadOnlyTriosModel model) {
     this.model = model;
     this.rows = rows;

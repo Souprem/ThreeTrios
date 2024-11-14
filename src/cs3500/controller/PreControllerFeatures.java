@@ -1,4 +1,4 @@
-package cs3500.Controller;
+package cs3500.controller;
 
 import cs3500.model.Player;
 import cs3500.view.Features;
