@@ -1,24 +1,44 @@
 package cs3500.model;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
-public class MaxFlipTriosMockModel implements TriosModel<ThreeTriosCard> {
+public class MaxFlipTriosMockModel implements TriosModel {
+  private Status[][] statusBoard;
+  private List<ThreeTriosCard> handRed;
+  private List<ThreeTriosCard> handBlue;
+  private Player currentTurn;
+  private ThreeTriosCard[][] cardBoard;
 
 
-  @Override
-  public Player getCurrentPlayer() {
-    return null;
+  public MaxFlipTriosMockModel(Status[][] statusBoard, List<ThreeTriosCard> handRed, List<ThreeTriosCard> handBlue, Player currentTurn) {
+    this.statusBoard = new Status[][] {
+            {Status.EMPTY, Status.FULL},
+            {Status.FULL, Status.HOLE},
+            {Status.EMPTY, Status.FULL}
+    };
+//    this.handRed = new List<ThreeTriosCard> {};
+    this.handBlue = handBlue;
+    this.currentTurn = currentTurn;
   }
 
   @Override
-  public List getHand(Player player) {
-    return null;
+  public Status[][] getStatusBoard() {
+    return this.statusBoard;
+  }
+
+  @Override
+  public List<ThreeTriosCard> getHand(Player player) {
+    if (player == Player.RED) {
+      return this.handRed;
+    } else {
+      return this.handBlue;
+    }
   }
 
   @Override
   public List getCurrentHand() {
-    return null;
+    return List.of();
   }
 
   @Override
@@ -27,43 +47,61 @@ public class MaxFlipTriosMockModel implements TriosModel<ThreeTriosCard> {
   }
 
   @Override
-  public Status[][] getStatusBoard() {
-    return new Status[0][];
+  public Player getCurrentPlayer() {
+    return this.currentTurn;
+  }
+
+  @Override
+  public void playCard(int cardIndex, int row, int col) {
+    // Simulate playing a card by updating the status board
+    if (statusBoard[row][col] != Status.EMPTY) {
+      throw new IllegalArgumentException("Cannot play card in non-empty spot.");
+    }
+    statusBoard[row][col] = Status.FULL; // Simulate placing a card
+  }
+
+  @Override
+  public void battleStep(List currentCards) {
+
+  }
+
+  // Other methods can be no-ops or throw UnsupportedOperationException if not needed for tests.
+
+  @Override
+  public int numRows() { return statusBoard.length; }
+
+  @Override
+  public int numCols() { return statusBoard[0].length; }
+
+  @Override
+  public boolean isGameOver() {
+    throw new UnsupportedOperationException("Not implemented in mock.");
   }
 
   @Override
   public Player getWinner() {
-    return null;
-  }
-
-  @Override
-  public boolean isGameOver() {
-    return false;
-  }
-
-  @Override
-  public int numRows() {
-    return 0;
-  }
-
-  @Override
-  public int numCols() {
-    return 0;
+    throw new UnsupportedOperationException("Not implemented in mock.");
   }
 
   @Override
   public Card cardAt(int row, int col) {
-    return null;
+    throw new UnsupportedOperationException("Not implemented in mock.");
+  }
+
+
+  @Override
+  public void startGame(int numCardCells, String cardFile, String boardFile) {
+
   }
 
   @Override
   public Status statusAt(int row, int col) {
-    return null;
+    return statusBoard[row][col];
   }
 
   @Override
   public Player ownerOf(int row, int col) {
-    return null;
+    throw new UnsupportedOperationException("Not implemented in mock.");
   }
 
   @Override
@@ -81,18 +119,6 @@ public class MaxFlipTriosMockModel implements TriosModel<ThreeTriosCard> {
     return 0;
   }
 
-  @Override
-  public void playCard(int cardIndex, int row, int col) {
 
-  }
-
-  @Override
-  public void battleStep(List<ArrayList<Integer>> currentCards) {
-
-  }
-
-  @Override
-  public void startGame(int numCardCells, String cardFile, String boardFile) {
-
-  }
+  // Add other methods as necessary for your tests.
 }

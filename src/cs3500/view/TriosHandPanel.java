@@ -18,14 +18,23 @@ public class TriosHandPanel extends JPanel {
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); // Set the layout to Y_AXIS for vertical arrangement
     this.model = model;
     this.setBorder(BorderFactory.createEmptyBorder());
-    this.setPreferredSize(new Dimension(width, height));
+    this.setSize(width, height);
 
 
-    int cardHeight = height / model.getHand(owner).size();  // Fixed formula for height calculation
-    int cardWidth = width / cols;  // Calculate width for each card
+    int cardHeight = this.getHeight() / model.getHand(owner).size();  // Fixed formula for height calculation
+    int cardWidth = this.getWidth();  // Calculate width for each card
+    initializeCardCells(model, owner, cardHeight, cardWidth, -1);
+  }
+
+  public void initializeCardCells(ReadOnlyTriosModel model, Player owner, int cardHeight, int cardWidth, int index) {
+    removeAll();
     ArrayList<CardCell> cardCells = new ArrayList<CardCell>();
     for (int i = 0; i < model.getHand(owner).size(); i++) {
-      cardCells.add(new CardCell(cardHeight, cardWidth, (ThreeTriosCard) this.model.getHand(owner).get(i)));
+      if(i == 0 && owner == Player.BLUE) {
+        cardCells.add(new CardCell(true, cardHeight, cardWidth, (ThreeTriosCard) this.model.getHand(owner).get(i)));
+      } else {
+        cardCells.add(new CardCell(false, cardHeight, cardWidth, (ThreeTriosCard) this.model.getHand(owner).get(i)));
+      }
     }
 
     // Add each CardCell to the hand display
@@ -41,10 +50,12 @@ public class TriosHandPanel extends JPanel {
 
       cellPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
       // Set preferred size of the panel based on the CardCell dimensions
-      cellPanel.setPreferredSize(new Dimension((int) cell.getBounds().getWidth(), (int) cell.getBounds().getHeight()));
+      cellPanel.setPreferredSize(new Dimension((int) cell.getBounds().getWidth(), this.getHeight() / this.model.getHand(owner).size()));
       add(cellPanel);
       add(Box.createVerticalStrut(0));  // Ensure no space between cards
     }
+    revalidate();
+    repaint();
   }
 
   @Override

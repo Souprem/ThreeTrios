@@ -11,53 +11,65 @@ import cs3500.model.Status;
 import cs3500.model.ThreeTriosCard;
 
 public class TriosBoardPanel extends JPanel {
-  Graphics2D g2d;
-  ReadOnlyTriosModel model;
+  private final ReadOnlyTriosModel model;
+  private final int rows;
+  private final int cols;
 
   public TriosBoardPanel(int width, int height, int rows, int cols, ReadOnlyTriosModel model) {
-    setLayout(new GridLayout(rows, cols, 0, 0)); // Set gaps to 0 to ensure cells are directly adjacent
     this.model = model;
-    setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Border around the entire panel
-
-    ArrayList<CardCell> cardCells = new ArrayList<CardCell>();
-    for (int i = rows - 1; i > -1; i--) {
-      for (int j = 0; j < cols; j++) {
-        //three card cell constructors that take in nothing (empty cell), card (full cell),
-        // boolean (representing if there's a hole?)
-        if (this.model.getStatusBoard()[i][j] == Status.EMPTY) {
-          cardCells.add(new CardCell(height / rows, width / cols));
-        } else if (this.model.getStatusBoard()[i][j] == Status.FULL) {
-          cardCells.add(new CardCell(height / rows, width / cols, (ThreeTriosCard) this.model.getCardBoard()[i][j]));
-        } if (this.model.getStatusBoard()[i][j] == Status.HOLE) {
-          cardCells.add(new CardCell(height / rows, width / cols, true));
-        }
-      }
-    }
-
-    // Add each CardCell to the grid
-    for (CardCell cell : cardCells) {
-      JPanel cellPanel = new JPanel() {
-        @Override
-        protected void paintComponent(Graphics g) {
-          super.paintComponent(g);
-          Graphics2D g2 = (Graphics2D) g;
-          cell.draw(g2);  // Use CardCell's draw method to render the cell
-        }
-      };
-
-      setBorder(BorderFactory.createLineBorder(Color.GRAY)); // Border around the entire card panel
-      // Set preferred size of the panel based on the CardCell dimensions
-      cellPanel.setPreferredSize(new Dimension((int) cell.getBounds().getWidth(), (int) cell.getBounds().getHeight()));
-      add(cellPanel);
-    }
+    this.rows = rows;
+    this.cols = cols;
+    setPreferredSize(new Dimension(width, height));
+    setBorder(BorderFactory.createLineBorder(Color.BLACK));
   }
 
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
+    Graphics2D g2d = (Graphics2D) g;
 
-    this.g2d = (Graphics2D) g;
+    int panelWidth = getWidth();
+    int panelHeight = getHeight();
+
+    // Calculate base cell width and height
+    int baseCellWidth = panelWidth / cols;
+    int baseCellHeight = panelHeight / rows;
+
+    // Calculate remaining pixels that need to be distributed
+    int extraWidth = panelWidth % cols;
+    int extraHeight = panelHeight % rows;
+
+    // Initialize y position for drawing cells
+    int yPosition = 0;
+
+    for (int row = 0; row < rows; row++) {
+      int cellHeight = baseCellHeight + (row < extraHeight ? 1 : 0); // Distribute extra height
+
+      // Initialize x position for drawing cells in this row
+      int xPosition = 0;
+      for (int col = 0; col < cols; col++) {
+        int cellWidth = baseCellWidth + (col < extraWidth ? 1 : 0); // Distribute extra width
+
+        // Determine cell type and create cell
+        CardCell cell;
+        if (model.getStatusBoard()[row][col] == Status.EMPTY) {
+          cell = new CardCell(false, cellHeight, cellWidth);
+        } else if (model.getStatusBoard()[row][col] == Status.FULL) {
+          cell = new CardCell(false, cellHeight, cellWidth, (ThreeTriosCard) model.getCardBoard()[row][col]);
+        } else { // Status.HOLE
+          cell = new CardCell(false, cellHeight, cellWidth, true);
+        }
+
+        // Translate to (xPosition, yPosition) and draw cell
+        g2d.translate(xPosition, yPosition);
+        cell.draw(g2d);
+        g2d.translate(-xPosition, -yPosition);
+
+        // Move x position for next cell in this row
+        xPosition += cellWidth;
+      }
+      // Move y position for next row
+      yPosition += cellHeight;
+    }
   }
-
-
 }

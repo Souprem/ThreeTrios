@@ -2,7 +2,7 @@ package cs3500.model;
 
 import cs3500.ThreeTrios;
 
-public interface TriosAI <C extends Card>{
+public interface TriosAI{
   /*
   returns card, row, col, score
    */

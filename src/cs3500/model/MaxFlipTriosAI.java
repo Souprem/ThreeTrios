@@ -1,11 +1,8 @@
 package cs3500.model;
 
-import java.util.ArrayList;
+public class MaxFlipTriosAI implements TriosAI{
 
-public class MaxFlipTriosAI implements TriosAI<ThreeTriosCard>{
-
-  @Override
-  public int[] findMove(TriosModel model, Player player) {
+  public int[] findMove(TriosModel model, Player player){
     int numCardsFlipped = 0;
     //default is 1 to account for card placed
     int maxCardsFlipped = 0;
@@ -13,28 +10,13 @@ public class MaxFlipTriosAI implements TriosAI<ThreeTriosCard>{
     int[] bestMove = new int[4];
     bestMove[0] = -1;
 
-    Status[][] baseStatusBoard = model.getStatusBoard();
-    Card[][] baseCardBoard = model.getCardBoard();
-    //i is row index
-    for (int i = 0; i < baseStatusBoard.length; i++){
+    for (int i = 0; i < model.getStatusBoard().length; i++){
       //j is column index
-      for (int j = 0; j< baseStatusBoard[0].length; j++){
-        if (baseStatusBoard[i][j] == Status.EMPTY){
+      for (int j = 0; j< model.getStatusBoard()[0].length; j++) {
+        if (model.getStatusBoard()[i][j] == Status.EMPTY) {
           //c is card index
-          for (int c = 1; c < model.getHand(player).size()+1; c++){
-            //create new model to try out moves on
-            TriosModel newModel = new ThreeTriosModel((ThreeTriosModel)model);
-            newModel.playCard(c, i, j);
-            //checks new model to provided model to see how many cards were flipped
-            for (int a = 0; a < baseStatusBoard.length; a++) {
-              for (int b = 0; b < baseStatusBoard[0].length; b++) {
-                if (newModel.getStatusBoard()[a][b] == Status.FULL && (i != a || j != b)){
-                  if (baseCardBoard[a][b].getOwner() != newModel.getCardBoard()[a][b].getOwner()){
-                    numCardsFlipped ++;
-                  }
-                }
-              }
-            }
+          for (int c = 1; c < model.getHand(player).size() + 1; c++) {
+            numCardsFlipped = model.numFlipped(i,j,c);
             if (numCardsFlipped > maxCardsFlipped){
               maxCardsFlipped = numCardsFlipped;
               bestMove = new int[]{c, i, j, numCardsFlipped*4};
@@ -50,9 +32,9 @@ public class MaxFlipTriosAI implements TriosAI<ThreeTriosCard>{
               }
             }
           }
+          }
         }
       }
-    }
     if (bestMove[0] == -1){
       return noValidMoves(model);
     }

@@ -19,14 +19,15 @@ public class CardCell extends Path2D.Double {
   private String rightNumber;
   private String bottomNumber;
   private String leftNumber;
+  private boolean selected;
 
   /**
    * Constructor for an empty cell that can hold a card.
    * @param height
    * @param width
    */
-  public CardCell(int height, int width) {
-    this(height, width, false, null); // Empty cell without card
+  public CardCell(boolean selected, int height, int width) {
+    this(selected, height, width, false, null); // Empty cell without card
   }
 
   /**
@@ -34,8 +35,8 @@ public class CardCell extends Path2D.Double {
    * @param width
    * @param hole
    */
-  public CardCell(int height, int width, boolean hole) {
-    this(height, width, hole, null); // Hole cell without card
+  public CardCell(boolean selected, int height, int width, boolean hole) {
+    this(selected, height, width, hole, null); // Hole cell without card
   }
 
   /**
@@ -43,14 +44,15 @@ public class CardCell extends Path2D.Double {
    * @param width
    * @param card
    */
-  public CardCell(int height, int width, ThreeTriosCard card) {
-    this(height, width, false, card); // Filled cell with a card
+  public CardCell(boolean selected, int height, int width, ThreeTriosCard card) {
+    this(selected, height, width, false, card); // Filled cell with a card
   }
 
   /**
    * Private constructor for shared logic between all card states (empty, hole, filled).
    */
-  private CardCell(int height, int width, boolean hole, ThreeTriosCard card) {
+  private CardCell(boolean selected, int height, int width, boolean hole, ThreeTriosCard card) {
+    this.selected = selected;
     this.height = height;
     this.width = width;
     this.hole = hole;
@@ -102,7 +104,11 @@ public class CardCell extends Path2D.Double {
       g2.draw(this);
     } else {
       // Fill color based on card owner
-      g2.setColor(this.card.getOwner() == Player.BLUE ? Color.CYAN : Color.RED);
+      if(this.selected){
+        g2.setColor(Color.GREEN);
+      } else {
+        g2.setColor(this.card.getOwner() == Player.BLUE ? Color.CYAN : Color.RED);
+      }
       g2.fill(this);  // Fill the rectangle
       g2.setColor(Color.DARK_GRAY);  // Set text color to black
       g2.draw(this);  // Draw the rectangle

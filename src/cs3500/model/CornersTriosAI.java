@@ -1,6 +1,6 @@
 package cs3500.model;
 
-public class CornersTriosAI implements TriosAI<ThreeTriosCard> {
+public class CornersTriosAI implements TriosAI {
 
     @Override
     public int[] findMove(TriosModel model, Player player) {
