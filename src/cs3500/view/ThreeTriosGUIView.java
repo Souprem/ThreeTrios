@@ -1,15 +1,17 @@
 package cs3500.view;
 
+import cs3500.controller.PreControllerFeatures;
 import cs3500.model.Player;
 import cs3500.model.ReadOnlyTriosModel;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import cs3500.model.Status;
+import cs3500.model.ThreeTriosCard;
+
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
+import java.util.ArrayList;
+
+import javax.swing.*;
 
 /**
  * A class to represent the graphic user interface view for a
@@ -17,9 +19,6 @@ import javax.swing.JFrame;
  */
 public class ThreeTriosGUIView extends JFrame implements TriosGUIView {
   private final ReadOnlyTriosModel model;
-  private TriosBoardPanel centerGrid;
-  private TriosHandPanel leftPanel;
-  private TriosHandPanel rightPanel;
   private int rows;
   private int cols;
 
@@ -32,59 +31,85 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView {
     this.model = model;
     rows = model.getCardBoard().length;
     cols = model.getCardBoard()[0].length;
-    this.setSize(800, 800);
+    int handPanelWidthInit = 200;
+    int handPanelHeightInit = 500;
 
-    // Set window title and close operation
+    this.setPreferredSize(new Dimension(800, 500));
+
     this.setTitle("Current Player: " + model.getCurrentPlayer().toString());
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    // Create panels with initial dimensions
-    this.centerGrid = new TriosBoardPanel(this.getWidth() / 2, this.getHeight(), rows, cols,
-            this.model);
-    this.centerGrid.setBorder(BorderFactory.createLineBorder(Color.black));
+    this.setLayout(new BorderLayout(0, 0));
 
-    this.leftPanel = new TriosHandPanel(this.getWidth() / 4, this.getHeight(), rows, cols,
-            this.model, Player.RED);
-    this.rightPanel = new TriosHandPanel(this.getWidth() / 4, this.getHeight(), rows, cols,
-            this.model, Player.BLUE);
+    this.createHand(model, Player.BLUE, BorderLayout.WEST, handPanelWidthInit, handPanelHeightInit);
 
-    // Layout setup
-    this.setLayout(new BorderLayout());
-    this.add(leftPanel, BorderLayout.WEST);
-    this.add(centerGrid, BorderLayout.CENTER);
-    this.add(rightPanel, BorderLayout.EAST);
+    this.createHand(model, Player.RED, BorderLayout.EAST, handPanelWidthInit, handPanelHeightInit);
 
+    this.createGrid(model);
 
-    double handCardHeight = (double) this.getHeight()
-            / model.getHand(model.getCurrentPlayer()).size();
+    PreControllerFeatures features = new PreControllerFeatures();
+
+    //add this action listener separately, this should be connected to the Features interface
+    int frameWidth = this.getWidth();
+    int frameHeight = this.getHeight();
+    int boardWidth = this.getWidth() - handPanelWidthInit;
     this.addMouseListener(new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
         int mouseX = e.getLocationOnScreen().x;
         int mouseY = e.getLocationOnScreen().y;
-        if (mouseX > handCardHeight - 200) {
-          System.out.println(mouseY / handCardHeight + ", " + Player.BLUE);
+        //Right hand panel
+        if (mouseX > 600) {
+          System.out.println("right hand panel");
+        } else if (mouseX < handPanelWidthInit) {
+          System.out.println("left hand panel");
+        } else {
+          System.out.println("board");
         }
+        //Left hand panel
+        //Board
         System.out.println(mouseX + ", " + mouseY);
       }
     });
 
-    this.addComponentListener(new ComponentAdapter() {
-      @Override
-      public void componentResized(ComponentEvent e) {
-        int newWidth = getWidth();
-        int newHeight = getHeight();
-        centerGrid.setSize(newWidth / 2, newHeight);
-        leftPanel.setSize(newWidth / 4, newHeight);
-        rightPanel.setSize(newWidth / 4, newHeight);
-        revalidate();
-        repaint();
-      }
-    });
-
-
-    // Final setup
     this.pack();  // Pack the components to their preferred sizes
+  }
+
+  private void createGrid(ReadOnlyTriosModel model) {
+    JPanel gridPanel = new JPanel();
+    gridPanel.setLayout(new GridLayout(4, 3));
+    for (int row = 0; row < rows; row++) {
+      for (int col = 0; col < cols; col++) {
+        if (model.getStatusBoard()[row][col] == Status.EMPTY) {
+          CardCell cell = new CardCell(false, 0, 0);
+          gridPanel.add(cell);
+        } else if (model.getStatusBoard()[row][col] == Status.FULL) {
+          CardCell cell = new CardCell(false, 0, 0,
+                  (ThreeTriosCard) model.getCardBoard()[row][col]);
+          gridPanel.add(cell);
+        } else { // Status.HOLE
+          CardCell cell = new CardCell(false, 0, 0, true);
+          gridPanel.add(cell);
+        }
+      }
+    }
+    this.add(gridPanel, BorderLayout.CENTER);
+  }
+
+  private void createHand(ReadOnlyTriosModel model, Player blue, String west, int width, int height) {
+    JPanel leftHand = new JPanel(); //blue hand
+    leftHand.setLayout(new GridLayout(0, 1));
+    ArrayList<CardCell> cardCells = new ArrayList<>();
+    for (int i = 0; i < model.getHand(blue).size(); i++) {
+      // Initialize each CardCell based on the card data and selection status
+      cardCells.add(new CardCell(false, 0, 0,
+              (ThreeTriosCard) model.getHand(blue).get(i)));
+    }
+    for (CardCell cell : cardCells) {
+      cell.setPreferredSize(new Dimension(width, height)); //this is the size of the hand
+      leftHand.add(cell);
+    }
+    this.add(leftHand, west);
   }
 
 
