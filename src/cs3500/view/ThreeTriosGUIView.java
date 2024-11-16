@@ -77,7 +77,7 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView {
 
   private void createGrid(ReadOnlyTriosModel model) {
     JPanel gridPanel = new JPanel();
-    gridPanel.setLayout(new GridLayout(4, 3));
+    gridPanel.setLayout(new GridLayout(5, 4));
     for (int row = 0; row < rows; row++) {
       for (int col = 0; col < cols; col++) {
         if (model.getStatusBoard()[row][col] == Status.EMPTY) {
