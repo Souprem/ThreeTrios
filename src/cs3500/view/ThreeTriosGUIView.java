@@ -7,8 +7,12 @@ import cs3500.model.Status;
 import cs3500.model.ThreeTriosCard;
 
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -21,6 +25,10 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView {
   private final ReadOnlyTriosModel model;
   private int rows;
   private int cols;
+  private int spaceCounter;
+  private int boardWidth;
+  private MouseListenerGetCoords mouseListener;
+  private int boardAndHandWidth;
 
   /**
    * A constructor for the ThreeTriosGUIView class which takes in a
@@ -34,7 +42,7 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView {
     int handPanelWidthInit = 200;
     int handPanelHeightInit = 500;
 
-    this.setPreferredSize(new Dimension(800, 500));
+    this.setPreferredSize(new Dimension(800, 500)); // width - 6? height - 30?
 
     this.setTitle("Current Player: " + model.getCurrentPlayer().toString());
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,39 +53,36 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView {
 
     this.createHand(model, Player.RED, BorderLayout.EAST, handPanelWidthInit, handPanelHeightInit);
 
-    this.createGrid(model);
+    this.createGrid(model, 5, 4);
 
     PreControllerFeatures features = new PreControllerFeatures();
 
+    //every four pixels, it updates and the grid fills
+    spaceCounter = 0;
+    boardWidth = 500;
+    boardAndHandWidth = handPanelWidthInit + spaceCounter + 6;
+
     //add this action listener separately, this should be connected to the Features interface
-    int frameWidth = this.getWidth();
-    int frameHeight = this.getHeight();
-    int boardWidth = this.getWidth() - handPanelWidthInit;
-    this.addMouseListener(new MouseAdapter() {
+
+    mouseListener = new MouseListenerGetCoords(boardWidth, boardAndHandWidth);
+
+    this.addComponentListener(new ComponentAdapter() {
       @Override
-      public void mouseClicked(MouseEvent e) {
-        int mouseX = e.getLocationOnScreen().x;
-        int mouseY = e.getLocationOnScreen().y;
-        //Right hand panel
-        if (mouseX > 600) {
-          System.out.println("right hand panel");
-        } else if (mouseX < handPanelWidthInit) {
-          System.out.println("left hand panel");
-        } else {
-          System.out.println("board");
-        }
-        //Left hand panel
-        //Board
-        System.out.println(mouseX + ", " + mouseY);
+      public void componentResized(ComponentEvent e) {
+        spaceCounter = (e.getComponent().getSize().width % 3);
+        boardWidth = e.getComponent().getSize().width;
+        mouseListener.updateBoardWidth(boardWidth - handPanelWidthInit - 7 - spaceCounter);
+        boardAndHandWidth = handPanelWidthInit + spaceCounter + 6;
       }
     });
+    this.addMouseListener(mouseListener);
 
     this.pack();  // Pack the components to their preferred sizes
   }
 
-  private void createGrid(ReadOnlyTriosModel model) {
+  private void createGrid(ReadOnlyTriosModel model, int rows, int cols) {
     JPanel gridPanel = new JPanel();
-    gridPanel.setLayout(new GridLayout(5, 4));
+    gridPanel.setLayout(new GridLayout(rows, cols));
     for (int row = 0; row < rows; row++) {
       for (int col = 0; col < cols; col++) {
         if (model.getStatusBoard()[row][col] == Status.EMPTY) {
