@@ -1,6 +1,6 @@
 import cs3500.model.BoardConfigReader;
 import cs3500.model.CardConfigReader;
-import cs3500.model.Player;
+import cs3500.model.PlayerColor;
 import cs3500.model.Status;
 import cs3500.model.ThreeTriosCard;
 import cs3500.model.ThreeTriosModel;
@@ -259,9 +259,9 @@ public class TestThreeTriosModel {
     ThreeTriosCard c8 = new ThreeTriosCard("TEST8", "1", "4", "3",
             "8");
 
-    Assert.assertEquals(model.getHand(Player.RED), new ArrayList<ThreeTriosCard>(Arrays.asList(c1,
+    Assert.assertEquals(model.getHand(PlayerColor.RED), new ArrayList<ThreeTriosCard>(Arrays.asList(c1,
             c3, c5, c7)));
-    Assert.assertEquals(model.getHand(Player.BLUE), new ArrayList<ThreeTriosCard>(Arrays.asList(c2,
+    Assert.assertEquals(model.getHand(PlayerColor.BLUE), new ArrayList<ThreeTriosCard>(Arrays.asList(c2,
             c4, c6, c8)));
   }
 
@@ -443,7 +443,7 @@ public class TestThreeTriosModel {
     Assert.assertEquals(model.getStatusBoard(), statusBoardAfterTwo);
     ThreeTriosCard flipped = new ThreeTriosCard("TEST1", "1", "2", "3",
             "4");
-    flipped.setOwner(Player.BLUE);
+    flipped.setOwner(PlayerColor.BLUE);
     Assert.assertEquals(model.getCardBoard()[0][2], flipped);
   }
 
@@ -483,7 +483,7 @@ public class TestThreeTriosModel {
     Assert.assertEquals(model.getStatusBoard(), statusBoardAfterTwo);
     ThreeTriosCard flipped = new ThreeTriosCard("TEST1", "1", "2", "3",
             "4");
-    flipped.setOwner(Player.BLUE);
+    flipped.setOwner(PlayerColor.BLUE);
     Assert.assertEquals(model.getCardBoard()[2][1], flipped);
   }
 
@@ -523,7 +523,7 @@ public class TestThreeTriosModel {
     Assert.assertEquals(model.getStatusBoard(), statusBoardAfterTwo);
     ThreeTriosCard flipped = new ThreeTriosCard("TEST1", "1", "2", "3",
             "4");
-    flipped.setOwner(Player.BLUE);
+    flipped.setOwner(PlayerColor.BLUE);
     Assert.assertEquals(model.getCardBoard()[1][0], flipped);
   }
 
@@ -576,7 +576,7 @@ public class TestThreeTriosModel {
     Assert.assertEquals(model.getStatusBoard(), statusBoardAfterTwo);
     ThreeTriosCard flipped = new ThreeTriosCard("TEST1", "1", "2", "3",
             "4");
-    flipped.setOwner(Player.BLUE);
+    flipped.setOwner(PlayerColor.BLUE);
     Assert.assertEquals(model.getCardBoard()[2][0], flipped);
   }
 
@@ -664,7 +664,7 @@ public class TestThreeTriosModel {
     model.playCard(1, 1, 3);
     model.playCard(1, 2, 3);
 
-    Assert.assertEquals(model.getWinner(), Player.BLUE);
+    Assert.assertEquals(model.getWinner(), PlayerColor.BLUE);
   }
 
 

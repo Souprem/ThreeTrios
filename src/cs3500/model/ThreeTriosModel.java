@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import cs3500.controller.Observer;
+
 /**
  * This class represents a model for the ThreeTrios game.
  * What is implementation specific about this model?
@@ -20,7 +22,8 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
   protected Status[][] statusBoard;
   protected List<ThreeTriosCard> handRed;
   protected List<ThreeTriosCard> handBlue;
-  protected Player currentTurn = Player.RED;
+  protected PlayerColor currentTurn = PlayerColor.RED;
+  protected List<Observer> observers = new ArrayList<>();
 
   // No argument constructor
   public ThreeTriosModel() {
@@ -54,13 +57,13 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
 
     // Deep copy of handRed (List)
     this.handRed = new ArrayList<>();
-    for (ThreeTriosCard card : model.getHand(Player.RED)) {
+    for (ThreeTriosCard card : model.getHand(PlayerColor.RED)) {
       this.handRed.add(new ThreeTriosCard(card));
     }
 
     // Deep copy of handBlue (List)
     this.handBlue = new ArrayList<>();
-    for (ThreeTriosCard card : model.getHand(Player.BLUE)) {
+    for (ThreeTriosCard card : model.getHand(PlayerColor.BLUE)) {
       this.handBlue.add(new ThreeTriosCard(card));
     }
 
@@ -69,19 +72,19 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
   }
 
   @Override
-  public Player getCurrentPlayer() {
-    if (currentTurn == Player.RED) {
-      return Player.RED;
+  public PlayerColor getCurrentPlayer() {
+    if (currentTurn == PlayerColor.RED) {
+      return PlayerColor.RED;
     } else {
-      return Player.BLUE;
+      return PlayerColor.BLUE;
     }
   }
 
   @Override
-  public List<ThreeTriosCard> getHand(Player player) {
-    if (player == Player.RED) {
+  public List<ThreeTriosCard> getHand(PlayerColor playerColor) {
+    if (playerColor == PlayerColor.RED) {
       return this.handRed;
-    } else if (player == Player.BLUE) {
+    } else if (playerColor == PlayerColor.BLUE) {
       return this.handBlue;
     } else {
       throw new IllegalArgumentException("input player must be player 1 or 2");
@@ -90,7 +93,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
 
   @Override
   public List<ThreeTriosCard> getCurrentHand() {
-    if (currentTurn == Player.RED) {
+    if (currentTurn == PlayerColor.RED) {
       return this.handRed;
     } else {
       return this.handBlue;
@@ -108,14 +111,14 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
   }
 
   @Override
-  public Player getWinner() {
+  public PlayerColor getWinner() {
     int redCount = 0;
     int blueCount = 0;
     for (int i = 0; i < this.cardBoard.length; i++) {
       for (int j = 0; j < this.cardBoard[0].length; j++) {
-        if (cardBoard[i][j] != null && cardBoard[i][j].getOwner().equals(Player.RED)) {
+        if (cardBoard[i][j] != null && cardBoard[i][j].getOwner().equals(PlayerColor.RED)) {
           redCount++;
-        } else if (cardBoard[i][j] != null && cardBoard[i][j].getOwner().equals(Player.BLUE)) {
+        } else if (cardBoard[i][j] != null && cardBoard[i][j].getOwner().equals(PlayerColor.BLUE)) {
           blueCount++;
         } else {
           continue;
@@ -123,9 +126,9 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
       }
     }
     if (redCount > blueCount) {
-      return Player.RED;
+      return PlayerColor.RED;
     } else if (blueCount > redCount) {
-      return Player.BLUE;
+      return PlayerColor.BLUE;
     } else {
       throw new IllegalStateException("currently a draw");
     }
@@ -167,7 +170,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
   }
 
   @Override
-  public Player ownerOf(int row, int col) {
+  public PlayerColor ownerOf(int row, int col) {
     if (!(statusBoard[row][col].equals(Status.FULL))) {
       throw new IllegalArgumentException("cannot ask where non existent card is");
     }
@@ -198,18 +201,18 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
   }
 
   @Override
-  public int calculateScore(Player player) {
+  public int calculateScore(PlayerColor playerColor) {
     int score = 0;
     for (int i = 0; i < this.numRows(); i++) {
       for (int j = 0; j < this.numCols(); j++) {
         if (statusBoard[i][j].equals(Status.FULL)) {
-          if (cardBoard[i][j].getOwner().equals(player)) {
+          if (cardBoard[i][j].getOwner().equals(playerColor)) {
             score++;
           }
         }
       }
     }
-    score = score + getHand(player).size();
+    score = score + getHand(playerColor).size();
     return score;
   }
 
@@ -239,12 +242,12 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
     tempCard.setOwner(currentTurn);
     this.cardBoard[row][col] = tempCard;
     this.statusBoard[row][col] = Status.FULL;
-    if (currentTurn == Player.RED) {
+    if (currentTurn == PlayerColor.RED) {
       this.handRed = tempHand;
-      currentTurn = Player.BLUE;
+      currentTurn = PlayerColor.BLUE;
     } else {
       this.handBlue = tempHand;
-      currentTurn = Player.RED;
+      currentTurn = PlayerColor.RED;
     }
 
     List<ArrayList<Integer>> playedCardIndex = new ArrayList<ArrayList<Integer>>();
@@ -263,8 +266,8 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
       int row = card.get(0);
       int col = card.get(1);
       ThreeTriosCard tempCard = this.cardBoard[row][col];
-      Player cardOwner = tempCard.owner;
-      Player otherOwner = cardOwner.getOther();
+      PlayerColor cardOwner = tempCard.owner;
+      PlayerColor otherOwner = cardOwner.getOther();
       int boardLengthRows = statusBoard.length;
       int boardLengthCols = statusBoard[0].length;
 
@@ -340,9 +343,27 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
     //shuffle the deck before startgame so the hands get random cards from the deck
     for (int i = 0; i < handSize; i++) {
       handRed.add(deck.remove(0));
-      handRed.get(handRed.size() - 1).setOwner(Player.RED);
+      handRed.get(handRed.size() - 1).setOwner(PlayerColor.RED);
       handBlue.add(deck.remove(0));
-      handBlue.get(handRed.size() - 1).setOwner(Player.BLUE);
+      handBlue.get(handRed.size() - 1).setOwner(PlayerColor.BLUE);
+    }
+  }
+
+  @Override
+  public void addObserver(Observer observer) {
+    observers.add(observer);
+
+  }
+
+  @Override
+  public void removeObserver(Observer observer) {
+    observers.remove(observer);
+  }
+
+  @Override
+  public void notifyObservers() {
+    for (Observer observer : observers) {
+      observer.update();
     }
   }
 

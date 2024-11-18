@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import cs3500.model.BoardConfigReader;
 import cs3500.model.CardConfigReader;
-import cs3500.model.Player;
+import cs3500.model.PlayerColor;
 import cs3500.model.ThreeTriosCard;
 import cs3500.model.ThreeTriosModel;
 import cs3500.model.TriosModel;
@@ -37,7 +37,7 @@ public class ExampleThreeTriosTest {
     view.render();
     model.playCard(1, 4, 1);
     view.render();
-    Assert.assertEquals(model.getCurrentPlayer(), Player.RED.toString());
+    Assert.assertEquals(model.getCurrentPlayer(), PlayerColor.RED.toString());
   }
 
 }

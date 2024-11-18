@@ -1,12 +1,10 @@
 package cs3500.model;
 
-import cs3500.ThreeTrios;
-
-public interface TriosAI{
+public interface TriosAI extends Player{
   /*
   returns card, row, col, score
    */
-  int[] findMove(TriosModel model, Player player);
+
 
   default int[] noValidMoves(TriosModel model){
     for (int i = 0; i < model.getStatusBoard().length; i++){

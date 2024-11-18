@@ -22,7 +22,7 @@ public class TestAIStrategies {
     TriosModel<ThreeTriosCard> model = new MaxFlipTriosMockModel();
     TriosAI maxFlip = new MaxFlipTriosAI();
     int[] tempMove = new int[4];
-    tempMove = maxFlip.findMove(model, Player.RED);
+    tempMove = maxFlip.findMove(model, PlayerColor.RED);
     int[] tempMove1 = new int[4];
 
     tempMove1[0] = 1;
@@ -41,7 +41,7 @@ public class TestAIStrategies {
     TriosModel<ThreeTriosCard> model = new MaxFlipTriosMockModel();
     TriosAI maxFlip = new MaxFlipTriosAI();
     int[] tempMove = new int[4];
-    tempMove = maxFlip.findMove(model, Player.RED);
+    tempMove = maxFlip.findMove(model, PlayerColor.RED);
     int[] tempMove1 = new int[4];
 
     tempMove1[0] = 0;
@@ -60,7 +60,7 @@ public class TestAIStrategies {
     TriosModel<ThreeTriosCard> model = new CornerTriosAIMockModel();
     TriosAI corners = new CornersTriosAI();
     int[] tempMove = new int[4];
-    tempMove = corners.findMove(model, Player.RED);
+    tempMove = corners.findMove(model, PlayerColor.RED);
     int[] tempMove1 = new int[4];
 
     tempMove1[0] = 4;
@@ -98,7 +98,7 @@ public class TestAIStrategies {
 
     TriosAI maxFlip = new MaxFlipTriosAI();
     int[] tempMove = new int[3];
-    tempMove = maxFlip.findMove(model, Player.BLUE);
+    tempMove = maxFlip.findMove(model, PlayerColor.BLUE);
     int[] tempMove1 = new int[3];
     //Expecting the AI to go to the upper leftmost corner
     //as there is no way for it to flip the opponents cards
@@ -136,7 +136,7 @@ public class TestAIStrategies {
 
     TriosAI maxFlip = new MaxFlipTriosAI();
     int[] tempMove = new int[3];
-    tempMove = maxFlip.findMove(model, Player.BLUE);
+    tempMove = maxFlip.findMove(model, PlayerColor.BLUE);
     int[] tempMove1 = new int[3];
     //Expect the AI to play at 0,0 to flip the only card it can
     tempMove1[0] = 2;
@@ -173,7 +173,7 @@ public class TestAIStrategies {
 
     TriosAI maxFlip = new MaxFlipTriosAI();
     int[] tempMove = new int[3];
-    tempMove = maxFlip.findMove(model, Player.BLUE);
+    tempMove = maxFlip.findMove(model, PlayerColor.BLUE);
     int[] tempMove1 = new int[3];
     tempMove1[0] = 2;
     tempMove1[1] = 2;
@@ -209,7 +209,7 @@ public class TestAIStrategies {
 
     TriosAI maxFlip = new MaxFlipTriosAI();
     int[] tempMove = new int[3];
-    tempMove = maxFlip.findMove(model, Player.BLUE);
+    tempMove = maxFlip.findMove(model, PlayerColor.BLUE);
     int[] tempMove1 = new int[3];
     //expect it to be in the position to flip two cards
     tempMove1[0] = 2;
@@ -246,7 +246,7 @@ public class TestAIStrategies {
 
     TriosAI maxFlip = new MaxFlipTriosAI();
     int[] tempMove = new int[3];
-    tempMove = maxFlip.findMove(model, Player.BLUE);
+    tempMove = maxFlip.findMove(model, PlayerColor.BLUE);
     int[] tempMove1 = new int[3];
     //Expect the AI to play 0,0 as there is a tie between two possible positions
     //which flip a single card
@@ -290,7 +290,7 @@ public class TestAIStrategies {
     };
 
     Assert.assertEquals(model.getStatusBoard(), statusBoardEnd);
-    Assert.assertEquals(model.getCardBoard()[0][1].getOwner(), Player.BLUE);
+    Assert.assertEquals(model.getCardBoard()[0][1].getOwner(), PlayerColor.BLUE);
   }
 
   @Test
@@ -302,7 +302,7 @@ public class TestAIStrategies {
                     + "boardConfigTiny");
     TriosAI corners = new CornersTriosAI();
     int[] tempMove = new int[3];
-    tempMove = corners.findMove(model, Player.RED);
+    tempMove = corners.findMove(model, PlayerColor.RED);
     int[] tempMove1 = new int[3];
     //Expecting the AI to go to the upper leftmost corner
     // with the card TEST5 as it has the highest combined attack values
@@ -326,7 +326,7 @@ public class TestAIStrategies {
     model.playCard(1, 0, 0);
     TriosAI corners = new CornersTriosAI();
     int[] tempMove = new int[3];
-    tempMove = corners.findMove(model, Player.BLUE);
+    tempMove = corners.findMove(model, PlayerColor.BLUE);
     int[] tempMove1 = new int[3];
     //Expecting the AI to go to the upper leftmost corner
     // with the card TEST5 as it has the highest combined attack values
@@ -351,7 +351,7 @@ public class TestAIStrategies {
     model.playCard(1, 0, 1);
     TriosAI corners = new CornersTriosAI();
     int[] tempMove = new int[3];
-    tempMove = corners.findMove(model, Player.BLUE);
+    tempMove = corners.findMove(model, PlayerColor.BLUE);
     int[] tempMove1 = new int[3];
     //Expecting the AI to go to the upper leftmost corner
     // with the card TEST5 as it has the highest combined attack values
@@ -377,7 +377,7 @@ public class TestAIStrategies {
     model.playCard(1, 2, 0);
     TriosAI corners = new CornersTriosAI();
     int[] tempMove = new int[3];
-    tempMove = corners.findMove(model, Player.BLUE);
+    tempMove = corners.findMove(model, PlayerColor.BLUE);
     int[] tempMove1 = new int[3];
     //Expecting the AI to go to the upper leftmost corner
     // with the card TEST5 as it has the highest combined attack values
@@ -404,7 +404,7 @@ public class TestAIStrategies {
     model.playCard(1, 2, 1);
     TriosAI corners = new CornersTriosAI();
     int[] tempMove = new int[3];
-    tempMove = corners.findMove(model, Player.BLUE);
+    tempMove = corners.findMove(model, PlayerColor.BLUE);
     int[] tempMove1 = new int[3];
     //Expecting the AI to go to the upper leftmost corner
     // with the card TEST5 as it has the highest combined attack values
@@ -431,7 +431,7 @@ public class TestAIStrategies {
     model.playCard(1, 2, 1);
     TriosAI corners = new CornersTriosAI();
     int[] tempMove = new int[3];
-    tempMove = corners.findMove(model, Player.BLUE);
+    tempMove = corners.findMove(model, PlayerColor.BLUE);
     int[] tempMove1 = new int[3];
     //Expecting the AI to go to the upper leftmost corner
     // with the card TEST5 as it has the highest combined attack values

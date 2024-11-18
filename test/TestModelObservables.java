@@ -1,8 +1,8 @@
+import cs3500.model.PlayerColor;
 import cs3500.model.TriosModel;
 import cs3500.model.ThreeTriosCard;
 import cs3500.model.Card;
 import cs3500.model.Status;
-import cs3500.model.Player;
 import cs3500.model.ThreeTriosModel;
 import cs3500.model.CardConfigReader;
 import cs3500.model.BoardConfigReader;
@@ -74,7 +74,7 @@ public class TestModelObservables {
                     + "separatedBoardConfigTest");
 
     model.playCard(1, 2, 1);
-    Assert.assertEquals(model.ownerOf(2, 1), Player.RED);
+    Assert.assertEquals(model.ownerOf(2, 1), PlayerColor.RED);
   }
 
   @Test
@@ -99,9 +99,9 @@ public class TestModelObservables {
             "test" + File.separator + "configs" + File.separator
                     + "separatedBoardConfigTest");
 
-    Assert.assertEquals(model.calculateScore(Player.RED), 4);
+    Assert.assertEquals(model.calculateScore(PlayerColor.RED), 4);
     model.playCard(1, 2, 1);
-    Assert.assertEquals(model.calculateScore(Player.RED), 4);
+    Assert.assertEquals(model.calculateScore(PlayerColor.RED), 4);
   }
 
   @Test
@@ -116,11 +116,11 @@ public class TestModelObservables {
             {Status.EMPTY, Status.HOLE},
             {Status.EMPTY, Status.EMPTY}
     };
-    Assert.assertEquals(model.calculateScore(Player.BLUE), 3);
+    Assert.assertEquals(model.calculateScore(PlayerColor.BLUE), 3);
     model.playCard(3, 2, 0);
     model.playCard(3, 2, 1);
     model.playCard(1, 0, 1);
-    Assert.assertEquals(model.calculateScore(Player.BLUE), 3);
+    Assert.assertEquals(model.calculateScore(PlayerColor.BLUE), 3);
 
     Status[][] statusBoardAfter = {
             {Status.EMPTY, Status.FULL},//c 1r
@@ -130,7 +130,7 @@ public class TestModelObservables {
 
     //Expect the AI to play 2 at 0,0 to flip the only card it can
     model.playCard(2, 0, 0);
-    Assert.assertEquals(model.calculateScore(Player.BLUE), 4);
+    Assert.assertEquals(model.calculateScore(PlayerColor.BLUE), 4);
   }
 
 

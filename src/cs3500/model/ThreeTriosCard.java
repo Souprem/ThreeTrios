@@ -14,7 +14,7 @@ public class ThreeTriosCard implements Card {
   private AttackValue west;
   private AttackValue east;
 
-  Player owner;
+  PlayerColor owner;
 
   /**
    * A constructor for the ThreeTriosCard that takes in its name and its attack values as strings.
@@ -61,7 +61,7 @@ public class ThreeTriosCard implements Card {
   }
 
   @Override
-  public void setOwner(Player owner) {
+  public void setOwner(PlayerColor owner) {
     this.owner = owner;
   }
 
@@ -69,7 +69,7 @@ public class ThreeTriosCard implements Card {
    * Javadoc.
    */
   @Override
-  public Player getOwner() {
+  public PlayerColor getOwner() {
     return this.owner;
   }
 

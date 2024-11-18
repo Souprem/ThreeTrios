@@ -28,7 +28,7 @@ will drive the view to re-render the game, updating the output based on the mode
 
 KEY SUBCOMPONENTS:
 Within the model, a few key fields include the hands for the two players, the boards,
-and the current turn. The hand for each player is represented by a list of ThreeTriosCards
+and the current turn. The hand for each playerColor is represented by a list of ThreeTriosCards
 which is accessed throughout the model. There is a 2D array of Statuses and a List of
 Lists of ThreeTriosCards representing the board. The Status array determines whether a board
 space is empty, filled, or a whole, while the List of Lists holds the actual cards on the board.
@@ -38,7 +38,7 @@ SOURCE ORGANIZATION:
 Within the src folder in ThreeTrios, there are three directories named controller,
 model, and view. The controller directory is currently empty, but will hold the
 controller interface and class implementation once they’ve been created. This
-directory is meant to handle direct interaction with the user or an AI player. The
+directory is meant to handle direct interaction with the user or an AI playerColor. The
 view directory holds the view interface and implementation of the text view. The view
 interface will be later extended by a graphic view implementation, and this directory
 is meant to oversee projection of the view to the user. The model package holds a
@@ -49,13 +49,13 @@ a config directory that holds the files for board and card configurations. This 
 is only in the test folder as the files are only used in testing.
 
 FUTURE AI IMPLEMENTATION:
-To implement an AI player in future versions of our project, we would allow the user
+To implement an AI playerColor in future versions of our project, we would allow the user
 to choose whether they want to play with 2 players or vs. AI (or other modes such as AI
 vs. AI). Then depending on their choice it would go to a gameplay loop. If they choose
 to play with 2 real players the controller would repeatedly ask the users for input and
 feed the input through the model using the playCard() method. After playcard is run it
-will switch to the other player and continue. For an AI implementation, it will perform
-a similar loop but instead of switching from one player to another it will ask a player
+will switch to the other playerColor and continue. For an AI implementation, it will perform
+a similar loop but instead of switching from one playerColor to another it will ask a playerColor
 for input, then run an algorithm to find the best move for the AI to make and input that
 to the model using the same playCard() method. The model does not change its logic based
 on whether or not one of the players is AI or not.
@@ -71,8 +71,8 @@ SELF EVAL NOTES:
 - Your interface is coupled to some concrete classes, and you have not provided a convincing justification for it
 - Does your model offer a way to check if a given move is legal (e.g. index for the cards is valid, the coordinates are valid on the grid, etc.)? (1 point)
   - it should have its own observation in the model interface
-- Do you have a test to confirm that a player cannot play to a location that's out of bounds? (1 point)
-- Do you have a test to confirm that a player cannot play when it's not their turn?
+- Do you have a test to confirm that a playerColor cannot play to a location that's out of bounds? (1 point)
+- Do you have a test to confirm that a playerColor cannot play when it's not their turn?
 
 CHANGES FOR PART TWO:
 - Implemented functionality to ensure that battle steps only occur between cards on opposite teams
@@ -83,7 +83,7 @@ CHANGES FOR PART TWO:
 - Added the board panel class to represent a singular panel within the view which holds
     and draws the grid and all corresponding cells
 - Added the hand panel class to represent a panel which holds and draws the cards within a
-    player's hand, two of these panels are instantiated in the view to represent the hands for
+    playerColor's hand, two of these panels are instantiated in the view to represent the hands for
     the red and blue players
 - Added the TriosAI interface which represents a broad interface for the AI strategies
 - Added the CornersTriosAI class which represents the strategy in which the AI goes for the corners

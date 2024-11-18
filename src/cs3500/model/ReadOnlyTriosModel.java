@@ -9,14 +9,14 @@ public interface ReadOnlyTriosModel<C extends Card> {
    *
    * @return a String representing the current player.
    */
-  Player getCurrentPlayer();
+  PlayerColor getCurrentPlayer();
 
   /**
    * Returns the hand based on the inputted player.
-   * @param player player whose hand is being returned.
+   * @param playerColor player whose hand is being returned.
    * @return a list of c representing the hand.
    */
-  List<C> getHand(Player player);
+  List<C> getHand(PlayerColor playerColor);
 
   /**
    * Returns the current hand.
@@ -42,7 +42,7 @@ public interface ReadOnlyTriosModel<C extends Card> {
    * Returns a Player representing the winner of the game.
    * @return a Player representing the winner.
    */
-  Player getWinner();
+  PlayerColor getWinner();
 
   /**
    * Returns a boolean representing whether the game is over.
@@ -86,7 +86,7 @@ public interface ReadOnlyTriosModel<C extends Card> {
    * @param col column of the cell
    * @return the player who owns the card at the given cell position
    */
-  Player ownerOf(int row, int col);
+  PlayerColor ownerOf(int row, int col);
 
   /**
    * Determines whether it's legal for the current player to play at the given coordinate.
@@ -109,9 +109,9 @@ public interface ReadOnlyTriosModel<C extends Card> {
   /**
    * A score for a player is defined by the number of cards they own on the grid
    * in addition to the number of cards within their hand.
-   * @param player player whose score is being calculated
+   * @param playerColor player whose score is being calculated
    * @return an integer representing the score
    */
-  int calculateScore(Player player);
+  int calculateScore(PlayerColor playerColor);
 
 }

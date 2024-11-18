@@ -1,6 +1,5 @@
 package cs3500.controller;
 
-import cs3500.model.Player;
 import cs3500.view.Features;
 
 /**
@@ -10,8 +9,12 @@ import cs3500.view.Features;
 public class PreControllerFeatures implements Features {
 
   @Override
-  public void cardInHandInfo(int indexInHand, Player owner) {
-    System.out.println(" Owner: " + owner + "Index in the hand: " + indexInHand);
+  public void cardInHandInfo(int indexInHand, int owner) {
+    if (owner == -1) {
+      System.out.println(" Owner: Blue, " + "Index in the hand: " + indexInHand);
+    } else {
+      System.out.println(" Owner: Red, " + "Index in the hand: " + indexInHand);
+    }
   }
 
   @Override

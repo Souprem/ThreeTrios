@@ -34,13 +34,13 @@ public interface Card {
    * Sets the owner associated with this card, given the card's new owner.
    * @param owner the card's new owner.
    */
-  void setOwner(Player owner);
+  void setOwner(PlayerColor owner);
 
   /**
    * Returns the current owner of this card.
    * @return a Player representing this card's current owner.
    */
-  Player getOwner();
+  PlayerColor getOwner();
 
   /**
    * Returns the card's name followed by each of its attack values.

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
+import cs3500.controller.Observer;
+
 /**
  * A mock to test the corners AI.
  */
@@ -12,7 +14,7 @@ public class CornerTriosAIMockModel implements TriosModel {
   private Status[][] statusBoard;
   private List<ThreeTriosCard> handRed;
   private List<ThreeTriosCard> handBlue;
-  private Player currentTurn;
+  private PlayerColor currentTurn;
   private ThreeTriosCard[][] cardBoard;
 
 
@@ -42,8 +44,8 @@ public class CornerTriosAIMockModel implements TriosModel {
   }
 
   @Override
-  public List<ThreeTriosCard> getHand(Player player) {
-    if (player == Player.RED) {
+  public List<ThreeTriosCard> getHand(PlayerColor playerColor) {
+    if (playerColor == PlayerColor.RED) {
       return this.handRed;
     } else {
       return this.handBlue;
@@ -61,7 +63,7 @@ public class CornerTriosAIMockModel implements TriosModel {
   }
 
   @Override
-  public Player getCurrentPlayer() {
+  public PlayerColor getCurrentPlayer() {
     return this.currentTurn;
   }
 
@@ -96,7 +98,7 @@ public class CornerTriosAIMockModel implements TriosModel {
   }
 
   @Override
-  public Player getWinner() {
+  public PlayerColor getWinner() {
     throw new UnsupportedOperationException("Not implemented in mock.");
   }
 
@@ -112,12 +114,27 @@ public class CornerTriosAIMockModel implements TriosModel {
   }
 
   @Override
+  public void addObserver(Observer observer) {
+
+  }
+
+  @Override
+  public void removeObserver(Observer observer) {
+
+  }
+
+  @Override
+  public void notifyObservers() {
+
+  }
+
+  @Override
   public Status statusAt(int row, int col) {
     return statusBoard[row][col];
   }
 
   @Override
-  public Player ownerOf(int row, int col) {
+  public PlayerColor ownerOf(int row, int col) {
     throw new UnsupportedOperationException("Not implemented in mock.");
   }
 
@@ -145,7 +162,7 @@ public class CornerTriosAIMockModel implements TriosModel {
   }
 
   @Override
-  public int calculateScore(Player player) {
+  public int calculateScore(PlayerColor playerColor) {
     return 0;
   }
 

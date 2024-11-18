@@ -1,18 +1,16 @@
 package cs3500.view;
 
-import cs3500.model.Player;
-
-/** Javadoc.
-**
+/**
+ * Interface for the possible features of a three trios card game.
  */
 public interface Features {
 
   /**
    * Prints information about the selected card to the console.
    * @param indexInHand the index of the card in the hand
-   * @param owner the owner of the card
+   * @param owner the owner of the card (-1 for blue, 1 for red)
    */
-  void cardInHandInfo(int indexInHand, Player owner);
+  void cardInHandInfo(int indexInHand, int owner);
 
   /**
    * Prints information about the selected cell to the console.

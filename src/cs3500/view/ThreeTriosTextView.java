@@ -1,6 +1,6 @@
 package cs3500.view;
 
-import cs3500.model.Player;
+import cs3500.model.PlayerColor;
 import cs3500.model.Status;
 import cs3500.model.ThreeTriosCard;
 import cs3500.model.TriosModel;
@@ -40,10 +40,10 @@ public class ThreeTriosTextView implements TriosView {
         } else if (model.getStatusBoard()[i][j] == Status.HOLE) {
           sb.append(" ");
         } else {
-          Player owner = model.getCardBoard()[i][j].getOwner();
-          if (owner == Player.RED) {
+          PlayerColor owner = model.getCardBoard()[i][j].getOwner();
+          if (owner == PlayerColor.RED) {
             sb.append("R");
-          } else if (owner == Player.BLUE) {
+          } else if (owner == PlayerColor.BLUE) {
             sb.append("B");
           } else {
             throw new IllegalStateException("owner cannot be null");
@@ -55,7 +55,7 @@ public class ThreeTriosTextView implements TriosView {
     }
 
     sb.append("Hand: \n");
-    for (Object card : model.getHand(Player.RED)) {
+    for (Object card : model.getHand(PlayerColor.RED)) {
       sb.append(card.toString()).append("\n");
     }
     return sb.toString();

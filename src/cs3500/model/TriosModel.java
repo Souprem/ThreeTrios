@@ -3,14 +3,12 @@ package cs3500.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import cs3500.controller.Observer;
+
 /**
  * A representation of a model for the three trios card game.
- *
- * EXPLAIN
- * (a) where the origin is, (b) what the axes are, (c) how
- * the hex-coordinates are mapped to cartesian coordinates (if
- * they're using a 2d list as their data storage, they need to tell us
- * which index is the row and which index is the column)
+ * The origin, 0,0, is at the top left of the screen. The 2D array used to represent data
+ * storage is indexed by row, column.
  *
  * @param <C> The type of card used in the game.
  */
@@ -38,6 +36,12 @@ public interface TriosModel<C extends Card> extends ReadOnlyTriosModel{
    * @param boardFile a string representing the file path of a board file.
    */
   void startGame(int numCardCells, String cardFile, String boardFile);
+
+  void addObserver(Observer observer);
+
+  void removeObserver(Observer observer);
+
+  void notifyObservers();
 
 
 }

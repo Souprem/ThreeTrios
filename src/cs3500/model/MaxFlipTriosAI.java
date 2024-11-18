@@ -11,10 +11,10 @@ public class MaxFlipTriosAI implements TriosAI {
    *
    *
    * @param model inputted model
-   * @param player inputted player
+   * @param playerColor inputted player
    * @return an array of integers representing the move to be made
    */
-  public int[] findMove(TriosModel model, Player player) {
+  public int[] findMove(TriosModel model, PlayerColor playerColor) {
     int numCardsFlipped = 0;
     //default is 1 to account for card placed
     int maxCardsFlipped = 0;
@@ -27,7 +27,7 @@ public class MaxFlipTriosAI implements TriosAI {
       for (int j = 0; j < model.getStatusBoard()[0].length; j++) {
         if (model.getStatusBoard()[i][j] == Status.EMPTY) {
           //c is card index
-          for (int c = 1; c < model.getHand(player).size() + 1; c++) {
+          for (int c = 1; c < model.getHand(playerColor).size() + 1; c++) {
             numCardsFlipped = model.numFlipped(i, j, c);
             if (numCardsFlipped > maxCardsFlipped) {
               maxCardsFlipped = numCardsFlipped;

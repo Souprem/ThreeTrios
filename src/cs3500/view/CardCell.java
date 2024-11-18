@@ -1,7 +1,7 @@
 package cs3500.view;
 
 import cs3500.model.Card;
-import cs3500.model.Player;
+import cs3500.model.PlayerColor;
 import cs3500.model.ThreeTriosCard;
 
 import java.awt.*;
@@ -125,7 +125,7 @@ public class CardCell extends JPanel {
       if (this.selected) {
         g2.setColor(Color.GREEN);
       } else {
-        if(card.getOwner() == Player.BLUE){
+        if(card.getOwner() == PlayerColor.BLUE){
           g2.setColor(Color.BLUE);
         } else {
           g2.setColor(Color.RED);
