@@ -64,4 +64,14 @@ public class CornersTriosAI implements TriosAI {
 
     return noValidMoves(model);
   }
+
+  @Override
+  public void placeCardOnGrid(int row, int col) {
+
+  }
+
+  @Override
+  public void selectHandCard(int handIndex) {
+
+  }
 }

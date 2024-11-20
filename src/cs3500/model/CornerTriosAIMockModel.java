@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
-import cs3500.controller.Observer;
+import cs3500.controller.TriosController;
 
 /**
  * A mock to test the corners AI.
@@ -107,19 +107,18 @@ public class CornerTriosAIMockModel implements TriosModel {
     throw new UnsupportedOperationException("Not implemented in mock.");
   }
 
-
   @Override
-  public void startGame(int numCardCells, String cardFile, String boardFile) {
+  public void startGame(int numCardCells,
+                        CardConfigReader cardReader, BoardConfigReader boardReader) {
+
+  }
+  @Override
+  public void addObserver(TriosController triosController) {
 
   }
 
   @Override
-  public void addObserver(Observer observer) {
-
-  }
-
-  @Override
-  public void removeObserver(Observer observer) {
+  public void removeObserver(TriosController triosController) {
 
   }
 

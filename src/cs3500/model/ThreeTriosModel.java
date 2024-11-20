@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import cs3500.controller.Observer;
+import cs3500.controller.ModelFeatures;
+import cs3500.controller.TriosController;
 
 /**
  * This class represents a model for the ThreeTrios game.
@@ -23,7 +24,8 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
   protected List<ThreeTriosCard> handRed;
   protected List<ThreeTriosCard> handBlue;
   protected PlayerColor currentTurn = PlayerColor.RED;
-  protected List<Observer> observers = new ArrayList<>();
+  protected List<TriosController> triosControllers = new ArrayList<>();
+  protected ModelFeatures modelFeat;
 
   // No argument constructor
   public ThreeTriosModel() {
@@ -108,6 +110,10 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
   @Override
   public Status[][] getStatusBoard() {
     return this.statusBoard;
+  }
+
+  public void addFeatures(ModelFeatures modelFeat) {
+    this.modelFeat = modelFeat;
   }
 
   @Override
@@ -253,6 +259,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
     List<ArrayList<Integer>> playedCardIndex = new ArrayList<ArrayList<Integer>>();
     playedCardIndex.add(new ArrayList<Integer>(Arrays.asList(row, col)));
     battleStep(playedCardIndex);
+    modelFeat.playerTurnChanged();
   }
 
 
@@ -317,22 +324,14 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
   }
 
   @Override
-  public void startGame(int numCardCells, String cardFile, String boardFile) {
+  public void startGame(int numCardCells, CardConfigReader cardReader, BoardConfigReader boardReader) {
     if (numCardCells % 2 == 0) {
       throw new IllegalArgumentException("the number of card cells must be odd");
     }
     if (numCardCells < 0) {
       throw new IllegalArgumentException("there cannot be a negative number of card cells");
     }
-    if (cardFile == null || cardFile.isEmpty()) {
-      throw new IllegalArgumentException("the card file cannot be empty");
-    }
-    if (boardFile == null || boardFile.isEmpty()) {
-      throw new IllegalArgumentException("the card file cannot be empty");
-    }
-    CardConfigReader cardReader = new CardConfigReader(cardFile);
     List<ThreeTriosCard> deck = cardReader.convertFile();
-    BoardConfigReader boardReader = new BoardConfigReader(boardFile);
     this.statusBoard = boardReader.convertFile();
     this.cardBoard = new ThreeTriosCard[statusBoard.length][statusBoard[0].length];
     this.handRed = new ArrayList<ThreeTriosCard>();
@@ -350,20 +349,20 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
   }
 
   @Override
-  public void addObserver(Observer observer) {
-    observers.add(observer);
+  public void addObserver(TriosController triosController) {
+    triosControllers.add(triosController);
 
   }
 
   @Override
-  public void removeObserver(Observer observer) {
-    observers.remove(observer);
+  public void removeObserver(TriosController triosController) {
+    triosControllers.remove(triosController);
   }
 
   @Override
   public void notifyObservers() {
-    for (Observer observer : observers) {
-      observer.update();
+    for (TriosController triosController : triosControllers) {
+      triosController.update();
     }
   }
 

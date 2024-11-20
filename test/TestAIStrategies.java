@@ -77,10 +77,10 @@ public class TestAIStrategies {
   @Test
   public void testMaxFlipEasyNoChoice() throws IOException {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(5, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigTiny",
-            "test" + File.separator + "configs" + File.separator
-                    + "boardConfigTiny");
+    model.startGame(5, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigTiny"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny"));
     Status[][] statusBoardBefore = {
             {Status.EMPTY, Status.EMPTY},
             {Status.EMPTY, Status.HOLE},
@@ -115,10 +115,10 @@ public class TestAIStrategies {
   @Test
   public void testMaxFlipEasyOneChoice() throws IOException {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(5, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigTiny",
-            "test" + File.separator + "configs" + File.separator
-                    + "boardConfigTiny");
+    model.startGame(5, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigTiny"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny"));
     Status[][] statusBoardBefore = {
             {Status.EMPTY, Status.EMPTY},
             {Status.EMPTY, Status.HOLE},
@@ -152,10 +152,11 @@ public class TestAIStrategies {
   @Test
   public void testMaxFlipEasyTwoChoicesOneWinner() throws IOException {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(5, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigTiny",
-            "test" + File.separator + "configs" + File.separator
-                    + "boardConfigTiny");
+
+    model.startGame(5, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigTiny"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny"));
     Status[][] statusBoardBefore = {
             {Status.EMPTY, Status.EMPTY},
             {Status.EMPTY, Status.HOLE},
@@ -188,10 +189,10 @@ public class TestAIStrategies {
   @Test
   public void testMaxFlipEasyTwoChoicesOneBetter() throws IOException {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(5, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigTiny",
-            "test" + File.separator + "configs" + File.separator
-                    + "boardConfigTiny");
+    model.startGame(5, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigTiny"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny"));
     Status[][] statusBoardBefore = {
             {Status.EMPTY, Status.EMPTY},
             {Status.EMPTY, Status.HOLE},
@@ -225,10 +226,10 @@ public class TestAIStrategies {
   @Test
   public void testMaxFlipEasyTwoChoicesTie() throws IOException {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(5, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigTiny",
-            "test" + File.separator + "configs" + File.separator
-                    + "boardConfigTiny");
+    model.startGame(5, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigTiny"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny"));
     Status[][] statusBoardBefore = {
             {Status.EMPTY, Status.EMPTY},
             {Status.EMPTY, Status.HOLE},
@@ -263,10 +264,10 @@ public class TestAIStrategies {
   @Test
   public void testMaxFlipCheckConfigurationEvenWorks() throws IOException {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(5, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigTiny",
-            "test" + File.separator + "configs" + File.separator
-                    + "boardConfigTiny");
+    model.startGame(5, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigTiny"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny"));
     Status[][] statusBoardBefore = {
             {Status.EMPTY, Status.EMPTY},
             {Status.EMPTY, Status.HOLE},
@@ -296,10 +297,10 @@ public class TestAIStrategies {
   @Test
   public void testCornersTopLeftOneCard() throws IOException {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(5, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigTiny",
-            "test" + File.separator + "configs" + File.separator
-                    + "boardConfigTiny");
+    model.startGame(5, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigTiny"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny"));
     TriosAI corners = new CornersTriosAI();
     int[] tempMove = new int[3];
     tempMove = corners.findMove(model, PlayerColor.RED);
@@ -319,10 +320,10 @@ public class TestAIStrategies {
   @Test
   public void testCornersTopRightOneCard() throws IOException {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(5, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigTiny",
-            "test" + File.separator + "configs" + File.separator
-                    + "boardConfigTiny");
+    model.startGame(5, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigTiny"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny"));
     model.playCard(1, 0, 0);
     TriosAI corners = new CornersTriosAI();
     int[] tempMove = new int[3];
@@ -343,10 +344,10 @@ public class TestAIStrategies {
   @Test
   public void testCornersBottomLeftOneCard() throws IOException {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(5, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigTiny",
-            "test" + File.separator + "configs" + File.separator
-                    + "boardConfigTiny");
+    model.startGame(5, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigTiny"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny"));
     model.playCard(1, 0, 0);
     model.playCard(1, 0, 1);
     TriosAI corners = new CornersTriosAI();
@@ -368,10 +369,10 @@ public class TestAIStrategies {
   @Test
   public void testCornersBottomRightOneCard() throws IOException {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(5, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigTiny",
-            "test" + File.separator + "configs" + File.separator
-                    + "boardConfigTiny");
+    model.startGame(5, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigTiny"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny"));
     model.playCard(1, 0, 0);
     model.playCard(1, 0, 1);
     model.playCard(1, 2, 0);
@@ -394,10 +395,10 @@ public class TestAIStrategies {
   @Test
   public void testCornersNoCornersAvailOneCard() throws IOException {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(5, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigTiny",
-            "test" + File.separator + "configs" + File.separator
-                    + "boardConfigTiny");
+    model.startGame(5, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigTiny"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny"));
     model.playCard(1, 0, 0);
     model.playCard(1, 0, 1);
     model.playCard(1, 2, 0);
@@ -421,10 +422,10 @@ public class TestAIStrategies {
   @Test
   public void testCornersNoCornersAvailMoreCards() throws IOException {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(5, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "boardConfigTiny");
+    model.startGame(5, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigSmall"),
+          new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny"));
     model.playCard(1, 0, 0);
     model.playCard(1, 0, 1);
     model.playCard(1, 2, 0);

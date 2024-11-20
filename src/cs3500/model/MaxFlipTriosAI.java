@@ -52,4 +52,14 @@ public class MaxFlipTriosAI implements TriosAI {
     }
     return bestMove;
   }
+
+  @Override
+  public void placeCardOnGrid(int row, int col) {
+
+  }
+
+  @Override
+  public void selectHandCard(int handIndex) {
+
+  }
 }

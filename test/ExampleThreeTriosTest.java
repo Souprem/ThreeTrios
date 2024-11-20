@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import cs3500.model.BoardConfigReader;
 import cs3500.model.CardConfigReader;
+import cs3500.model.ConfigReader;
 import cs3500.model.PlayerColor;
 import cs3500.model.ThreeTriosCard;
 import cs3500.model.ThreeTriosModel;
@@ -30,8 +31,9 @@ public class ExampleThreeTriosTest {
   public void testEasyGameplayExample() throws IOException {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
     ThreeTriosTextView view = new ThreeTriosTextView(model, System.out);
-    model.startGame(7, "test" + File.separator + "configs" + File.separator + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator + "separatedBoardConfigTest");
+    CardConfigReader cardReader = new CardConfigReader("test" + File.separator + "configs" + File.separator + "CardConfigSmall");
+    BoardConfigReader boardReader = new BoardConfigReader("test" + File.separator + "configs" + File.separator + "separatedBoardConfigTest");
+    model.startGame(7, cardReader, boardReader);
     view.render();
     model.playCard(1, 4, 0);
     view.render();

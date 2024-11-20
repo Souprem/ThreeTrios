@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cs3500.controller.Observer;
+import cs3500.controller.TriosController;
 
 
 /**
@@ -110,17 +110,18 @@ public class MaxFlipTriosMockModel implements TriosModel {
 
 
   @Override
-  public void startGame(int numCardCells, String cardFile, String boardFile) {
+  public void startGame(int numCardCells,
+                        CardConfigReader cardReader, BoardConfigReader boardReader) {
 
   }
 
   @Override
-  public void addObserver(Observer observer) {
+  public void addObserver(TriosController triosController) {
 
   }
 
   @Override
-  public void removeObserver(Observer observer) {
+  public void removeObserver(TriosController triosController) {
 
   }
 

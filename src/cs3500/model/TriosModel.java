@@ -3,7 +3,8 @@ package cs3500.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import cs3500.controller.Observer;
+import cs3500.controller.ModelFeatures;
+import cs3500.controller.TriosController;
 
 /**
  * A representation of a model for the three trios card game.
@@ -32,16 +33,16 @@ public interface TriosModel<C extends Card> extends ReadOnlyTriosModel{
   /**
    * Initializes the boards, deck, and hands to be used in playing of the game.
    * @param numCardCells number of card cells on the board.
-   * @param cardFile a string representing the file path of a card file.
-   * @param boardFile a string representing the file path of a board file.
    */
-  void startGame(int numCardCells, String cardFile, String boardFile);
+  void startGame(int numCardCells, CardConfigReader cardReader, BoardConfigReader boardReader);
 
-  void addObserver(Observer observer);
+  void addObserver(TriosController triosController);
 
-  void removeObserver(Observer observer);
+  void removeObserver(TriosController triosController);
 
   void notifyObservers();
+
+  void addFeatures(ModelFeatures modelFeatures);
 
 
 }

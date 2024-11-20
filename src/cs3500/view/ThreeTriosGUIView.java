@@ -1,6 +1,7 @@
 package cs3500.view;
 
 import cs3500.controller.PreControllerFeatures;
+import cs3500.controller.ViewFeatures;
 import cs3500.model.PlayerColor;
 import cs3500.model.ReadOnlyTriosModel;
 import cs3500.model.Status;
@@ -9,6 +10,8 @@ import cs3500.model.ThreeTriosCard;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -200,5 +203,30 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView, MouseEven
     }
     this.revalidate();
     this.repaint();
+  }
+
+  public void addFeatures(ViewFeatures features) {
+    this.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
+        int currentPanel, index, row, col;
+        if (x < boardAndHandWidth) {
+          currentPanel = -1;
+          index = y / leftHandCardHeight;
+          features.selectHandCard(index);
+        } else if (x > boardWidth) {
+          currentPanel = 1;
+          index = y / rightHandCardHeight;
+          features.selectHandCard(index);
+        } else {
+          row = y / cardHeight;
+          col = (x - boardAndHandWidth) / cardWidth;
+          currentPanel = 0;
+          features.selectGridCard(row, col);
+        }
+      }
+    });
   }
 }

@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 
+import cs3500.model.BoardConfigReader;
+import cs3500.model.CardConfigReader;
 import cs3500.model.ThreeTriosCard;
 import cs3500.model.ThreeTriosModel;
 import cs3500.model.TriosModel;
@@ -31,10 +33,10 @@ public class TestThreeTriosTextView {
   @Test
   public void testRender() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigSmall"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "separatedBoardConfigTest"));
     ThreeTriosTextView view = new ThreeTriosTextView(model, System.out);
     try {
       view.render();
@@ -56,10 +58,10 @@ public class TestThreeTriosTextView {
   @Test
   public void testRenderAfterPlaying() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigSmall"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "separatedBoardConfigTest"));
     ThreeTriosTextView view = new ThreeTriosTextView(model, System.out);
     try {
       view.render();
@@ -81,10 +83,10 @@ public class TestThreeTriosTextView {
   @Test
   public void testRenderAfterGameEnd() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "connectingBoardConfigTest");
+    model.startGame(7, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigSmall"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "connectingBoardConfigTest"));
     ThreeTriosTextView view = new ThreeTriosTextView(model, System.out);
     model.playCard(1, 0, 0);
     model.playCard(1, 0, 2);

@@ -1,9 +1,12 @@
 package cs3500.model;
 
-public interface TriosAI extends Player{
+import cs3500.controller.PlayerActions;
+
+public interface TriosAI extends PlayerActions {
   /*
   returns card, row, col, score
    */
+  int[] findMove(TriosModel model, PlayerColor playerColor);
 
 
   default int[] noValidMoves(TriosModel model){

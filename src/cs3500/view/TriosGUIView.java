@@ -1,5 +1,8 @@
 package cs3500.view;
 
+import cs3500.controller.ViewFeatures;
+import cs3500.controller.ViewFeaturesImpl;
+
 /**
  * This interface represents a GUI view for a ThreeTrios game.
  */
@@ -24,4 +27,5 @@ public interface TriosGUIView {
   void refresh();
 
 
+  void addFeatures(ViewFeatures viewFeatures);
 }
