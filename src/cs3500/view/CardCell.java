@@ -4,10 +4,13 @@ import cs3500.model.Card;
 import cs3500.model.PlayerColor;
 import cs3500.model.ThreeTriosCard;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 /**
  * This class represents the visual representation of a singular card cell.
@@ -18,14 +21,11 @@ public class CardCell extends JPanel {
   private Card card;
   boolean hole;
   boolean filled;
-  private int height;
-  private int width;
   private String topNumber;
   private String rightNumber;
   private String bottomNumber;
   private String leftNumber;
   private boolean selected;
-  private Path2D path;
 
   /**
    * Constructor for an empty cell that can hold a card.
@@ -64,8 +64,6 @@ public class CardCell extends JPanel {
    */
   private CardCell(boolean selected, int height, int width, boolean hole, ThreeTriosCard card) {
     this.selected = selected;
-    this.height = height;
-    this.width = width;
     this.hole = hole;
     this.filled = card != null;
 
@@ -96,13 +94,12 @@ public class CardCell extends JPanel {
 
   }
 
-
   @Override
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
 
-    path = new Path2D.Double();
+    Path2D path = new Path2D.Double();
     // Create the rectangle path
     path.moveTo(0, 0);
     path.lineTo(this.getWidth(), 0);
@@ -125,7 +122,7 @@ public class CardCell extends JPanel {
       if (this.selected) {
         g2.setColor(Color.GREEN);
       } else {
-        if(card.getOwner() == PlayerColor.BLUE){
+        if (card.getOwner() == PlayerColor.BLUE) {
           g2.setColor(Color.BLUE);
         } else {
           g2.setColor(Color.RED);
@@ -136,7 +133,8 @@ public class CardCell extends JPanel {
       g2.draw(path);  // Draw the rectangle
 
       // Set font for the numbers, scaled according to the card size
-      g2.setFont(new Font("Arial", Font.BOLD, (int) Math.min(this.getHeight(), this.getWidth()) / 10));
+      g2.setFont(new Font("Arial", Font.BOLD, (int) Math.min(this.getHeight(),
+              this.getWidth()) / 10));
 
       // Calculate positions for the numbers relative to length and width for scalability
       double centerY = this.getHeight() / 2;
@@ -147,7 +145,8 @@ public class CardCell extends JPanel {
       // Draw numbers in a diamond formation
       g2.drawString(topNumber, (float) centerX, (float) edgeOffsetY); // Top
       g2.drawString(rightNumber, (float) (this.getWidth() - edgeOffsetX), (float) centerY); // Right
-      g2.drawString(bottomNumber, (float) centerX, (float) (this.getHeight() - edgeOffsetY)); // Bottom
+      g2.drawString(bottomNumber, (float) centerX, (float) (this.getHeight() - edgeOffsetY));
+      // Bottom ^
       g2.drawString(leftNumber, (float) edgeOffsetX, (float) centerY); // Left
     }
   }

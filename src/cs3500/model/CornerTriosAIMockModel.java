@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
-import cs3500.controller.TriosController;
+import cs3500.controller.ModelFeatures;
 
 /**
  * A mock to test the corners AI.
@@ -15,9 +15,11 @@ public class CornerTriosAIMockModel implements TriosModel {
   private List<ThreeTriosCard> handRed;
   private List<ThreeTriosCard> handBlue;
   private PlayerColor currentTurn;
-  private ThreeTriosCard[][] cardBoard;
 
 
+  /**
+   * Constructor for the CornerTriosAIMockModel class that takes in no input.
+   */
   public CornerTriosAIMockModel() {
     this.handRed = new ArrayList<ThreeTriosCard>();
     this.handRed.add(new ThreeTriosCard("TEST", "2", "1", "9", "5"));
@@ -29,10 +31,10 @@ public class CornerTriosAIMockModel implements TriosModel {
             {Status.FULL, Status.FULL},
             {Status.EMPTY, Status.EMPTY}
     };
-    this.cardBoard = new ThreeTriosCard[][] {
+    ThreeTriosCard[][] cardBoard = new ThreeTriosCard[][]{
             {new ThreeTriosCard("TL", "1", "1", "1", "1"),
                 new ThreeTriosCard("TR", "1", "1", "1", "1")},
-            {new ThreeTriosCard("ML", "1", "1",  "1", "1"),
+            {new ThreeTriosCard("ML", "1", "1", "1", "1"),
                 new ThreeTriosCard("MR", "1", "1", "1", "1")},
             {null, null}
     };
@@ -78,6 +80,7 @@ public class CornerTriosAIMockModel implements TriosModel {
 
   @Override
   public void battleStep(List currentCards) {
+    //no implementation for this mock
   }
 
   // Other methods can be no-ops or throw UnsupportedOperationException if not needed for tests.
@@ -110,21 +113,12 @@ public class CornerTriosAIMockModel implements TriosModel {
   @Override
   public void startGame(int numCardCells,
                         CardConfigReader cardReader, BoardConfigReader boardReader) {
-
-  }
-  @Override
-  public void addObserver(TriosController triosController) {
-
+    //no implementation for this mock
   }
 
   @Override
-  public void removeObserver(TriosController triosController) {
-
-  }
-
-  @Override
-  public void notifyObservers() {
-
+  public void addFeatures(ModelFeatures modelFeatures) {
+    //no implementation for this mock
   }
 
   @Override

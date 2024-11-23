@@ -6,8 +6,27 @@ package cs3500.model;
 public enum PlayerColor {
   RED, BLUE;
 
+  /**
+   * Gets the opposite player color.
+   * @return the opposite PlayerColor.
+   */
   public PlayerColor getOther() {
-    return this== RED ? BLUE : BLUE;
+    return this == RED ? BLUE : BLUE;
+  }
+
+  /**
+   * Returns a string representation of this PlayerColor.
+   * @return a string representation.
+   */
+  public String toString() {
+    String re = "";
+    if (this == RED) {
+      re = "Red";
+    } else if (this == BLUE) {
+      re = "Blue";
+    }
+    return re;
+
   }
 
 

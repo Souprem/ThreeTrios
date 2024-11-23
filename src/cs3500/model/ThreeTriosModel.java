@@ -112,6 +112,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
     return this.statusBoard;
   }
 
+  @Override
   public void addFeatures(ModelFeatures modelFeat) {
     this.modelFeat = modelFeat;
   }
@@ -149,6 +150,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
         }
       }
     }
+    modelFeat.gameOver(this.getWinner());
     return true;
   }
 
@@ -245,6 +247,9 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
     }
     //cardIndex coming in is 1-based, the row and col are 0 based
     ThreeTriosCard tempCard = tempHand.remove(cardIndex - 1);
+    //new implementation of playCard below, axe the above line
+    //    tempCard = inputCard;
+    //    tempHand.remove(tempCard);
     tempCard.setOwner(currentTurn);
     this.cardBoard[row][col] = tempCard;
     this.statusBoard[row][col] = Status.FULL;
@@ -308,7 +313,7 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
         }
       }
 
-    if (row < boardLengthRows - 1 && this.statusBoard[row + 1][col]
+      if (row < boardLengthRows - 1 && this.statusBoard[row + 1][col]
             == Status.FULL && this.cardBoard[row + 1][col].owner != otherOwner) {
         if (tempCard.getSouth().numericValue
                 > this.cardBoard[row + 1][col].getNorth().numericValue) {
@@ -324,7 +329,8 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
   }
 
   @Override
-  public void startGame(int numCardCells, CardConfigReader cardReader, BoardConfigReader boardReader) {
+  public void startGame(int numCardCells, CardConfigReader cardReader,
+                        BoardConfigReader boardReader) {
     if (numCardCells % 2 == 0) {
       throw new IllegalArgumentException("the number of card cells must be odd");
     }
@@ -347,24 +353,5 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
       handBlue.get(handRed.size() - 1).setOwner(PlayerColor.BLUE);
     }
   }
-
-  @Override
-  public void addObserver(TriosController triosController) {
-    triosControllers.add(triosController);
-
-  }
-
-  @Override
-  public void removeObserver(TriosController triosController) {
-    triosControllers.remove(triosController);
-  }
-
-  @Override
-  public void notifyObservers() {
-    for (TriosController triosController : triosControllers) {
-      triosController.update();
-    }
-  }
-
 
 }

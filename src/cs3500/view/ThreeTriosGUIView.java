@@ -7,18 +7,22 @@ import cs3500.model.ReadOnlyTriosModel;
 import cs3500.model.Status;
 import cs3500.model.ThreeTriosCard;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * A class to represent the graphic user interface view for a
- * ThreeTrios card game.
+ * ThreeTrios card game. Renders the game using three panels:
+ * one for each hand, and another for the grid itself.
  */
 public class ThreeTriosGUIView extends JFrame implements TriosGUIView, MouseEventListener {
   private final ReadOnlyTriosModel model;
@@ -26,12 +30,16 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView, MouseEven
   private int cols;
   private int spaceCounter;
   private int boardWidth;
-  private MouseListenerGetCoords mouseListener;
+  private int cardHeight;
+  private int cardWidth;
+  private MouseAdapter mouseListener;
   private int boardAndHandWidth;
-  private Features features;
-  private int leftHandCardHeight, rightHandCardHeight;
-  private int handPanelWidthInit, handPanelHeightInit;
-  private JPanel leftHand, rightHand;
+  private int leftHandCardHeight;
+  private int rightHandCardHeight;
+  private int handPanelWidthInit;
+  private int handPanelHeightInit;
+  private JPanel leftHand;
+  private JPanel rightHand;
 
   /**
    * A constructor for the ThreeTriosGUIView class which takes in a
@@ -40,6 +48,10 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView, MouseEven
    */
   public ThreeTriosGUIView(ReadOnlyTriosModel model) {
     this.model = model;
+  }
+
+  @Override
+  public void startGame() {
     rows = model.getCardBoard().length;
     cols = model.getCardBoard()[0].length;
     handPanelWidthInit = 200;
@@ -47,7 +59,8 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView, MouseEven
     int initWindowHeight = 500;
     int initWindowWidth = 800;
 
-    this.setPreferredSize(new Dimension(initWindowWidth, initWindowHeight)); // width - 6? height - 30?
+    this.setPreferredSize(new Dimension(initWindowWidth, initWindowHeight));
+    // width - 6? height - 30?
 
     this.setTitle("Current Player: " + model.getCurrentPlayer().toString());
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,32 +83,49 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView, MouseEven
     boardAndHandWidth = handPanelWidthInit + spaceCounter + 6;
     leftHandCardHeight = initWindowHeight / model.getHand(PlayerColor.BLUE).size();
     rightHandCardHeight = initWindowHeight / model.getHand(PlayerColor.RED).size();
+    cardHeight = initWindowHeight / rows;
+    cardWidth = (initWindowWidth - (2 * boardAndHandWidth)) / cols;
 
     //add this action listener separately, this should be connected to the Features interface
 
-    mouseListener = new MouseListenerGetCoords(boardWidth,
-            boardAndHandWidth, leftHandCardHeight,
-            rightHandCardHeight,
-            initWindowHeight / rows, (initWindowWidth -
-            (2 * boardAndHandWidth)) / cols);
-    mouseListener.setMouseEventListener(this);
+    //    mouseListener = new MouseListenerGetCoords(boardWidth,
+    //            boardAndHandWidth, leftHandCardHeight,
+    //            rightHandCardHeight,
+    //            cardHeight, cardWidth);
+    //    mouseListener.setMouseEventListener(this);
 
     this.addComponentListener(new ComponentAdapter() {
       @Override
       public void componentResized(ComponentEvent e) {
         spaceCounter = (e.getComponent().getSize().width % 3);
         boardWidth = e.getComponent().getSize().width;
-        mouseListener.updateBoardWidth(boardWidth - handPanelWidthInit - 7 - spaceCounter);
+        //       mouseListener.updateBoardWidth(boardWidth - handPanelWidthInit - 7 - spaceCounter);
         boardAndHandWidth = handPanelWidthInit + spaceCounter + 6;
-        leftHandCardHeight = e.getComponent().getSize().height / model.getHand(PlayerColor.BLUE).size();
-        rightHandCardHeight = e.getComponent().getSize().height / model.getHand(PlayerColor.RED).size();
-        mouseListener.setHandSizes(leftHandCardHeight, rightHandCardHeight);
+        leftHandCardHeight = e.getComponent().getSize().height
+                / model.getHand(PlayerColor.BLUE).size();
+        rightHandCardHeight = e.getComponent().getSize().height
+                / model.getHand(PlayerColor.RED).size();
+        //        mouseListener.setHandSizes(leftHandCardHeight, rightHandCardHeight);
+        cardHeight = e.getComponent().getHeight() / rows;
+        cardWidth = (e.getComponent().getWidth() - (2 * boardAndHandWidth)) / cols;
+        removeMouseListener(mouseListener);
+        addMouseListener(mouseListener);
       }
     });
 
-    this.addMouseListener(mouseListener);
+    //    this.addMouseListener(mouseListener);
 
     this.pack();  // Pack the components to their preferred sizes
+    this.setVisible(true);
+  }
+
+  @Override
+  public void endGame(PlayerColor winner) {
+    String w = "none";
+    if (winner != null) {
+      w = winner.toString();
+    }
+    this.showErrorMessage("This Game Has Ended. Winner: " + w);
   }
 
   /**
@@ -128,8 +158,8 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView, MouseEven
   /*
   Updates a given hand panel.
    */
-  private void createHand(ReadOnlyTriosModel model, JPanel hand, PlayerColor player, String position,
-                          int width, int height, int selectedIndex) {
+  private void createHand(ReadOnlyTriosModel model, JPanel hand, PlayerColor player,
+                          String position, int width, int height, int selectedIndex) {
     hand.setLayout(new GridLayout(0, 1));
     ArrayList<CardCell> cardCells = new ArrayList<>();
     for (int i = 0; i < model.getHand(player).size(); i++) {
@@ -170,9 +200,11 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView, MouseEven
 
   @Override
   public void onMouseEvent(int currentPanel, int rowOrIndex, int colOrPlayer) {
-    int rowClicked = -1, colClicked = -1;
-    int index = -1, player = -1;
-    this.features = new PreControllerFeatures();
+    int rowClicked = -1;
+    int colClicked = -1;
+    int index = -1;
+    int player = -1;
+    Features features = new PreControllerFeatures();
     if (currentPanel == -1) { //left hand panel
       index = rowOrIndex;
       player = colOrPlayer;
@@ -205,28 +237,35 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView, MouseEven
     this.repaint();
   }
 
+  @Override
   public void addFeatures(ViewFeatures features) {
-    this.addMouseListener(new MouseAdapter() {
+    mouseListener = new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        int currentPanel, index, row, col;
-        if (x < boardAndHandWidth) {
+        int currentPanel;
+        int index;
+        int row;
+        int col;
+        if (x < boardAndHandWidth) { //blue hand
           currentPanel = -1;
           index = y / leftHandCardHeight;
+          onSelectedHandCard(index, currentPanel);
           features.selectHandCard(index);
-        } else if (x > boardWidth) {
+        } else if (x > boardWidth) { //red hand
           currentPanel = 1;
           index = y / rightHandCardHeight;
+          onSelectedHandCard(index, currentPanel);
           features.selectHandCard(index);
-        } else {
+        } else { //grid
           row = y / cardHeight;
           col = (x - boardAndHandWidth) / cardWidth;
           currentPanel = 0;
           features.selectGridCard(row, col);
         }
       }
-    });
+    };
+    this.addMouseListener(mouseListener);
   }
 }

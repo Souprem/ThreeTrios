@@ -2,6 +2,15 @@ package cs3500.model;
 
 import java.util.List;
 
+import cs3500.controller.ModelFeatures;
+
+/**
+ * A read only model interface for our Three trios model. This interface
+ * is meant to hold only methods for the model which do not mutate the model.
+ * This interface should be used to declare or pass in any model that should
+ * only have viewing capabilities, not mutation capabilities.
+ * @param <C> card
+ */
 public interface ReadOnlyTriosModel<C extends Card> {
 
   /**
@@ -66,8 +75,8 @@ public interface ReadOnlyTriosModel<C extends Card> {
    * Returns the card at a given position, returning null for an empty card cell.
    * @param row the row of the card
    * @param col the column of the card
-   * @throws IllegalArgumentException if the position has a hole
    * @return the Card at the given position
+   * @throws IllegalArgumentException if the position has a hole
    */
   Card cardAt(int row, int col);
 
@@ -114,4 +123,9 @@ public interface ReadOnlyTriosModel<C extends Card> {
    */
   int calculateScore(PlayerColor playerColor);
 
+  /**
+   * Adds this model as a listener to the modelFeatures object passed in.
+   * @param modelFeatures inputted features object.
+   */
+  void addFeatures(ModelFeatures modelFeatures);
 }

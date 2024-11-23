@@ -55,11 +55,16 @@ public class MaxFlipTriosAI implements TriosAI {
 
   @Override
   public void placeCardOnGrid(int row, int col) {
-
+    //not sure yet
   }
 
   @Override
   public void selectHandCard(int handIndex) {
+    //not sure yet
+  }
 
+  @Override
+  public PlayerColor getColor() {
+    return null;
   }
 }

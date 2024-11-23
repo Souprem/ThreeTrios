@@ -1,4 +1,16 @@
-import cs3500.model.*;
+import cs3500.model.BoardConfigReader;
+import cs3500.model.CardConfigReader;
+import cs3500.model.CornerTriosAIMockModel;
+import cs3500.model.CornersTriosAI;
+import cs3500.model.MaxFlipTriosAI;
+import cs3500.model.MaxFlipTriosMockModel;
+import cs3500.model.PlayerColor;
+import cs3500.model.Status;
+import cs3500.model.ThreeTriosCard;
+import cs3500.model.ThreeTriosModel;
+import cs3500.model.TriosAI;
+import cs3500.model.TriosModel;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -110,7 +122,7 @@ public class TestAIStrategies {
     Assert.assertEquals(tempMove[1], tempMove1[1]);
     Assert.assertEquals(tempMove[2], tempMove1[2]);
     Assert.assertEquals(model.getStatusBoard(), statusBoardAfter);
-}
+  }
 
   @Test
   public void testMaxFlipEasyOneChoice() throws IOException {

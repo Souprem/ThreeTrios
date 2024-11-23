@@ -66,13 +66,34 @@ currentPlayer cannot be null, it must be either Player.RED or Player.BLUE. As it
 initialized in the constructor as Player.RED, and no methods have the ability to change
 currentPlayer to anything but Player.RED or Player.BLUE, this statement is a class invariant.
 
+CHANGES FOR PART THREE:
+- Added the controller interfaces: ModelFeatures, PlayerActions, ViewFeatures, TriosController
+- Added the controller implementations: ModelFeaturesImpl, ViewFeaturesImpl,
+    PersonPlayer, ThreeTriosController,
+- The ViewFeatures interface and implementation exist to listen to a ThreeTriosGUIView, its methods
+    being called when certain events occur within the view itself
+    The controller is then notified of these events so it can react accordingly.
+- The ModelFeatures interface and implementation exist to listen to a three trios model, its
+    methods being called whenever certain events occur within the model
+    The controller is then notified of these events so it can react accordingly.
+- The TriosController and implementation (ThreeTriosController) exist to handle user input, as
+    altered by the ViewFeatures, and notify the respective classes so that they can update
+    themselves accordingly
+- The PlayerActions interface exists to represent all of the possible actions a player can take
+    while playing a game of ThreeTrios, regardless of whether or not that player is a human
+- The PersonPlayer class, which implements the PlayerActions interface, represents an implementation
+    of all the possible actions a player can take as long as that player is an actual human being
+    playing the game
+- Added addFeatures methods to the model and view so they could register their respective
+    ModelFeatures and ViewFeatures as listeners
+    Additionally, the addFeatures method within the view handles the initialization of the
+    mouse listener used to handle user input
+- Due to the new implementation of features classes and the addFeatures method, the view no longer
+    needed to make use of the custom mouse listener implementation MouseListenerGetCoords
+- Changed the signature of playCard in the model as it needed to be refactored to take in the
+    currently selected card instead of using a card from the internally stored hands
 
-SELF EVAL NOTES:
-- Your interface is coupled to some concrete classes, and you have not provided a convincing justification for it
-- Does your model offer a way to check if a given move is legal (e.g. index for the cards is valid, the coordinates are valid on the grid, etc.)? (1 point)
-  - it should have its own observation in the model interface
-- Do you have a test to confirm that a playerColor cannot play to a location that's out of bounds? (1 point)
-- Do you have a test to confirm that a playerColor cannot play when it's not their turn?
+
 
 CHANGES FOR PART TWO:
 - Implemented functionality to ensure that battle steps only occur between cards on opposite teams

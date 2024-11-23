@@ -1,7 +1,5 @@
 package cs3500.view;
 
-import cs3500.model.PlayerColor;
-
 /**
  * An interface to represent classes that need to react to mouse events.
  */

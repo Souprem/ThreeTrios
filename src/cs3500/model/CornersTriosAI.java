@@ -67,11 +67,16 @@ public class CornersTriosAI implements TriosAI {
 
   @Override
   public void placeCardOnGrid(int row, int col) {
-
+    //no implementation needed for this mock
   }
 
   @Override
   public void selectHandCard(int handIndex) {
+    //no implementation needed for this mock
+  }
 
+  @Override
+  public PlayerColor getColor() {
+    return null;
   }
 }

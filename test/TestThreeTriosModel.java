@@ -259,10 +259,10 @@ public class TestThreeTriosModel {
     ThreeTriosCard c8 = new ThreeTriosCard("TEST8", "1", "4", "3",
             "8");
 
-    Assert.assertEquals(model.getHand(PlayerColor.RED), new ArrayList<ThreeTriosCard>(Arrays.asList(c1,
-            c3, c5, c7)));
-    Assert.assertEquals(model.getHand(PlayerColor.BLUE), new ArrayList<ThreeTriosCard>(Arrays.asList(c2,
-            c4, c6, c8)));
+    Assert.assertEquals(model.getHand(PlayerColor.RED),
+            new ArrayList<ThreeTriosCard>(Arrays.asList(c1, c3, c5, c7)));
+    Assert.assertEquals(model.getHand(PlayerColor.BLUE),
+            new ArrayList<ThreeTriosCard>(Arrays.asList(c2, c4, c6, c8)));
   }
 
   @Test(expected = IllegalArgumentException.class)

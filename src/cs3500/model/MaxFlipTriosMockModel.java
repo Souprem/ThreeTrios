@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cs3500.controller.TriosController;
-
+import cs3500.controller.ModelFeatures;
 
 /**
  * Mock to test the Max flip AI.
@@ -16,7 +15,6 @@ public class MaxFlipTriosMockModel implements TriosModel {
   private List<ThreeTriosCard> handRed;
   private List<ThreeTriosCard> handBlue;
   private PlayerColor currentTurn;
-  private ThreeTriosCard[][] cardBoard;
 
   /**
    * A mock to test the max flip AI.
@@ -31,11 +29,11 @@ public class MaxFlipTriosMockModel implements TriosModel {
             {Status.FULL, Status.FULL},
             {Status.FULL, Status.EMPTY}
     };
-    this.cardBoard = new ThreeTriosCard[][] {
+    ThreeTriosCard[][] cardBoard = new ThreeTriosCard[][]{
             {new ThreeTriosCard("TL", "1", "1", "1", "1"), null},
             {new ThreeTriosCard("ML", "1", "1", "1 ", "1"),
                 new ThreeTriosCard("MR", "1", "1", "1", "1")},
-            {new ThreeTriosCard("BL", "9", "9",  "9  ", "9"), null}
+            {new ThreeTriosCard("BL", "9", "9", "9  ", "9"), null}
     };
   }
 
@@ -79,6 +77,7 @@ public class MaxFlipTriosMockModel implements TriosModel {
 
   @Override
   public void battleStep(List currentCards) {
+    //no implementation needed for this mock
   }
 
   // Other methods can be no-ops or throw UnsupportedOperationException if not needed for tests.
@@ -112,22 +111,12 @@ public class MaxFlipTriosMockModel implements TriosModel {
   @Override
   public void startGame(int numCardCells,
                         CardConfigReader cardReader, BoardConfigReader boardReader) {
-
+    //no implementation needed for this mock
   }
 
   @Override
-  public void addObserver(TriosController triosController) {
-
-  }
-
-  @Override
-  public void removeObserver(TriosController triosController) {
-
-  }
-
-  @Override
-  public void notifyObservers() {
-
+  public void addFeatures(ModelFeatures modelFeatures) {
+    //no implementation needed for this mock
   }
 
   @Override

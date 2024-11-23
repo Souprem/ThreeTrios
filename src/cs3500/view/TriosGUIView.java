@@ -1,7 +1,7 @@
 package cs3500.view;
 
 import cs3500.controller.ViewFeatures;
-import cs3500.controller.ViewFeaturesImpl;
+import cs3500.model.PlayerColor;
 
 /**
  * This interface represents a GUI view for a ThreeTrios game.
@@ -26,6 +26,22 @@ public interface TriosGUIView {
    */
   void refresh();
 
-
+  /**
+   * Adds this view as a listener to the viewFeatures object passed in.
+   * @param viewFeatures inputted features object.
+   */
   void addFeatures(ViewFeatures viewFeatures);
+
+  /**
+   * Constructs the entire view based on the model.
+   * Has to be separated into its own method to give the controller power
+   * over individually starting the game for the model then the view.
+   */
+  void startGame();
+
+  /**
+   * Displays a text box informing the user that the game has ended.
+   * @param winner the winner of the game is displayed if the winner is not null;
+   */
+  void endGame(PlayerColor winner);
 }

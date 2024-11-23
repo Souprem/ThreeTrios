@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * A class meant to represent a single card for a three trios game.
  */
-public class ThreeTriosCard implements Card {
+public class  ThreeTriosCard implements Card {
 
   private final String CARD_NAME;
 

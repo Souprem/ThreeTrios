@@ -1,7 +1,8 @@
 package cs3500.view;
 
 /**
- * Interface for the possible features of a three trios card game.
+ * Interface for the possible text-based, console-based features of a three trios card game.
+ * This interface represents the features requested for HW6 implementation.
  */
 public interface Features {
 

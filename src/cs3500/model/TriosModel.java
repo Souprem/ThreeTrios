@@ -3,9 +3,6 @@ package cs3500.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import cs3500.controller.ModelFeatures;
-import cs3500.controller.TriosController;
-
 /**
  * A representation of a model for the three trios card game.
  * The origin, 0,0, is at the top left of the screen. The 2D array used to represent data
@@ -13,7 +10,7 @@ import cs3500.controller.TriosController;
  *
  * @param <C> The type of card used in the game.
  */
-public interface TriosModel<C extends Card> extends ReadOnlyTriosModel{
+public interface TriosModel<C extends Card> extends ReadOnlyTriosModel {
 
 
   /**
@@ -26,8 +23,12 @@ public interface TriosModel<C extends Card> extends ReadOnlyTriosModel{
    */
   void playCard(int cardIndex, int row, int col);
 
-
-
+  /**
+   * This method represents a battle step occurring within a three trios game.
+   * This method is meant to be recursive to handle the idea of multiple chained
+   * battle steps occurring from the playing of one card
+   * @param currentCards the current cards partaking in the battle step
+   */
   void battleStep(List<ArrayList<Integer>> currentCards);
 
   /**
@@ -35,14 +36,6 @@ public interface TriosModel<C extends Card> extends ReadOnlyTriosModel{
    * @param numCardCells number of card cells on the board.
    */
   void startGame(int numCardCells, CardConfigReader cardReader, BoardConfigReader boardReader);
-
-  void addObserver(TriosController triosController);
-
-  void removeObserver(TriosController triosController);
-
-  void notifyObservers();
-
-  void addFeatures(ModelFeatures modelFeatures);
 
 
 }

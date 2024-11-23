@@ -4,13 +4,11 @@ import cs3500.controller.PersonPlayer;
 import cs3500.controller.PlayerActions;
 import cs3500.controller.ThreeTriosController;
 import cs3500.controller.TriosController;
-import cs3500.model.Player;
 import cs3500.model.PlayerColor;
 import cs3500.model.ThreeTriosModel;
 import cs3500.model.TriosModel;
 import cs3500.view.ThreeTriosGUIView;
 import cs3500.view.TriosGUIView;
-import cs3500.view.TriosView;
 
 import java.io.File;
 
