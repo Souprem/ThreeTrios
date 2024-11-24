@@ -20,10 +20,10 @@ public interface TriosController {
   void playGame(String cardPath, String boardPath, TriosModel model);
 
   /**
-   * Changes the internally stored color representing the current turn/player playing the game.
-   * @param color the color of the new player
+   * Revalidates and repaints the view everytime a card is played (and the turn changes
+   * from one played to the other).
    */
-  void playerChanged(PlayerColor color);
+  void playerChanged();
 
   /**
    * Delegates to the view that the game is over, and that it should print the game over message.
@@ -48,8 +48,9 @@ public interface TriosController {
    * inputted index as the "selected" card until it's placed on the grid
    * or a different card is selected
    * @param handIndex the index within the hand from which the card was selected.
+   * @param hand the hand being selected.
    */
-  void selectHandCard(int handIndex);
+  void selectHandCard(int handIndex, PlayerColor hand);
 
   /**
    * Called from the ViewFeatures which holds this controller

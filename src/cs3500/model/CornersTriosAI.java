@@ -1,12 +1,13 @@
 package cs3500.model;
 
+
 /**
  * Class which represents the strategy in which the AI goes for the corners.
  */
 public class CornersTriosAI implements TriosAI {
 
   @Override
-  public int[] findMove(TriosModel model, PlayerColor playerColor) {
+  public int[] findMove(ReadOnlyTriosModel model, PlayerColor playerColor) {
     int[] bestMove = new int[3];
     int currentSum = 0;
     int maxSum = 0;
@@ -65,18 +66,4 @@ public class CornersTriosAI implements TriosAI {
     return noValidMoves(model);
   }
 
-  @Override
-  public void placeCardOnGrid(int row, int col) {
-    //no implementation needed for this mock
-  }
-
-  @Override
-  public void selectHandCard(int handIndex) {
-    //no implementation needed for this mock
-  }
-
-  @Override
-  public PlayerColor getColor() {
-    return null;
-  }
 }

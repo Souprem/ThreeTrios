@@ -22,6 +22,10 @@ public class TestThreeTriosModel {
   TriosModel<ThreeTriosCard> model;
   CardConfigReader cardReader;
   BoardConfigReader boardReader;
+  CardConfigReader cardConfigReaderSmall = new CardConfigReader("test" + File.separator
+          + "configs" + File.separator + "CardConfigSmall");
+  BoardConfigReader boardConfigReaderSeperated = new BoardConfigReader("test"
+          + File.separator + "configs" + File.separator + "separatedBoardConfigTest");
 
   @Before
   public void init() {
@@ -31,10 +35,8 @@ public class TestThreeTriosModel {
   @Test
   public void testGetCurrentHandPlayCard() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
 
     ArrayList<ThreeTriosCard> before = new ArrayList<>();
     before.add(new ThreeTriosCard("TEST1", "1", "2", "3", "4"));
@@ -56,10 +58,8 @@ public class TestThreeTriosModel {
   @Test
   public void testGetCurrentPlayerMut() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
 
     Assert.assertEquals(model.getCurrentPlayer(), "RED");
     model.playCard(1, 0 , 3);
@@ -69,10 +69,8 @@ public class TestThreeTriosModel {
   @Test
   public void testGetCurrentPlayer() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
 
     Assert.assertEquals(model.getCurrentPlayer(), "RED");
     model.playCard(1, 0 , 3);
@@ -82,10 +80,8 @@ public class TestThreeTriosModel {
   @Test(expected = IllegalArgumentException.class)
   public void testPlayCardRowOutOfBounds() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
 
     model.playCard(1, 10000000 , 3);
   }
@@ -94,10 +90,8 @@ public class TestThreeTriosModel {
   @Test(expected = IllegalArgumentException.class)
   public void testPlayCardColOutOfBounds() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
 
     model.playCard(1, 0 , 100000);
   }
@@ -106,7 +100,7 @@ public class TestThreeTriosModel {
 
   @Test(expected = IllegalArgumentException.class)
   public void testIncorrectFileNameCardConfig() throws IOException {
-    List<ThreeTriosCard> cardList = new ArrayList<ThreeTriosCard>();
+    List<ThreeTriosCard> cardList = new ArrayList<>();
     cardReader = new CardConfigReader("badpath");
     cardList = cardReader.convertFile();
   }
@@ -211,10 +205,8 @@ public class TestThreeTriosModel {
   @Test
   public void testStartGameBoards() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs"
-                    + File.separator + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
     Status[][] statusBoard = {
             {Status.HOLE, Status.HOLE, Status.EMPTY, Status.EMPTY},
             {Status.EMPTY, Status.HOLE, Status.HOLE, Status.HOLE},
@@ -230,10 +222,8 @@ public class TestThreeTriosModel {
   @Test
   public void testStartGameHands() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
     Status[][] statusBoard = {
             {Status.HOLE, Status.HOLE, Status.EMPTY, Status.EMPTY},
             {Status.EMPTY, Status.HOLE, Status.HOLE, Status.HOLE},
@@ -268,44 +258,37 @@ public class TestThreeTriosModel {
   @Test(expected = IllegalArgumentException.class)
   public void testStartGameEvenCardCells() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(8, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(8, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testStartGameNegativeCardCells() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(-1, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(-1, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testStartGameEmptyCardFile() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(-1, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "");
+    model.startGame(-1, cardConfigReaderSmall,
+            new BoardConfigReader("test" + File.separator + "configs"
+                    + File.separator + "emptyFile"));
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testStartGameNullCardFile() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(-1, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
+    model.startGame(-1, cardConfigReaderSmall,
             null);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testPlayCardToTaken() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
 
     model.playCard(1, 0, 3);
     model.playCard(1, 0, 3);
@@ -314,10 +297,8 @@ public class TestThreeTriosModel {
   @Test(expected = IllegalArgumentException.class)
   public void testPlayCardSmallIndex() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
 
     model.playCard(0, 0, 3);
   }
@@ -325,10 +306,8 @@ public class TestThreeTriosModel {
   @Test(expected = IllegalArgumentException.class)
   public void testPlayCardBigIndex() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
 
     model.playCard(100, 0, 3);
   }
@@ -336,10 +315,8 @@ public class TestThreeTriosModel {
   @Test(expected = IllegalArgumentException.class)
   public void testPlayCardGameOver() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "connectedBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
     model.playCard(1, 0, 0);
     model.playCard(1, 0, 2);
     model.playCard(1, 1, 0);
@@ -354,10 +331,8 @@ public class TestThreeTriosModel {
   @Test
   public void testBattleStep() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
     Status[][] statusBoardBefore = {
             {Status.HOLE, Status.HOLE, Status.EMPTY, Status.EMPTY},
             {Status.EMPTY, Status.HOLE, Status.HOLE, Status.HOLE},
@@ -382,10 +357,9 @@ public class TestThreeTriosModel {
   @Test
   public void testBattleStepTied() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigBig",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigBig"),
+            boardConfigReaderSeperated);
 
     Status[][] statusBoardAfter = {
             {Status.HOLE, Status.HOLE, Status.FULL, Status.FULL},
@@ -410,10 +384,8 @@ public class TestThreeTriosModel {
   @Test
   public void testBattleStepRecurseOnceEast() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
     Status[][] statusBoardBefore = {
             {Status.HOLE, Status.HOLE, Status.EMPTY, Status.EMPTY},
             {Status.EMPTY, Status.HOLE, Status.HOLE, Status.HOLE},
@@ -450,10 +422,8 @@ public class TestThreeTriosModel {
   @Test
   public void testBattleStepRecurseOnceWest() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
     Status[][] statusBoardBefore = {
             {Status.HOLE, Status.HOLE, Status.EMPTY, Status.EMPTY},
             {Status.EMPTY, Status.HOLE, Status.HOLE, Status.HOLE},
@@ -490,10 +460,8 @@ public class TestThreeTriosModel {
   @Test
   public void testBattleStepRecurseOnceSouth() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
     Status[][] statusBoardBefore = {
             {Status.HOLE, Status.HOLE, Status.EMPTY, Status.EMPTY},
             {Status.EMPTY, Status.HOLE, Status.HOLE, Status.HOLE},
@@ -530,10 +498,8 @@ public class TestThreeTriosModel {
   @Test
   public void testBattleStepRecurseOnceNorth() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
     Status[][] statusBoardBefore = {
             {Status.HOLE, Status.HOLE, Status.EMPTY, Status.EMPTY},
             {Status.EMPTY, Status.HOLE, Status.HOLE, Status.HOLE},
@@ -583,18 +549,17 @@ public class TestThreeTriosModel {
   @Test
   public void testGameNotOverEmptyBoard() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator + "emptyBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
     Assert.assertFalse(model.isGameOver());
   }
 
   @Test
   public void testGameOverHoleBoard() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator + "holeBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            new BoardConfigReader("test" + File.separator + "configs"
+                    + File.separator + "holeBoardConfigTest"));
     Assert.assertTrue(model.isGameOver());
   }
 
@@ -606,10 +571,8 @@ public class TestThreeTriosModel {
             {Status.EMPTY, Status.EMPTY, Status.EMPTY, Status.EMPTY},
             {Status.HOLE, Status.HOLE, Status.HOLE, Status.EMPTY},
     };
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "connectingBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
     model.playCard(1, 0, 0);
     model.playCard(1, 0, 2);
     model.playCard(1, 1, 0);
@@ -624,19 +587,17 @@ public class TestThreeTriosModel {
   @Test(expected = IllegalStateException.class)
   public void testGameWonHoleBoard() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator + "holeBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            new BoardConfigReader("test" + File.separator + "configs"
+                    + File.separator + "holeBoardConfigTest"));
     model.getWinner();
   }
 
   @Test(expected = IllegalStateException.class)
   public void testGameWonTiedBoard() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "connectingBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
     model.playCard(1, 0, 0);
     model.playCard(1, 0, 2);
 
@@ -652,10 +613,8 @@ public class TestThreeTriosModel {
             {Status.EMPTY, Status.EMPTY, Status.EMPTY, Status.EMPTY},
             {Status.HOLE, Status.HOLE, Status.HOLE, Status.EMPTY},
     };
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "connectingBoardConfigTest");
+    model.startGame(7, cardConfigReaderSmall,
+            boardConfigReaderSeperated);
     model.playCard(1, 0, 0);
     model.playCard(1, 0, 2);
     model.playCard(1, 1, 0);

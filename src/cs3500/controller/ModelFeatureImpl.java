@@ -27,9 +27,10 @@ public class ModelFeatureImpl implements ModelFeatures {
   @Override
   public void playerTurnChanged() {
     for (TriosController controller : listener) {
-      controller.playerChanged(model.getCurrentPlayer());
+      controller.playerChanged();
     }
   }
+  //model feature that tells model features whenever a card has been played
 
   public void setThisAsListener() {
     this.model.addFeatures(this);

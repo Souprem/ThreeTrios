@@ -4,7 +4,6 @@ import cs3500.model.BoardConfigReader;
 import cs3500.model.Card;
 import cs3500.model.CardConfigReader;
 import cs3500.model.PlayerColor;
-import cs3500.model.ThreeTriosCard;
 import cs3500.model.TriosModel;
 import cs3500.view.TriosGUIView;
 
@@ -16,12 +15,10 @@ import cs3500.view.TriosGUIView;
 public class ThreeTriosController implements TriosController {
   private TriosGUIView view;
   private PlayerActions player;
-  private Card currentlySelected;
   private TriosModel model;
   private int numCardCells;
   private ModelFeatures modelFeatures;
   private ViewFeatures viewFeatures;
-  //viewFeatures object + modelFeatures object
 
   /**
    * Constructor for the ThreeTriosController which takes in the model, view, player whose
@@ -55,17 +52,25 @@ public class ThreeTriosController implements TriosController {
   }
 
   @Override
-  public void selectHandCard(int handIndex) {
-    this.currentlySelected = (ThreeTriosCard) model.getHand(player.getColor()).get(handIndex);
+  public void selectHandCard(int handIndex, PlayerColor hand) {
+    if (hand == this.player.getColor()) {
+      view.onSelectedHandCard(handIndex, hand);
+      this.player.selectHandCard(handIndex);
+    }
   }
 
   @Override
   public void selectGridCard(int row, int col) {
-    if(currentlySelected != null) {
-      this.model.playCard(currentlySelected, row, col);
-    } else {
-      //
+    if (checkTurn()) {
+      player.placeCardOnGrid(row, col);
     }
+  }
+
+  /**
+   * Checks if the model's current turn is the same as the player associated with this controller.
+   */
+  private boolean checkTurn() {
+    return this.model.getCurrentPlayer() == this.player.getColor();
   }
 
   @Override
@@ -85,8 +90,11 @@ public class ThreeTriosController implements TriosController {
   }
 
   @Override
-  public void playerChanged(PlayerColor p) {
-    //not sure yet
+  public void playerChanged() {
+    if (checkTurn() && player instanceof AIPlayer) {
+      player.placeCardOnGrid(0, 0);
+    }
+    this.view.refresh();
   }
 
   @Override

@@ -44,4 +44,13 @@ public interface TriosGUIView {
    * @param winner the winner of the game is displayed if the winner is not null;
    */
   void endGame(PlayerColor winner);
+
+  /**
+   * Takes in the player of the hand selected and the index in the hand of the selected card.
+   * @param index index in hand
+   * @param player player whose hand it is
+   */
+  void onSelectedHandCard(int index, PlayerColor player);
+
+
 }

@@ -1,6 +1,5 @@
 package cs3500.view;
 
-import cs3500.controller.PreControllerFeatures;
 import cs3500.controller.ViewFeatures;
 import cs3500.model.PlayerColor;
 import cs3500.model.ReadOnlyTriosModel;
@@ -24,7 +23,7 @@ import javax.swing.JPanel;
  * ThreeTrios card game. Renders the game using three panels:
  * one for each hand, and another for the grid itself.
  */
-public class ThreeTriosGUIView extends JFrame implements TriosGUIView, MouseEventListener {
+public class ThreeTriosGUIView extends JFrame implements TriosGUIView {
   private final ReadOnlyTriosModel model;
   private int rows;
   private int cols;
@@ -199,30 +198,8 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView, MouseEven
   }
 
   @Override
-  public void onMouseEvent(int currentPanel, int rowOrIndex, int colOrPlayer) {
-    int rowClicked = -1;
-    int colClicked = -1;
-    int index = -1;
-    int player = -1;
-    Features features = new PreControllerFeatures();
-    if (currentPanel == -1) { //left hand panel
-      index = rowOrIndex;
-      player = colOrPlayer;
-      features.cardInHandInfo(index, player);
-    } else if (currentPanel == 1) { //right hand panel
-      index = rowOrIndex;
-      player = colOrPlayer;
-      features.cardInHandInfo(index, player);
-    } else if (currentPanel == 0) { //board panel
-      rowClicked = rowOrIndex;
-      colClicked = colOrPlayer;
-      features.cellInfo(rowClicked, colClicked);
-    }
-  }
-
-  @Override
-  public void onSelectedHandCard(int index, int player) {
-    if (player == -1) {
+  public void onSelectedHandCard(int index, PlayerColor player) {
+    if (player == PlayerColor.BLUE) {
       this.remove(leftHand);
       leftHand = new JPanel();
       this.createHand(model, leftHand, PlayerColor.BLUE, BorderLayout.WEST,
@@ -244,24 +221,18 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView, MouseEven
       public void mouseClicked(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        int currentPanel;
         int index;
         int row;
         int col;
         if (x < boardAndHandWidth) { //blue hand
-          currentPanel = -1;
           index = y / leftHandCardHeight;
-          onSelectedHandCard(index, currentPanel);
-          features.selectHandCard(index);
+          features.selectHandCard(index, PlayerColor.BLUE);
         } else if (x > boardWidth) { //red hand
-          currentPanel = 1;
           index = y / rightHandCardHeight;
-          onSelectedHandCard(index, currentPanel);
-          features.selectHandCard(index);
+          features.selectHandCard(index, PlayerColor.RED);
         } else { //grid
           row = y / cardHeight;
           col = (x - boardAndHandWidth) / cardWidth;
-          currentPanel = 0;
           features.selectGridCard(row, col);
         }
       }

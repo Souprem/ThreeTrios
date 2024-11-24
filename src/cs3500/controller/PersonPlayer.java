@@ -33,7 +33,11 @@ public class PersonPlayer implements PlayerActions {
     if (indexInHand == -1) {
       throw new IllegalStateException("Cannot play a card before selecting one!");
     }
-    model.playCard(indexInHand, row, col);
+    if (indexInHand != -1) {
+      this.model.playCard(indexInHand, row, col);
+    } else {
+      //do nothing because there hasn't been a card selected
+    }
   }
 
   @Override

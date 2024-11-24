@@ -14,7 +14,7 @@ public class MaxFlipTriosAI implements TriosAI {
    * @param playerColor inputted player
    * @return an array of integers representing the move to be made
    */
-  public int[] findMove(TriosModel model, PlayerColor playerColor) {
+  public int[] findMove(ReadOnlyTriosModel model, PlayerColor playerColor) {
     int numCardsFlipped = 0;
     //default is 1 to account for card placed
     int maxCardsFlipped = 0;
@@ -53,18 +53,4 @@ public class MaxFlipTriosAI implements TriosAI {
     return bestMove;
   }
 
-  @Override
-  public void placeCardOnGrid(int row, int col) {
-    //not sure yet
-  }
-
-  @Override
-  public void selectHandCard(int handIndex) {
-    //not sure yet
-  }
-
-  @Override
-  public PlayerColor getColor() {
-    return null;
-  }
 }

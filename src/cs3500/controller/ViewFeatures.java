@@ -1,5 +1,7 @@
 package cs3500.controller;
 
+import cs3500.model.PlayerColor;
+
 /**
  * Features interface meant to listen for the features of the view.
  * These features
@@ -15,8 +17,9 @@ public interface ViewFeatures {
    * the hands on the board. This method notifies this interface's listener
    * when it's called.
    * @param handIndex the index within the hand from which the card was selected.
+   * @param hand the player associated with the selected hand.
    */
-  void selectHandCard(int handIndex);
+  void selectHandCard(int handIndex, PlayerColor hand);
 
   /**
    * Called from the view which holds this ViewFeatures

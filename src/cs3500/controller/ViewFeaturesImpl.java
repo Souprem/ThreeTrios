@@ -1,5 +1,6 @@
 package cs3500.controller;
 
+import cs3500.model.PlayerColor;
 import cs3500.view.TriosGUIView;
 
 /**
@@ -25,8 +26,8 @@ public class ViewFeaturesImpl implements ViewFeatures {
   }
 
   @Override
-  public void selectHandCard(int handIndex) {
-    listener.selectHandCard(handIndex);
+  public void selectHandCard(int handIndex, PlayerColor hand) {
+    listener.selectHandCard(handIndex, hand);
   }
 
   @Override

@@ -1,9 +1,12 @@
 package cs3500;
 
+import cs3500.controller.AIPlayer;
 import cs3500.controller.PersonPlayer;
 import cs3500.controller.PlayerActions;
 import cs3500.controller.ThreeTriosController;
 import cs3500.controller.TriosController;
+import cs3500.model.CornersTriosAI;
+import cs3500.model.MaxFlipTriosAI;
 import cs3500.model.PlayerColor;
 import cs3500.model.ThreeTriosModel;
 import cs3500.model.TriosModel;
@@ -25,8 +28,43 @@ public class ThreeTrios {
     TriosModel model = new ThreeTriosModel();
     TriosGUIView viewPlayer1 = new ThreeTriosGUIView(model);
     TriosGUIView viewPlayer2 = new ThreeTriosGUIView(model);
-    PlayerActions player1 = new PersonPlayer(model, PlayerColor.RED);
-    PlayerActions player2 = new PersonPlayer(model, PlayerColor.BLUE);
+    if (args.length != 2) {
+      throw new IllegalArgumentException("Wrong number of arguments");
+    }
+    for (int i = 0; i < args.length - 1; i++) {
+      args[i] = args[i].toLowerCase();
+    }
+    PlayerActions player1;
+    PlayerActions player2;
+    switch (args[0]) {
+      case "human":
+        player1 = new PersonPlayer(model,PlayerColor.RED);
+        break;
+      case "strategy1":
+        player1 = new AIPlayer(model,PlayerColor.RED, new MaxFlipTriosAI());
+        break;
+      case "strategy2":
+        player1 = new AIPlayer(model,PlayerColor.RED, new CornersTriosAI());
+        break;
+      default:
+        throw new IllegalArgumentException("player type must be specified as " +
+                "human, strategy1, strategy2");
+    }
+    switch (args[1]) {
+      case "human":
+        player2 = new PersonPlayer(model, PlayerColor.BLUE);
+        break;
+      case "strategy1":
+        player2 = new AIPlayer(model, PlayerColor.BLUE, new MaxFlipTriosAI());
+        break;
+      case "strategy2":
+        player2 = new AIPlayer(model, PlayerColor.BLUE, new CornersTriosAI());
+        break;
+      default:
+        throw new IllegalArgumentException("player type must be specified as" +
+                " human, strategy1, strategy2");
+    }
+
     TriosController controller1 = new ThreeTriosController(model, viewPlayer1, player1, 7);
     TriosController controller2 = new ThreeTriosController(model, viewPlayer2, player2, 7);
     controller1.playGame("test" + File.separator + "configs" + File.separator

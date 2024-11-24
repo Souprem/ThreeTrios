@@ -84,6 +84,9 @@ CHANGES FOR PART THREE:
 - The PersonPlayer class, which implements the PlayerActions interface, represents an implementation
     of all the possible actions a player can take as long as that player is an actual human being
     playing the game
+- The AIPlayer class, which implements the PlayerActions interface, represents an implementation
+    of all the possible actions a player can take as long as that player is AI (and thus uses a
+    strategy inputted in the constructor)
 - Added addFeatures methods to the model and view so they could register their respective
     ModelFeatures and ViewFeatures as listeners
     Additionally, the addFeatures method within the view handles the initialization of the

@@ -29,10 +29,10 @@ public class TestModelObservables {
   @Test
   public void testRowAndColAmount() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigSmall"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "separatedBoardConfigTest"));
 
     Assert.assertEquals(model.numRows(), 5);
     Assert.assertEquals(model.numCols(), 4);
@@ -41,10 +41,10 @@ public class TestModelObservables {
   @Test
   public void testCardAt() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigSmall"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "separatedBoardConfigTest"));
 
     model.playCard(1, 2, 1);
     Card c = new ThreeTriosCard("TEST1", "1", "2", "3", "4");
@@ -54,10 +54,10 @@ public class TestModelObservables {
   @Test
   public void testStatusAt() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigSmall"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "separatedBoardConfigTest"));
 
     Assert.assertEquals(model.statusAt(1, 1), Status.HOLE);
     Assert.assertEquals(model.statusAt(2, 1), Status.EMPTY);
@@ -68,10 +68,10 @@ public class TestModelObservables {
   @Test
   public void testOwnerOf() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigSmall"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "separatedBoardConfigTest"));
 
     model.playCard(1, 2, 1);
     Assert.assertEquals(model.ownerOf(2, 1), PlayerColor.RED);
@@ -80,10 +80,10 @@ public class TestModelObservables {
   @Test
   public void testValidMove() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigSmall"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "separatedBoardConfigTest"));
 
     Assert.assertEquals(model.validMove(1, 1), false);
     Assert.assertEquals(model.validMove(2, 1), true);
@@ -94,10 +94,10 @@ public class TestModelObservables {
   @Test
   public void testCalculateScoreBasic() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(7, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigSmall",
-            "test" + File.separator + "configs" + File.separator
-                    + "separatedBoardConfigTest");
+    model.startGame(7, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigSmall"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "separatedBoardConfigTest"));
 
     Assert.assertEquals(model.calculateScore(PlayerColor.RED), 4);
     model.playCard(1, 2, 1);
@@ -107,10 +107,10 @@ public class TestModelObservables {
   @Test
   public void testCalculateScoreAfterPlaying() {
     TriosModel<ThreeTriosCard> model = new ThreeTriosModel();
-    model.startGame(5, "test" + File.separator + "configs" + File.separator
-                    + "CardConfigTiny",
-            "test" + File.separator + "configs" + File.separator
-                    + "boardConfigTiny");
+    model.startGame(5, new CardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "CardConfigTiny"),
+            new BoardConfigReader("test" + File.separator + "configs" + File.separator
+                    + "boardConfigTiny"));
     Status[][] statusBoardBefore = {
             {Status.EMPTY, Status.EMPTY},
             {Status.EMPTY, Status.HOLE},

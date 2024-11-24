@@ -33,7 +33,7 @@ public class CardConfigReader extends ConfigReader {
       }
       BufferedReader reader = new BufferedReader(new FileReader(this.filepath));
       String line;
-      List<ThreeTriosCard> outputList = new ArrayList<ThreeTriosCard>();
+      List<ThreeTriosCard> outputList = new ArrayList<>();
       while ((line = reader.readLine()) != null) {
         String[] tempList = line.split("\\s+");
         outputList.add(new ThreeTriosCard(
