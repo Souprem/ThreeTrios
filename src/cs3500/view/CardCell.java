@@ -17,7 +17,7 @@ import javax.swing.JPanel;
  * This representation allows a card cell to be initialized and drawn using
  * the private draw method.
  */
-public class CardCell extends JPanel {
+public class CardCell extends JPanel implements GeneralCardCell {
   private Card card;
   boolean hole;
   boolean filled;
@@ -99,13 +99,7 @@ public class CardCell extends JPanel {
     super.paintComponent(g);
     Graphics2D g2 = (Graphics2D) g;
 
-    Path2D path = new Path2D.Double();
-    // Create the rectangle path
-    path.moveTo(0, 0);
-    path.lineTo(this.getWidth(), 0);
-    path.lineTo(this.getWidth(), this.getHeight());
-    path.lineTo(0, this.getHeight());
-    path.closePath();
+    Path2D path = this.createRectangle();
 
     if (this.hole) {
       g2.setColor(Color.GRAY);
@@ -118,36 +112,57 @@ public class CardCell extends JPanel {
       g2.setColor(Color.DARK_GRAY);  // Set text color to black
       g2.draw(path);
     } else {
-      // Fill color based on card owner
-      if (this.selected) {
-        g2.setColor(Color.GREEN);
-      } else {
-        if (card.getOwner() == PlayerColor.BLUE) {
-          g2.setColor(Color.BLUE);
-        } else {
-          g2.setColor(Color.RED);
-        }
-      }
-      g2.fill(path);  // Fill the rectangle
-      g2.setColor(Color.DARK_GRAY);  // Set text color to black
-      g2.draw(path);  // Draw the rectangle
-
-      // Set font for the numbers, scaled according to the card size
-      g2.setFont(new Font("Arial", Font.BOLD, (int) Math.min(this.getHeight(),
-              this.getWidth()) / 10));
-
-      // Calculate positions for the numbers relative to length and width for scalability
-      double centerY = this.getHeight() / 2;
-      double centerX = this.getWidth() / 2;
-      double edgeOffsetY = this.getHeight() / 6;
-      double edgeOffsetX = this.getWidth() / 6;
-
-      // Draw numbers in a diamond formation
-      g2.drawString(topNumber, (float) centerX, (float) edgeOffsetY); // Top
-      g2.drawString(rightNumber, (float) (this.getWidth() - edgeOffsetX), (float) centerY); // Right
-      g2.drawString(bottomNumber, (float) centerX, (float) (this.getHeight() - edgeOffsetY));
-      // Bottom ^
-      g2.drawString(leftNumber, (float) edgeOffsetX, (float) centerY); // Left
+      this.fillCardColor(g2, path);
+      this.drawNumbers(g2);
     }
+  }
+
+  @Override
+  public void drawNumbers(Graphics2D g2) {
+    // Set font for the numbers, scaled according to the card size
+    g2.setFont(new Font("Arial", Font.BOLD, (int) Math.min(this.getHeight(),
+            this.getWidth()) / 10));
+
+    // Calculate positions for the numbers relative to length and width for scalability
+    double centerY = this.getHeight() / 2;
+    double centerX = this.getWidth() / 2;
+    double edgeOffsetY = this.getHeight() / 6;
+    double edgeOffsetX = this.getWidth() / 6;
+
+    // Draw numbers in a diamond formation
+    g2.drawString(topNumber, (float) centerX, (float) edgeOffsetY); // Top
+    g2.drawString(rightNumber, (float) (this.getWidth() - edgeOffsetX), (float) centerY); // Right
+    g2.drawString(bottomNumber, (float) centerX, (float) (this.getHeight() - edgeOffsetY));
+    // Bottom ^
+    g2.drawString(leftNumber, (float) edgeOffsetX, (float) centerY); // Left
+  }
+
+  @Override
+  public void fillCardColor(Graphics2D g2, Path2D path) {
+    // Fill color based on card owner
+    if (this.selected) {
+      g2.setColor(Color.GREEN);
+    } else {
+      if (card.getOwner() == PlayerColor.BLUE) {
+        g2.setColor(Color.BLUE);
+      } else {
+        g2.setColor(Color.RED);
+      }
+    }
+    g2.fill(path);  // Fill the rectangle
+    g2.setColor(Color.DARK_GRAY);  // Set text color to black
+    g2.draw(path);  // Draw the rectangle
+  }
+
+  @Override
+  public Path2D createRectangle() {
+    Path2D path = new Path2D.Double();
+    // Create the rectangle path
+    path.moveTo(0, 0);
+    path.lineTo(this.getWidth(), 0);
+    path.lineTo(this.getWidth(), this.getHeight());
+    path.lineTo(0, this.getHeight());
+    path.closePath();
+    return path;
   }
 }
