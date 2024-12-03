@@ -1,8 +1,8 @@
-package view;
+package cs3500.provider.view;
 
 import java.io.IOException;
 
-import controller.ViewFeatures;
+import cs3500.provider.controller.ViewFeatures;
 
 /**
  * The interface for a view in the Three Trios game. It defines the basic contract for

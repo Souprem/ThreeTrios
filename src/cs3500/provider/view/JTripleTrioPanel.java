@@ -1,4 +1,4 @@
-package view;
+package cs3500.provider.view;
 
 
 import java.awt.Dimension;
@@ -17,7 +17,7 @@ import javax.swing.event.MouseInputAdapter;
 
 import controller.ViewFeatures;
 import model.PlayerTurnEnum;
-import model.ReadOnlyModel;
+import cs3500.provider.model.ReadOnlyModel;
 import model.cards.CardColor;
 import model.cards.CardInCell;
 import model.grids.Cells;
@@ -29,7 +29,7 @@ import model.grids.Cells;
  */
 public class JTripleTrioPanel extends JPanel {
   private final ReadOnlyModel model;
-  private ViewFeatures featureListeners;
+  private cs3500.provider.controller.ViewFeatures featureListeners;
   private boolean isMouseDown;
   private int selectedRedCardIndex;
   private int selectedBlueCardIndex;
@@ -60,7 +60,7 @@ public class JTripleTrioPanel extends JPanel {
    *
    * @param features the feature listener to add
    */
-  public void addFeaturesListener(ViewFeatures features) {
+  public void addFeaturesListener(cs3500.provider.controller.ViewFeatures features) {
     this.featureListeners = features;
   }
 

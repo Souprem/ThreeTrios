@@ -1,4 +1,4 @@
-package view;
+package cs3500.provider.view;
 
 import java.awt.Dimension;
 import java.io.IOException;
@@ -7,10 +7,10 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import controller.ViewFeatures;
-import model.ReadOnlyModel;
-import model.cards.CardInCell;
-import model.grids.Cells;
+import cs3500.provider.controller.ViewFeatures;
+import cs3500.provider.model.ReadOnlyModel;
+import cs3500.provider.CardInCell;
+import cs3500.provider.Cells;
 
 /**
  * A textual view implementation for the Three Trios game. This class provides a representation

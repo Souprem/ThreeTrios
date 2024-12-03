@@ -1,4 +1,4 @@
-package model.grids;
+package cs3500.provider.model;
 
 /**
  * Interface for representing a grid structure in a game.

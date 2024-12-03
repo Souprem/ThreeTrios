@@ -1,4 +1,4 @@
-package controller;
+package cs3500.provider.controller;
 
 /**
  * The ViewFeatures interface defines the methods that the view layer should implement

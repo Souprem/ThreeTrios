@@ -1,4 +1,4 @@
-package model.cards;
+package cs3500.provider.model;
 
 
 /**

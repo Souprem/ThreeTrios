@@ -1,6 +1,6 @@
-package model;
+package cs3500.provider.model;
 
-import controller.ViewFeatures;
+import cs3500.provider.controller.ViewFeatures;
 
 /**
  * Listener interface for player actions.

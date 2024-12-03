@@ -1,14 +1,30 @@
-package model;
+package cs3500.provider.model;
 
 import java.util.List;
 
-import model.cards.CardInCell;
-import model.grids.Cells;
+import cs3500.provider.CardInCell;
+import cs3500.provider.Cells;
 
 /**
- * Interface for a ReadOnly version of the model. Interface has only observable methods.
+ * Interface for the Three Trios game model, outlining game state and rules.
  */
-public interface ReadOnlyModel {
+public interface ThreeTriosModel {
+
+  /**
+   * Starts the game by setting up the initial state, including dealing cards to players.
+   */
+  void startGame();
+
+  /**
+   * Places a card on the game grid at the specified position.
+   *
+   * @param row     The row index for the card placement.
+   * @param col     The column index for the card placement.
+   * @param cardIdx The index of the card in the player's hand.
+   * @throws IllegalArgumentException If placement is invalid.
+   */
+  void placingCard(int row, int col, int cardIdx);
+
 
   /**
    * Retrieves all cards involved in the game.
@@ -16,6 +32,7 @@ public interface ReadOnlyModel {
    * @return A list of TripleTriosCard instances.
    */
   List<CardInCell> allNumCards();
+
 
   /**
    * Gets the current player's turn.
@@ -30,7 +47,6 @@ public interface ReadOnlyModel {
    * @return the current players hand
    */
   List<CardInCell> getPlayersTurnHand();
-
 
   /**
    * Gets a players hand regardless of who's turn it is.

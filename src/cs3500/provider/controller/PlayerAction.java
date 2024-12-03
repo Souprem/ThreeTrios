@@ -1,4 +1,8 @@
-package model;
+package cs3500.provider.controller;
+
+import cs3500.provider.model.Player;
+import cs3500.provider.model.PlayerActionListener;
+import cs3500.provider.model.ThreeTriosModel;
 
 /**
  * Interface representing the actions a player can perform during the game.
