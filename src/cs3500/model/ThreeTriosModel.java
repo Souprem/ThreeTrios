@@ -329,15 +329,15 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
   }
 
   @Override
-  public void startGame(int numCardCells, CardConfigReader cardReader,
-                        BoardConfigReader boardReader) {
+  public void startGame(int numCardCells, ICardConfigReader cardReader,
+                        IBoardConfigReader boardReader) {
     if (numCardCells % 2 == 0) {
       throw new IllegalArgumentException("the number of card cells must be odd");
     }
     if (numCardCells < 0) {
       throw new IllegalArgumentException("there cannot be a negative number of card cells");
     }
-    List<ThreeTriosCard> deck = cardReader.convertFile();
+    List<Card> deck = cardReader.convertFile();
     this.statusBoard = boardReader.convertFile();
     this.cardBoard = new ThreeTriosCard[statusBoard.length][statusBoard[0].length];
     this.handRed = new ArrayList<ThreeTriosCard>();
@@ -347,9 +347,9 @@ public class ThreeTriosModel implements TriosModel<ThreeTriosCard> {
 
     //shuffle the deck before startgame so the hands get random cards from the deck
     for (int i = 0; i < handSize; i++) {
-      handRed.add(deck.remove(0));
+      handRed.add((ThreeTriosCard) deck.remove(0));
       handRed.get(handRed.size() - 1).setOwner(PlayerColor.RED);
-      handBlue.add(deck.remove(0));
+      handBlue.add((ThreeTriosCard) deck.remove(0));
       handBlue.get(handRed.size() - 1).setOwner(PlayerColor.BLUE);
     }
   }

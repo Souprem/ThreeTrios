@@ -2,7 +2,6 @@ package cs3500.view;
 
 import cs3500.model.Card;
 import cs3500.model.PlayerColor;
-import cs3500.model.ThreeTriosCard;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -55,21 +54,21 @@ public class CardCell extends JPanel implements GeneralCardCell {
    * @param height the cell's height
    * @param width the cell's width
    */
-  public CardCell(boolean selected, int height, int width, ThreeTriosCard card) {
+  public CardCell(boolean selected, int height, int width, Card card) {
     this(selected, height, width, false, card); // Filled cell with a card
   }
 
   /**
    * Private constructor for shared logic between all card states (empty, hole, filled).
    */
-  private CardCell(boolean selected, int height, int width, boolean hole, ThreeTriosCard card) {
+    private CardCell(boolean selected, int height, int width, boolean hole, Card card) {
     this.selected = selected;
     this.hole = hole;
     this.filled = card != null;
 
     if (filled) {
       // Set up the card's numeric values
-      this.card = new ThreeTriosCard(card);
+      this.card = card;
       if (card.getNorth().numericValue == 10) {
         this.topNumber = card.getNorth().stringValue;
       } else {

@@ -12,4 +12,5 @@ public interface Player {
    * @return the best move as an array of integers: cardIndex, row, column.
    */
   int[] findMove(TriosModel model, PlayerColor playerColor);
+
 }

@@ -61,10 +61,4 @@ public interface TriosController {
    * @param col the column on the grid at which the selection occurred.
    */
   void selectGridCard(int row, int col);
-
-
 }
-
-//interactions between game logic and user input
-//features are view features: things that the view should be able to do
-//play interaction: 

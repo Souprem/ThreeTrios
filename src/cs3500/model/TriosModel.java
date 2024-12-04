@@ -35,7 +35,6 @@ public interface TriosModel<C extends Card> extends ReadOnlyTriosModel {
    * Initializes the boards, deck, and hands to be used in playing of the game.
    * @param numCardCells number of card cells on the board.
    */
-  void startGame(int numCardCells, CardConfigReader cardReader, BoardConfigReader boardReader);
-
+  void startGame(int numCardCells, ICardConfigReader cardReader, IBoardConfigReader boardReader);
 
 }

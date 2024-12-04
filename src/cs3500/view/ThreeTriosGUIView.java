@@ -1,10 +1,10 @@
 package cs3500.view;
 
 import cs3500.controller.ViewFeatures;
+import cs3500.model.Card;
 import cs3500.model.PlayerColor;
 import cs3500.model.ReadOnlyTriosModel;
 import cs3500.model.Status;
-import cs3500.model.ThreeTriosCard;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -143,7 +143,7 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView {
           gridPanel.add(cell);
         } else if (model.getStatusBoard()[row][col] == Status.FULL) {
           CardCell cell = new CardCell(false, 0, 0,
-                  (ThreeTriosCard) model.getCardBoard()[row][col]);
+                  model.getCardBoard()[row][col]);
           gridPanel.add(cell);
         } else { // Status.HOLE
           CardCell cell = new CardCell(false, 0, 0, true);
@@ -166,10 +166,10 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView {
       CardCell cell;
       if (i == selectedIndex) {
         cell = new CardCell(true, 0, 0,
-                (ThreeTriosCard) model.getHand(player).get(i));
+                (Card) model.getHand(player).get(i));
       } else {
         cell = new CardCell(false, 0, 0,
-                (ThreeTriosCard) model.getHand(player).get(i));
+                (Card) model.getHand(player).get(i));
       }
       cardCells.add(cell);
     }

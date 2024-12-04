@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * A class meant to read in board configuration files.
  */
-public class BoardConfigReader extends ConfigReader {
+public class BoardConfigReader extends ConfigReader implements IBoardConfigReader{
 
   /**
    * A constructor for the BoardConfigReader class that takes in a String representing the path
@@ -18,11 +18,7 @@ public class BoardConfigReader extends ConfigReader {
     super(filepath);
   }
 
-  /**
-   * Converts a file, using the filepath field to find the path to the file, into a
-   * 2D array of Status representing the board's statuses.
-   * @return a 2D array representing a board of statuses.
-   */
+  @Override
   public Status[][] convertFile() {
     try {
       if (!super.doesFileExist(this.filepath)) {

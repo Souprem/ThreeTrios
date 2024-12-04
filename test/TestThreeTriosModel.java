@@ -1,4 +1,5 @@
 import cs3500.model.BoardConfigReader;
+import cs3500.model.Card;
 import cs3500.model.CardConfigReader;
 import cs3500.model.PlayerColor;
 import cs3500.model.Status;
@@ -100,7 +101,7 @@ public class TestThreeTriosModel {
 
   @Test(expected = IllegalArgumentException.class)
   public void testIncorrectFileNameCardConfig() throws IOException {
-    List<ThreeTriosCard> cardList = new ArrayList<>();
+    List<Card> cardList = new ArrayList<>();
     cardReader = new CardConfigReader("badpath");
     cardList = cardReader.convertFile();
   }

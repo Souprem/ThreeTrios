@@ -47,6 +47,4 @@ public interface Card {
    * @return a string representing the card.
    */
   String toString();
-
-
 }

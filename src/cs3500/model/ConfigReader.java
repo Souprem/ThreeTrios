@@ -5,7 +5,7 @@ import java.io.File;
 /**
  * An abstract class representing the reading of configuration files.
  */
-public abstract class ConfigReader {
+public abstract class ConfigReader implements IConfigReader {
 
   final String filepath;
 
@@ -17,12 +17,8 @@ public abstract class ConfigReader {
     this.filepath = filepath;
   }
 
-  /**
-   * Determines whether the path to a file exists.
-   * @param path the path to the file.
-   * @return a boolean representing whether the given path exists.
-   */
-  public static boolean doesFileExist(String path) {
+  @Override
+  public boolean doesFileExist(String path) {
     File file = new File(path);
     return file.exists();
   }

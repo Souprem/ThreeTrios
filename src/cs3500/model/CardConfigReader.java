@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * A class meant to read in card configuration files.
  */
-public class CardConfigReader extends ConfigReader {
+public class CardConfigReader extends ConfigReader implements ICardConfigReader {
 
   /**
    * A constructor for the CardConfigReader class that takes in a String representing the path
@@ -21,19 +21,15 @@ public class CardConfigReader extends ConfigReader {
     super(filepath);
   }
 
-  /**
-   * Converts a file, using the filepath field to find the path to the file, into a
-   * list of three trios cards.
-   * @return a list of three trio cards.
-   */
-  public List<ThreeTriosCard> convertFile() {
+  @Override
+  public List<Card> convertFile() {
     try {
       if (!super.doesFileExist(this.filepath)) {
         throw new IllegalArgumentException("must input valid filepath");
       }
       BufferedReader reader = new BufferedReader(new FileReader(this.filepath));
       String line;
-      List<ThreeTriosCard> outputList = new ArrayList<>();
+      List<Card> outputList = new ArrayList<>();
       while ((line = reader.readLine()) != null) {
         String[] tempList = line.split("\\s+");
         outputList.add(new ThreeTriosCard(
@@ -47,5 +43,4 @@ public class CardConfigReader extends ConfigReader {
       throw new IllegalArgumentException("must input correctly formatted card file");
     }
   }
-
 }
