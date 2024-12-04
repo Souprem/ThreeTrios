@@ -5,9 +5,8 @@ import cs3500.controller.ModelFeatures;
 import cs3500.controller.PersonPlayer;
 import cs3500.controller.PlayerActions;
 import cs3500.model.PlayerColor;
-import cs3500.model.ReadOnlyTriosModel;
 import cs3500.model.TriosModel;
-import cs3500.provider.model.PlayerActionListener;
+import cs3500.provider.model.PlayerTurnEnum;
 import cs3500.provider.model.ThreeTriosModel;
 
 public class PersonPlayerAdapter implements PlayerAction {

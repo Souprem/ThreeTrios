@@ -10,7 +10,7 @@ public class ViewFeaturesAdapter implements ViewFeatures{
   TriosGUIView view;
   cs3500.controller.ViewFeatures delegate;
 
-  public ViewFeaturesAdapter(ViewAdapter view) {
+  public ViewFeaturesAdapter(TriosGUIView view) {
     this.view = view;
     this.delegate = new ViewFeaturesImpl(view);
   }

@@ -15,12 +15,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 
-import controller.ViewFeatures;
-import model.PlayerTurnEnum;
+import cs3500.provider.controller.ViewFeatures;
+import cs3500.provider.model.PlayerTurnEnum;
 import cs3500.provider.model.ReadOnlyModel;
-import model.cards.CardColor;
-import model.cards.CardInCell;
-import model.grids.Cells;
+import cs3500.provider.model.CardColor;
+import cs3500.provider.model.CardInCell;
+import cs3500.provider.model.Cells;
 
 /**
  * JTripleTrioPanel is a custom JPanel that visually represents the game board, the players' hands,
