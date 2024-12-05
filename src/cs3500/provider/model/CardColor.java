@@ -1,5 +1,8 @@
 package cs3500.provider.model;
 
+/**
+ * Represents the color of a card.
+ */
 public enum CardColor {
   RED("Red"),
   BLUE("Blue");

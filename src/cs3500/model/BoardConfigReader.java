@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * A class meant to read in board configuration files.
  */
-public class BoardConfigReader extends ConfigReader implements IBoardConfigReader{
+public class BoardConfigReader extends ConfigReader implements IBoardConfigReader {
 
   /**
    * A constructor for the BoardConfigReader class that takes in a String representing the path

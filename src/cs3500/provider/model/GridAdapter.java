@@ -1,10 +1,11 @@
 package cs3500.provider.model;
 
 /**
- * In our implementation not only do we have two seperate grids but we also have them as instance variables in our model rather than having it as its own class.
+ * In our implementation not only do we have two seperate grids
+ * but we also have them as instance variables in our model rather than having it as its own class.
  * Therefore we decided not to implement this adapter
  */
-public class GridAdapter implements Grid{
+public class GridAdapter implements Grid {
   @Override
   public int numCardCells() {
     return 0;
@@ -22,6 +23,7 @@ public class GridAdapter implements Grid{
 
   @Override
   public void setGrid(Cells[][] grid) {
+    //do nothing
 
   }
 }

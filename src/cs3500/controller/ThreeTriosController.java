@@ -5,7 +5,6 @@ import cs3500.model.Card;
 import cs3500.model.CardConfigReader;
 import cs3500.model.PlayerColor;
 import cs3500.model.TriosModel;
-import cs3500.provider.controller.PlayerActionListener;
 import cs3500.view.TriosGUIView;
 
 /**

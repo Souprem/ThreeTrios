@@ -1,5 +1,8 @@
 package cs3500.provider.model;
 
+/**
+ * Represents the color of a player.
+ */
 public enum PlayerTurnEnum {
   RED("RED"),
   BLUE("BLUE");

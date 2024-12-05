@@ -27,7 +27,8 @@ public interface Cells {
    * This operation may replace an existing card depending on the implementation.
    *
    * @param card the {@link CardInCell} to be placed in the cell
-   * @throws IllegalArgumentException if the card cannot be placed due to specific rules or constraints.
+   * @throws IllegalArgumentException if the card cannot be placed due to
+   * specific rules or constraints.
    */
   void placeCard(CardInCell card);
 
