@@ -13,5 +13,5 @@ public interface ICardConfigReader extends IConfigReader {
    * @return a list of three trio cards.
    */
   public List<Card> convertFile();
-  
+
 }

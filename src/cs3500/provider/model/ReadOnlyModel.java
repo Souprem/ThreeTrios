@@ -2,8 +2,8 @@ package cs3500.provider.model;
 
 import java.util.List;
 
-import cs3500.provider.model.CardInCell;
-import cs3500.provider.model.Cells;
+import cs3500.provider.CardInCell;
+import cs3500.provider.Cells;
 
 /**
  * Interface for a ReadOnly version of the model. Interface has only observable methods.
