@@ -1,0 +1,21 @@
+In that review, consider all the self-evaluation questions you have been asked during this course,
+ and extrapolate from them the kinds of issues to examine. For example:
+
+How flexible are the interfaces you were given?
+How capable are the views?
+How convenient was it to reuse their code?
+How cleanly written and well-documented was their code?
+If you needed to request changes from them, what were they and why were they needed?
+
+
+Write a short (3-4 paragraph) review of their code. Your review should have the following sections:
+ Design critique, implementation critique, documentation critique,
+ design/code limitations and suggestions on how to address them.
+
+Design Critique:
+
+Implementation Critique:
+
+Documentation Critique:
+
+Design/Code Limitations and Suggestions:

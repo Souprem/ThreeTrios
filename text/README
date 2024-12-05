@@ -96,8 +96,6 @@ CHANGES FOR PART THREE:
 - Changed the signature of playCard in the model as it needed to be refactored to take in the
     currently selected card instead of using a card from the internally stored hands
 
-
-
 CHANGES FOR PART TWO:
 - Implemented functionality to ensure that battle steps only occur between cards on opposite teams
 - Added a few methods to ensure we had covered all recommended observations

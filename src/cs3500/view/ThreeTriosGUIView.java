@@ -74,7 +74,7 @@ public class ThreeTriosGUIView extends JFrame implements TriosGUIView {
     this.createHand(model, rightHand, PlayerColor.RED, BorderLayout.EAST,
             handPanelWidthInit, handPanelHeightInit, -1);
 
-    this.createGrid(model, 5, 4);
+    this.createGrid(model, model.numRows(), model.numCols());
 
     //every four pixels, it updates and the grid fills
     spaceCounter = 0;
