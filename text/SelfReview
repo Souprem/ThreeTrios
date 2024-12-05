@@ -1,3 +1,54 @@
 What do you wish you had done differently in your design/implementation?
+- View, we should've made the initialization process of the fields regarding sizing more streamlined
+  our updating was actually decently streamlined and clear as a result of the component listener,
+  but the initialization of these fields (due to us rushing to complete) was sloppy
+- We have been decently rushed to complete the last two assignments regarding functionality,
+  but have put specified effort into employing good, well-documented design as much as possible
+  As a result, we don't believe that there's too much we would change about our design, although
+  much of our view and controller implementations have been more rushed and for the most part
+  simply need more time put into them in order to clean them up and ensure functionality
+
 Did you learn any lessons from the code given to you, or the updates you had to make for your customers?
+Lessons From Provided Code:
+- cells, grid being possibly helpful
+- card in cell (similar to our CardCell) conceptually makes some sense
+- Model features is necessary but only to uphold loose coupling and the single use principle,
+    our provided code handles the game being over
+    in the view (although this is not loose coupling and should probably be something the controller
+    handles itself | additionally, modelfeatures handles a turn change, which could easily be
+    handled just within the controller, but using the observer pattern to have the controller
+    receive updates once the model changes the turn ensures that the controller knows exactly when
+    the turn has actually been changed
+Lessons From Updates:
+- As for your view, if you could not cast your cards to the concrete ThreeTriosCard type and use
+your Card interface instead, that would be ideal, as I cannot compile the view as is.
+- Is there a way to refactor your CardCell class so that it sits in the view package instead,
+and have your CardCell class use Card instances instead of ThreeTriosCard instances because we
+cannot have access to your card implementation? In addition, can you make your ConfigReader
+abstract class implement an interface, and use instances of that interface in your model's
+startGame method?
+- By refactoring startGame, I can use the config readers' interface and not need their
+ implementations at all.
+- We didn't have time to implement features preventing players from clicking on opponent's hand
+    or preventing the opponent from clicking on their view during the other player's turn
+- Having createGrid in startGame be initialized with model.numRows() and .numCols() as opposed
+    to a hard coded initialization we forgot to change
+
 What was your experience like with your providers?
+Unfortunately, the experience we had with our providers was not ideal. They sent us the initial
+files in a timely manor, but were missing a few interfaces and enums in their initial email. After
+noticing that they were missing these interfaces and enums, we emailed them on Saturday of the
+weekend of Thanksgiving break. These missing enums and interfaces prevented us from compiling their
+views and a majority of their interfaces. They did not get back to us until Tuesday afternoon, but
+even then they were only able to provide only some enums and interfaces we'd previously requested.
+After informing them of such, they responded that such interfaces did not exist, and that they'd
+used concrete class implementations which they were not allowed to send us. We informed them that
+we needed them to create these interfaces for us in order for their code to be usable and requested
+that they do so. They got back to us on Wednesday evening with those interfaces.
+Although we understand that more diligence from my partner and I before Thanksgiving break would've
+likely resulted in these issues being resolved sooner, they prevented us from fully adapting the
+code given to us in a timely manor. As a result, we were unable to use their code to create a
+functioning view to be used by the second player. While we were able to adapt much of their project
+including a majority of the given interfaces and (view) classes, but we were unable to use these
+adapters with our own controller to create a second functioning view.
+

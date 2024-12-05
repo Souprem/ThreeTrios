@@ -1,5 +1,6 @@
 package cs3500.provider.model;
 
+
 /**
  * Interface for representing a grid structure in a game.
  * Provides methods for managing and querying a grid of cells.

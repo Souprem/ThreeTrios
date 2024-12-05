@@ -1,21 +1,17 @@
 In that review, consider all the self-evaluation questions you have been asked during this course,
- and extrapolate from them the kinds of issues to examine. For example:
+ and extrapolate from them the kinds of issues to examine.
+Write a short (3-4 paragraph) review of their code.
 
-How flexible are the interfaces you were given?
-How capable are the views?
-How convenient was it to reuse their code?
-How cleanly written and well-documented was their code?
-If you needed to request changes from them, what were they and why were they needed?
+Design Critique: How flexible are the interfaces you were given? (How convenient was it to reuse
+their code?)
+- The PlayerActionListener seems to be an interface for the controller to act as a listener
+    for any player actions.
+- Their model interface did not extend their ReadOnlyModel interface, so we had to have our adapter
+    implement both interfaces to act as a full adapter for the model
+Implementation Critique: How capable are the views?
 
-
-Write a short (3-4 paragraph) review of their code. Your review should have the following sections:
- Design critique, implementation critique, documentation critique,
- design/code limitations and suggestions on how to address them.
-
-Design Critique:
-
-Implementation Critique:
-
-Documentation Critique:
-
+Documentation and Style Critique: How cleanly written and well-documented was their code?
+- Missing some documentation on the specific attack values for cards and their indexes
 Design/Code Limitations and Suggestions:
+
+Requested Changes: If you needed to request changes from them, what were they and why were they needed?

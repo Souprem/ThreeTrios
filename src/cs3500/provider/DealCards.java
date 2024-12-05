@@ -1,6 +1,8 @@
-package model.cards;
+package cs3500.provider;
 
 import java.util.List;
+
+import cs3500.provider.CardInCell;
 
 /**
  * The DealCards interface provides a method for dealing a set of cards

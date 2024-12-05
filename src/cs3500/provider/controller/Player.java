@@ -1,4 +1,4 @@
-package cs3500.provider.model;
+package cs3500.provider.controller;
 
 /**
  * Represents a player in the Three Trios game, capable of interacting with the game model

@@ -1,4 +1,4 @@
-package cs3500.provider;
+package cs3500.provider.model;
 
 import cs3500.provider.CardInCell;
 

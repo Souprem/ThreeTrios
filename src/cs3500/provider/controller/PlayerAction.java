@@ -1,6 +1,5 @@
 package cs3500.provider.controller;
 
-import cs3500.provider.model.Player;
 import cs3500.provider.model.PlayerTurnEnum;
 import cs3500.provider.model.ThreeTriosModel;
 

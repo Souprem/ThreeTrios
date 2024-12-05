@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import cs3500.provider.controller.ViewFeatures;
 import cs3500.provider.model.ReadOnlyModel;
 import cs3500.provider.CardInCell;
-import cs3500.provider.Cells;
+import cs3500.provider.model.Cells;
 
 /**
  * A textual view implementation for the Three Trios game. This class provides a representation

@@ -31,6 +31,12 @@ public interface Card {
   AttackValue getEast();
 
   /**
+   * Returns the name of the card.
+   * @return a string represtnation of the name of the card.
+   */
+  String getName();
+
+  /**
    * Sets the owner associated with this card, given the card's new owner.
    * @param owner the card's new owner.
    */

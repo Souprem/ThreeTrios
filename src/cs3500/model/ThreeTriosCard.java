@@ -141,6 +141,11 @@ public class  ThreeTriosCard implements Card {
     return this.east;
   }
 
+  @Override
+  public String getName() {
+    return this.CARD_NAME;
+  }
+
 
   @Override
   public boolean equals(Object other) {

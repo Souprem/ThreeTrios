@@ -3,7 +3,6 @@ package cs3500.provider.model;
 import java.util.List;
 
 import cs3500.provider.CardInCell;
-import cs3500.provider.Cells;
 
 /**
  * Interface for the Three Trios game model, outlining game state and rules.
