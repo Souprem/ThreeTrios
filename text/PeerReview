@@ -1,4 +1,4 @@
-In that review, consider all the self-evaluation questions you have been asked during this course,
+Consider all the self-evaluation questions you have been asked during this course,
  and extrapolate from them the kinds of issues to examine.
 Write a short (3-4 paragraph) review of their code.
 
@@ -8,7 +8,9 @@ their code?)
     for any player actions.
 - Their model interface did not extend their ReadOnlyModel interface, so we had to have our adapter
     implement both interfaces to act as a full adapter for the model
+
 Implementation Critique: How capable are the views?
+
 
 Documentation and Style Critique: How cleanly written and well-documented was their code?
 - Missing some documentation on the specific attack values for cards and their indexes

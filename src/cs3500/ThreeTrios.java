@@ -5,11 +5,18 @@ import cs3500.controller.PersonPlayer;
 import cs3500.controller.PlayerActions;
 import cs3500.controller.ThreeTriosController;
 import cs3500.controller.TriosController;
+import cs3500.model.BoardConfigReader;
+import cs3500.model.CardConfigReader;
 import cs3500.model.CornersTriosAI;
+import cs3500.model.IBoardConfigReader;
+import cs3500.model.ICardConfigReader;
 import cs3500.model.MaxFlipTriosAI;
 import cs3500.model.PlayerColor;
 import cs3500.model.ThreeTriosModel;
 import cs3500.model.TriosModel;
+import cs3500.provider.model.ModelAdapter;
+import cs3500.provider.model.ReadOnlyModel;
+import cs3500.provider.view.ViewAdapter;
 import cs3500.view.ThreeTriosGUIView;
 import cs3500.view.TriosGUIView;
 
@@ -26,8 +33,16 @@ public class ThreeTrios {
    */
   public static void main(String[] args) {
     TriosModel model = new ThreeTriosModel();
+    ICardConfigReader cardConfigReader = new CardConfigReader("test" + File.separator
+            + "configs" + File.separator
+            + "CardConfigSmall");
+    IBoardConfigReader boardConfigReader = new BoardConfigReader("test" + File.separator
+            + "configs" + File.separator
+            + "separatedBoardConfigTest");
+    ReadOnlyModel modelAdapter = new ModelAdapter(model, 7,
+            cardConfigReader, boardConfigReader);
     TriosGUIView viewPlayer1 = new ThreeTriosGUIView(model);
-    TriosGUIView viewPlayer2 = new ThreeTriosGUIView(model);
+    TriosGUIView viewPlayer2 = new ViewAdapter(modelAdapter);
     if (args.length != 2) {
       throw new IllegalArgumentException("Wrong number of arguments");
     }

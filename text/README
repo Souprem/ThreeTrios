@@ -1,24 +1,4 @@
 HOMEWORK EIGHT CHANGES:
-update your README file to clearly document which features of the provided views you were able to
-get working, and which ones you were not — this way, the graders will know what to expect when
-grading your code
-
-Make the views provided to you work with your code. You are not expected to write any tests for
-this. Use the provided view for displaying Player 2. Make sure to clearly document your new
-command-line options in your README, so graders know how to run your game.
-Retain the working features of your own views from previous assignments: i.e., you are not allowed
-to make changes in your code that make the providers’ code work, but break your own views or
-strategies. In particular, the command-line arguments from the previous assignment should continue
-to work, and Player 1 should continue to use your view implementation
-If there are features you could not adapt from the provider’s code and you justify why you could
-not adapt that code, you will not lose points
-- Grid, Cells are too specified for us to create adapters for
-    as cells is a separate interface meant to represent cells for the grid for the game
-    grid is a separate interface
-- The DealCards interface seems to only exist to use a single method- this functionality
-    didn't seem necessary to implement as a separate class in our design, and as a result we have no
-    equivalent class to compose and cannot make an adapter without just re-implementing the
-    interface given to us
 The code we submitted to homework seven, although it had a functioning view, was not fully-
 functioning at all in terms of user interaction. Our design seemed to correctly connect the model,
 view, and controller using features interfaces, but a lack of time leading up to the submission
@@ -32,13 +12,22 @@ in addition to creating an adapter for their view itself, we were not able to en
 interaction functionality upon the time of this submission. So, neither of the views (our own +
 provided) should be supportive of user interaction, as we did not have the time to ensure this
 given the situation.
-As for interfaces that we were actually not able to adapt, the Grid, Cells, and DealCards
-interfaces fall under that category. The Grid and Cells interfaces are far too specified for us
-to create adapters for as they tackle model functionality which is held in our model interface.
-As we have no interfaces or classes that are meant to handle this specific functionality, these
-interfaces were very difficult for us to adapt. After attempting to adapt them for a bit of time, it
-became clear that they were too specified for us to use a delegate of any of our current classes
-to adapt them. As their functionality is held within our model
+As for interfaces that we were actually not able to adapt, the Grid, Cells, DealCards, PlayerAction,
+and PlayerActionListener interfaces fall under that category. The Grid and Cells interfaces are far
+too specified for us to create adapters for as they tackle model functionality which is held in our
+model interface. As we have no interfaces or classes that are meant to handle this specific
+functionality, these interfaces were very difficult for us to adapt. After attempting to adapt them
+for a bit of time, it became clear that they were too specified for us to use a delegate of any of
+our current classes to adapt them. As their functionality is held within our model and we cannot use
+composition to implement any of the methods within our adapters, we found ourselves simply
+re-implementing these interfaces instead of adapting them. 
+
+The DealCards interface is a slightly separate situation, as
+we didn't understand the necessity of this interface at all in addition to its functionality being
+held within a far more generalized interface in our design. This interface seems to exist only to
+call a singular method and as this method covers functionality that exists within more generalized
+class implementations we have (our model), we found ourselves in a similar situation in that we
+felt we were reimplementing the interface instead of adapting to it.
 
 
 

@@ -7,6 +7,7 @@ import cs3500.model.IBoardConfigReader;
 import cs3500.model.ICardConfigReader;
 import cs3500.model.PlayerColor;
 import cs3500.model.ThreeTriosCard;
+import cs3500.model.TriosModel;
 import cs3500.provider.CardInCell;
 import cs3500.provider.CardInCellAdapter;
 
@@ -20,8 +21,8 @@ public class ModelAdapter implements ReadOnlyModel, ThreeTriosModel{
   ICardConfigReader cardConfigReader;
   IBoardConfigReader boardConfigReader;
 
-  public ModelAdapter(int numCardCells, ICardConfigReader configReader, IBoardConfigReader boardConfigReader) {
-    model = new cs3500.model.ThreeTriosModel();
+  public ModelAdapter(TriosModel model, int numCardCells, ICardConfigReader configReader, IBoardConfigReader boardConfigReader) {
+    this.model = (cs3500.model.ThreeTriosModel) model;
     this.numCardCells = numCardCells;
     this.cardConfigReader = cardConfigReader;
     this.boardConfigReader = boardConfigReader;
